@@ -1,6 +1,7 @@
 import histogram from "./histogram";
 import _ from "lodash";
 import { getColList } from "./calculator";
+import { getDemand } from "./demandFunction";
 
 // histogram process
 const arr = [1, 5, 2, 4, 2, 5, 2, 3, 1];
@@ -19,3 +20,6 @@ arr.map((v) => {
 
 // calculator
 console.log(getColList(400));
+
+// demand function
+console.log(getDemand(10, 600) * 30);
