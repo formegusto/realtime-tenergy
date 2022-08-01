@@ -1,3 +1,21 @@
 import histogram from "./histogram";
+import _ from "lodash";
+import { getColList } from "./calculator";
 
-console.log(histogram([1, 5, 2, 4, 2, 5, 2, 3, 1], 2));
+// histogram process
+const arr = [1, 5, 2, 4, 2, 5, 2, 3, 1];
+const [histInfo, bins] = histogram(arr, 2);
+const _histInfo = _.take(histInfo, histInfo.length - 1);
+
+// distribute group
+arr.map((v) => {
+  console.log(
+    _.findIndex(
+      _histInfo,
+      (h, idx) => histInfo[idx] < v && histInfo[idx + 1] >= v
+    )
+  );
+});
+
+// calculator
+console.log(getColList(400));
