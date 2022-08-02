@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doughnut Chart</title>
+</head>
+    <style>
+        svg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+<body>
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg">
+    </svg>
+</body>
+    <script>
+        const colors = ["#333", "#666", "#999", "#aaa", "#ccc"]
+        const svg = document.getElementById("svg");
+        const cx = cy = 150;
+        const radius = 100;
+        const diameter = 2 * Math.PI * radius;
+
+        const dataset = [9,5,4,3,1];
+        const acc = dataset.reduce((result, value) => [...result, result[result.length - 1] + value], [0])
+        console.log(acc)
+        const total = dataset.reduce((a, c) => a + c, 0);
+
+        dataset.forEach((data, idx) => {
+            const ratio = data / total;
+            // diameter / 4 는 90도로 위쪽 오프셋에 위치 시키기
+            const offset = (acc[idx] / total) * diameter - (diameter / 4);
+            const fillSpace = diameter * ratio;
+            const emptySpace = diameter - fillSpace;
+
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttribute("cx", cx);
+            circle.setAttribute("cy", cy);
+            circle.setAttribute("r", "" + radius);
+            circle.setAttribute("fill", "transparent");
+            circle.setAttribute("stroke", colors[idx]);
+            circle.setAttribute("stroke-width", 16);
+            circle.setAttribute("stroke-dasharray", `${fillSpace} ${emptySpace}`);
+            circle.setAttribute("stroke-dashoffset", -offset + "")
+            circle.setAttribute("aria-label", data + "")
+
+            svg.appendChild(circle)
+        })
+    </script>
+</html>
