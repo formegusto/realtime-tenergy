@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        
         svg {
             position: absolute;
             top: 0;
@@ -14,14 +15,35 @@
             left: 0;
             margin: auto;
 
-            width: 150px;
-            height: 150px;
+            width: 100vw;
+            height: 100vh;
         }
     </style>
 </head>
 <body>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <path id="arc1" fill="none", stroke="#999" stroke-width="20"/>
+        <path id="arc2" fill="none", stroke="#666" stroke-width="20"/>
+        <!-- <path d="
+            M 50 0
+            A 50 50, 0, 0, 1, 100 50
+            L 50 50 Z
+        "/>
         <path d="
+            M 50 0
+            A 50 50, 0, 0, 0, 0 50
+            L 50 50 Z
+        "/>
+        <path d="
+            M 
+            A 50 50, 0, 0, 0, 0 50
+            L 50 50 Z
+        "/> -->
+        <!-- <path d="M 0 50
+                A 45 45, 0, 0, 0, 50 100
+                L 50 50 Z
+        "/> -->
+        <!-- <path d="
             M 50 0
             A 50 50, 0, 0, 1, 100 50
             L 50 50
@@ -52,7 +74,38 @@
             Z
         " fill="#ccc"
          stroke="#fff"
-         stroke-width="3"/>
+         stroke-width="3"/> -->
     </svg>
 </body>
+<script>
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        const angleInRadians = (angleInDegrees - 90) * Math.PI / 180;
+
+        return {
+            x: centerX + (radius * Math.cos(angleInRadians)),
+            y: centerY + (radius * Math.sin(angleInRadians))
+        }
+    }
+
+    function describeArc(x,y, radius, startAngle, endAngle) {
+        const start = polarToCartesian(x, y, radius, endAngle);
+        const end = polarToCartesian(x, y, radius, startAngle);
+
+        const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+        const d = [
+            "M", start.x, start.y,
+            "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+            "L", x, y,
+            "Z"
+        ].join(" ");
+
+        return d
+    }
+
+    document.getElementById("arc1")
+            .setAttribute("d", describeArc(200, 400, 100, 0, 140))
+    document.getElementById("arc2")
+            .setAttribute("d", describeArc(200, 400, 100, 140, 180))
+</script>
 </html>
