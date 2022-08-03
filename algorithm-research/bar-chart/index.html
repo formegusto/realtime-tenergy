@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Chart</title>
+    <style>
+        svg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <svg id="bar-container" xmlns="http://www.w3.org/2000/svg" width="500" height="250">
+
+    </svg>
+</body>
+<script>
+    const dataset = [78, 80, 90, 100, 60, 10, 30, 90, 100, 200, 3000]
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const elSVG = document.getElementById("bar-container");
+
+        const width = parseInt(elSVG.getAttribute("width"));
+        const margin = (width / dataset.length * 0.2)
+        const height = parseInt(elSVG.getAttribute("height"));
+
+        // set stroke-width
+        const strokeWidth = (width - (margin * (dataset.length - 1))) / dataset.length
+        const startX = strokeWidth / 2
+
+        // set X
+        const x = Array()
+        let _x = startX
+        x.push(_x)
+        for(let i=1;i<dataset.length;i++) {
+            _x += strokeWidth + (margin)
+            x.push(_x)
+        }
+        console.log("X", x)
+
+        // set Y
+        const MAX = Math.max.apply(null, dataset);
+        const y = Array()
+        for(let i=0;i<dataset.length;i++){
+            const norm = (dataset[i] - 0) / (MAX - 0)
+            y.push(height - (height * norm))
+        }
+        console.log("y", y)
+
+        for(let i=0;i<dataset.length; i++) {
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            const d = ["M", x[i], height, "L", x[i], y[i]]
+
+            path.setAttribute("d", d.join(" "))
+            path.setAttribute("stroke", "blue")
+            path.setAttribute("stroke-width", strokeWidth)
+
+            elSVG.appendChild(path)
+        }
+    });
+</script>
+</html>
