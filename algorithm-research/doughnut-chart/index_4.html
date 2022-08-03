@@ -22,8 +22,10 @@
 </head>
 <body>
     <svg xmlns="http://www.w3.org/2000/svg">
-        <path id="arc1" fill="none", stroke="#999" stroke-width="20"/>
-        <path id="arc2" fill="none", stroke="#666" stroke-width="20"/>
+        <path id="arc1" fill="#999" stroke="#fff" stroke-width="3"/>
+        <path id="arc2" fill="#666" stroke="#fff" stroke-width="3"/>
+        <path id="arc3" fill="#ccc" stroke="#fff" stroke-width="3"/>
+        <path id="arc4" fill="#aaa" stroke="#fff" stroke-width="3"/>
         <!-- <path d="
             M 50 0
             A 50 50, 0, 0, 1, 100 50
@@ -107,5 +109,9 @@
             .setAttribute("d", describeArc(200, 400, 100, 0, 140))
     document.getElementById("arc2")
             .setAttribute("d", describeArc(200, 400, 100, 140, 180))
+    document.getElementById("arc3")
+            .setAttribute("d", describeArc(200, 400, 100, 180, 225))
+    document.getElementById("arc4")
+            .setAttribute("d", describeArc(200, 400, 100, 225, 360))
 </script>
 </html>

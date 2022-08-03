@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Chart</title>
+    <style>
+        svg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <svg id="line-container" width="500" height="250">
+    </svg>
+</body>
+<script>
+    // 7D Chart
+    const dataset = [78, 80, 90, 100, 120, 121, 150]
+    window.addEventListener("DOMContentLoaded", () => {
+        const elSVG = document.getElementById("line-container");
+
+        
+
+        const width = parseInt(elSVG.getAttribute("width"));
+        const height = parseInt(elSVG.getAttribute("height"));
+
+        // set X
+        const x = Array();
+        const DAYS = 7
+        for(let i=0; i<DAYS;i++) {
+            const norm = (i - 0) / (6 - 0)
+            x.push(width * norm);
+        }
+        console.log("X",x);
+
+        // set Y
+        const y = Array()
+        let maxData = Math.max.apply(null, dataset)
+        let minData = Math.min.apply(null, dataset)
+        for(let i=0;i<DAYS;i++) {
+            const norm = (dataset[i] - minData) / (maxData - minData)
+            y.push(height * (1 - norm));
+        }
+        
+        console.log("Y",y);
+        
+        const d = Array()
+        for(let i=0;i<DAYS;i++) {
+            // x1 = x[i], x2 = x[i+1]
+            // y1 = y[i], y2 = y[i+1]
+            const x_end = x[i], y_end = y[i]
+
+            if(i===0) 
+                d.push("M")
+            else
+                d.push("L")
+            
+            d.push(x_end, y_end)
+            // const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            // line.setAttribute("x1", x1)
+            // line.setAttribute("y1", y1)
+            // line.setAttribute("x2", x2)
+            // line.setAttribute("y2", y2)
+
+            // line.setAttribute("stroke", "blue")
+
+            // elSVG.appendChild(line)
+        }
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+        path.setAttribute("d", d.join(" "))
+        path.setAttribute("fill", "none")
+        path.setAttribute("stroke", "blue")
+        path.setAttribute("stroke-width", "3")
+        path.setAttribute("stroke-linejoin", "round")
+        
+        elSVG.appendChild(path)
+    });
+</script>
+</html>
