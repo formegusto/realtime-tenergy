@@ -3,7 +3,6 @@ import { Household } from "./types";
 
 const HouseholdSchema = new Schema<Household>(
   {
-    _id: { type: Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
     createdAt: { type: Date, required: true },
   },

@@ -6,11 +6,11 @@ household : 세대부 사용량
 public : 공용부 사용량
 */
 export type APT = {
-  _id: ObjectId;
+  _id?: ObjectId;
   apt: number;
   household: number;
   public: number;
   householdCount: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };

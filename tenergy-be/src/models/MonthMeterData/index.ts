@@ -3,7 +3,6 @@ import { MonthMeterData } from "./types";
 
 const MonthMeterDataSchema = new Schema<MonthMeterData>(
   {
-    _id: { type: Schema.Types.ObjectId, required: true },
     name: { type: String, required: true },
     kwh: { type: Number, required: true },
   },

@@ -3,7 +3,6 @@ import { APT } from "./types";
 
 const APTSchema = new Schema<APT>(
   {
-    _id: { type: Schema.Types.ObjectId, required: true },
     apt: { type: Number, required: true },
     household: { type: Number, required: true },
     public: { type: Number, required: true },

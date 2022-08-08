@@ -1,12 +1,12 @@
 import { Schema } from "mongoose";
 
 export type ControlConfig = {
-  _id: Schema.Types.ObjectId;
+  _id?: Schema.Types.ObjectId;
   month: number;
   publicPercentage: number;
   aptId?: Schema.Types.ObjectId;
-  increasePublicValue?: number;
+  increasePublicUsage?: number;
 
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };

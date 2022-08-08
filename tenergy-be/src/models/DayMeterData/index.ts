@@ -3,7 +3,6 @@ import { DayMeterData } from "./types";
 
 const DayMeterDataSchema = new Schema<DayMeterData>(
   {
-    _id: { type: Schema.Types.ObjectId, required: true },
     time: { type: Date, required: true },
     data: [{ type: Schema.Types.Mixed, required: true }],
   },
