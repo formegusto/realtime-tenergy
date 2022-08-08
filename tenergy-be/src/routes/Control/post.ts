@@ -26,6 +26,9 @@ routes.post(
     );
     const [apt, publicPart] = getWholeUsages(householdPart, publicPercentage);
 
+    const aptObj = new Household("APT", 412);
+    console.log(aptObj.steps(month));
+
     return res.send("POST Control Config");
   }
 );
