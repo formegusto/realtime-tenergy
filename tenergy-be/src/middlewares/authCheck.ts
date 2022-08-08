@@ -11,14 +11,11 @@ export function adminCheck(
   const { ADMIN_REQUEST_KEY: ADMIN_KEY } = process.env;
   const { authorization: _ADMIN_KEY } = req.headers;
 
-  console.log(ADMIN_KEY === _ADMIN_KEY);
-  console.log(ADMIN_KEY !== _ADMIN_KEY);
-  if (ADMIN_KEY !== _ADMIN_KEY) {
+  if (ADMIN_KEY !== _ADMIN_KEY)
     throw new ResponseError(
       StatusCodes.UNAUTHORIZED,
       "올바르지 않은 권한 입니다."
     );
-  }
 
   return next();
 }

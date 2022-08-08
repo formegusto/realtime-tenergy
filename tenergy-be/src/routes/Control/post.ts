@@ -66,7 +66,7 @@ routes.post(
 
     // APT Cursor 생성
     const aptDoc: APT = {
-      apt,
+      apt: 0,
       household: 0,
       public: 0,
       householdCount,

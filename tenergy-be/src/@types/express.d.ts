@@ -2,13 +2,18 @@ declare namespace Express {
   export interface Request {
     control: {
       _id: String;
-      month: Number;
-      publicPercentage: Number;
+      month: number;
+      publicPercentage: number;
       aptId?: Schema.Types.ObjectId;
-      increasePublicValue?: Number;
+      increasePublicUsage?: number;
 
       createdAt: Date;
       updatedAt: Date;
+
+      day: {
+        now: number;
+        max: number;
+      };
     };
   }
 }
