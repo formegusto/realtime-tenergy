@@ -10,6 +10,8 @@ import APTModel from "../../models/APT";
 import ControlConfigModel from "../../models/ControlConfig";
 import { generateToken } from "../../utils/generateToken";
 import { StatusCodes } from "http-status-codes";
+import MonthMeterDataModel from "../../models/MonthMeterData";
+import { MonthMeterData } from "../../models/MonthMeterData/types";
 
 const routes: Express.Router = Express.Router();
 
@@ -48,6 +50,19 @@ routes.post(
     //   (household, name) =>
     //     new Household(name, Math.round(_.sumBy(household, (h) => h.kwh)), month)
     // );
+
+    // MonthMeterData 갱신
+    const initHouseholds = _.map(
+      _.sampleSize(dayMeter, 1)[0].data,
+      (h: Household) => new MonthMeterData(h.name, 0, month)
+    );
+    _.forEach(initHouseholds, async (h) =>
+      MonthMeterDataModel.findOneAndUpdate({ name: h.name }, h, {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true,
+      })
+    );
 
     // APT Cursor 생성
     const aptDoc: APT = {
