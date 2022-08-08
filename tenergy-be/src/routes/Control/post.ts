@@ -1,9 +1,33 @@
 import Express from "express";
+import { adminCheck } from "../../middlewares";
+import { ControlConfig } from "../../models/ControlConfig/types";
+import DayMeterDataModel from "../../models/DayMeterData";
+import _ from "lodash";
+import { DayMeterData, Household } from "../../models/DayMeterData/types";
+import { getWholeUsages } from "../../utils";
 
 const routes = Express.Router();
 
-routes.post("/", (req: Express.Request, res: Express.Response) => {
-  return res.send("POST Control Config");
-});
+routes.post(
+  "/",
+  adminCheck,
+  async (req: Express.Request, res: Express.Response) => {
+    const { month, publicPercentage } = req.body as ControlConfig;
+
+    // 기본설정
+    const dayMeter = await DayMeterDataModel.find({
+      $expr: { $eq: [{ $month: "$time" }, month] },
+    });
+    const householdCount = dayMeter[0].data.length;
+    const householdPart = Math.round(
+      _.sumBy(dayMeter, (m: DayMeterData) =>
+        _.sumBy(m.data, (h: Household) => h.kwh)
+      )
+    );
+    const [apt, publicPart] = getWholeUsages(householdPart, publicPercentage);
+
+    return res.send("POST Control Config");
+  }
+);
 
 export default routes;
