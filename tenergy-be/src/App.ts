@@ -1,6 +1,9 @@
 import Express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import routes from "./routes";
+import morgan from "morgan";
+import models from "./models";
 
 dotenv.config();
 
@@ -16,14 +19,20 @@ class App {
 
   SetMW() {
     this.app.use(cors());
+    this.app.use(morgan("dev"));
   }
 
-  SetRoutes() {}
-  Start() {
+  SetRoutes() {
+    this.app.use(routes);
+  }
+
+  async Start() {
     const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
     this.app.listen(port, () => {
       console.log(`[ Express ] Start Server PORT ${port}`);
     });
+
+    await models.init();
   }
 }
 
