@@ -2,6 +2,8 @@ import Express from "express";
 import ResponseError from "../common/ResponseError";
 import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
+import _ from "lodash";
+import ControlConfigModel from "../models/ControlConfig";
 
 export function adminCheck(
   req: Express.Request,
@@ -29,20 +31,43 @@ export function loginCheck(
   const { authorization: token } = req.headers;
 
   if (!token)
-    throw new ResponseError(
-      StatusCodes.FORBIDDEN,
-      "올바르지 않은 접근 입니다."
+    return next(
+      new ResponseError(StatusCodes.FORBIDDEN, "올바르지 않은 접근 입니다.")
     );
 
   try {
     const { control } = jwt.verify(token, secret) as any;
     req.control = control;
   } catch (err) {
-    throw new ResponseError(
-      StatusCodes.UNAUTHORIZED,
-      "올바르지 않은 권한 입니다."
+    return next(
+      new ResponseError(StatusCodes.UNAUTHORIZED, "올바르지 않은 권한 입니다.")
     );
   }
+
+  return next();
+}
+
+// 현재 Database의 내용과 같은지 확인하는 함수
+export async function controlCheck(
+  req: Express.Request,
+  res: Express.Response,
+  next: Express.NextFunction
+) {
+  const { _id } = req.control;
+
+  const controlConfig = await ControlConfigModel.findById(_id);
+  if (!controlConfig)
+    return next(
+      new ResponseError(StatusCodes.BAD_REQUEST, "잘못된 토큰입니다.")
+    );
+
+  if (
+    new Date(req.control.updatedAt).getTime() !==
+    controlConfig.toObject().updatedAt!.getTime()
+  )
+    return next(
+      new ResponseError(StatusCodes.BAD_REQUEST, "잘못된 토큰입니다.")
+    );
 
   return next();
 }

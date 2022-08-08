@@ -85,11 +85,12 @@ routes.post(
       },
     };
     const _controlConfigDoc = await ControlConfigModel.create(controlConfigDoc);
+    const control = _controlConfigDoc.toObject();
 
     // 이제 이것을 JWT로 묶으면 됨
     const token = generateToken(
       {
-        control: _controlConfigDoc.toObject(),
+        control,
       },
       "3d"
     );

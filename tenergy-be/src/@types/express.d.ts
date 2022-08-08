@@ -7,8 +7,9 @@ declare namespace Express {
       aptId?: Schema.Types.ObjectId;
       increasePublicUsage?: number;
 
-      createdAt: Date;
-      updatedAt: Date;
+      // JWT 는 Date를 묶지 못함!
+      createdAt: string;
+      updatedAt: string;
 
       day: {
         now: number;
