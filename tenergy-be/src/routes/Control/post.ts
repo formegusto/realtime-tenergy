@@ -8,8 +8,10 @@ import { getWholeUsages } from "../../utils";
 import { APT } from "../../models/APT/types";
 import APTModel from "../../models/APT";
 import ControlConfigModel from "../../models/ControlConfig";
+import { generateToken } from "../../utils/generateToken";
+import { StatusCodes } from "http-status-codes";
 
-const routes = Express.Router();
+const routes: Express.Router = Express.Router();
 
 routes.post(
   "/",
@@ -28,6 +30,7 @@ routes.post(
       )
     );
     const [apt, publicPart] = getWholeUsages(householdPart, publicPercentage);
+    const increasePublicUsage = publicPart / dayMeter.length;
 
     // 전체 계산 (공용부 증가값 구하기)
     // 아까워서 놔둔다;;
@@ -45,7 +48,6 @@ routes.post(
     //   (household, name) =>
     //     new Household(name, Math.round(_.sumBy(household, (h) => h.kwh)), month)
     // );
-    const increasePublicUsage = publicPart / dayMeter.length;
 
     // APT Cursor 생성
     const aptDoc: APT = {
@@ -62,12 +64,24 @@ routes.post(
       publicPercentage,
       aptId: _aptDoc.id,
       increasePublicUsage,
+      day: {
+        now: 0,
+        max: dayMeter.length,
+      },
     };
     const _controlConfigDoc = await ControlConfigModel.create(controlConfigDoc);
 
     // 이제 이것을 JWT로 묶으면 됨
+    const token = generateToken(
+      {
+        control: _controlConfigDoc.toObject(),
+      },
+      "3d"
+    );
 
-    return res.send("POST Control Config");
+    return res.status(StatusCodes.CREATED).json({
+      token,
+    });
   }
 );
 
