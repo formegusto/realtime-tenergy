@@ -26,8 +26,12 @@ routes.post(
     );
     const [apt, publicPart] = getWholeUsages(householdPart, publicPercentage);
 
-    const aptObj = new Household("APT", 412);
-    console.log(aptObj.steps(month));
+    // 전체 계산 (공용부 증가값 구하기)
+    const aptObj = new Household(
+      "APT",
+      Math.round(apt / householdCount),
+      month
+    );
 
     return res.send("POST Control Config");
   }
