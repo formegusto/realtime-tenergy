@@ -9,11 +9,15 @@ export default async function setRoutes(this: DefaultRoutes, dir: string) {
     if (fileName === "index.js") continue;
 
     const routesObj = await import(path.resolve(dir, fileName));
-    const routesPath =
-      "/" + fileName.includes(".js")
-        ? fileName.replace(".js", "").toLowerCase()
-        : fileName.toLowerCase();
+    const routes = routesObj.default;
+    const routesPath = "/" + fileName.toLowerCase();
 
-    this.routes.use(routesPath, routesObj.default);
+    console.log(fileName, routesPath, routes);
+
+    fileName.includes(".js")
+      ? this.routes.use(routes)
+      : this.routes.use(routesPath, routes);
+
+    // this.routes.use(routesPath, routesObj.default);
   }
 }
