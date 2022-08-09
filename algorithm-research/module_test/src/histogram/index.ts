@@ -25,5 +25,8 @@ export default function histogram(
     if (histInfo[idx + 1] < x) histInfo[idx + 1] = x;
   });
 
-  return [histInfo, bins];
+  return [
+    histInfo.filter((v, idx) => idx === 0 || v !== 0),
+    bins.filter((v, idx) => v !== 0),
+  ];
 }
