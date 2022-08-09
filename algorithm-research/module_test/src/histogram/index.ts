@@ -5,7 +5,7 @@ export default function histogram(
   // binRange: number
   numberOfBins: number
 ): [Array<number>, Array<number>] {
-  if (_.every(X, (v) => v === 0)) return [[0, 1], [X.length]];
+  // if (_.every(X, (v) => v === 0)) return [[-1, 0], [X.length]];
 
   const max = Math.max.apply(null, X);
   const min = Math.min.apply(null, X);
