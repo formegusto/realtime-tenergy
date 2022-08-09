@@ -1,8 +1,12 @@
+import _ from "lodash";
+
 export default function histogram(
   X: Array<number>,
   // binRange: number
   numberOfBins: number
 ): [Array<number>, Array<number>] {
+  if (_.every(X, (v) => v === 0)) return [[0, 1], [X.length]];
+
   const max = Math.max.apply(null, X);
   const min = Math.min.apply(null, X);
 

@@ -16,6 +16,16 @@ export function histogram(datas: Array<number>) {
   const max = Math.max.apply(null, datas);
   const min = Math.min.apply(null, datas);
 
+  const len = max - min + 1;
   const numberOfBins = Math.round(Math.sqrt(datas.length / 2));
-  const values = new Array(numberOfBins).fill(0);
+  const binRange = len / numberOfBins;
+
+  const values = new Array(numberOfBins + 1).fill(0);
+  _.forEach(datas, (v) => {
+    const idx = Math.floor((v - min) / binRange);
+
+    if (values[idx + 1] < v) values[idx + 1] = v;
+  });
+
+  return _.filter(values, (v, idx) => idx === 0 || v !== 0);
 }
