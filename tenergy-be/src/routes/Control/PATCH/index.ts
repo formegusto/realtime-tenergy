@@ -20,13 +20,7 @@ routes.patch(
   loginCheck,
   controlCheck,
   async (req: Express.Request, res: Express.Response) => {
-    const {
-      _id: controlId,
-      aptId,
-      month,
-      day,
-      increasePublicUsage,
-    } = req.control;
+    const { _id: controlId, month, day, increasePublicUsage } = req.control;
     console.log(req.control);
     let { now, max } = day;
 
@@ -121,13 +115,7 @@ routes.patch(
     res: Express.Response,
     next: Express.NextFunction
   ) => {
-    const {
-      _id: controlId,
-      day,
-      month,
-      aptId,
-      increasePublicUsage,
-    } = req.control;
+    const { _id: controlId, day, month, increasePublicUsage } = req.control;
     console.log(req.control);
     let { now } = day;
 

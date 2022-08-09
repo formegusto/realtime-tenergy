@@ -1,10 +1,9 @@
 declare namespace Express {
   export interface Request {
     control: {
-      _id: String;
+      _id: string;
       month: number;
       publicPercentage: number;
-      aptId?: Schema.Types.ObjectId;
       increasePublicUsage?: number;
 
       // JWT 는 Date를 묶지 못함!
@@ -15,6 +14,10 @@ declare namespace Express {
         now: number;
         max: number;
       };
+    };
+    household: {
+      _id: string;
+      name: string;
     };
   }
 }

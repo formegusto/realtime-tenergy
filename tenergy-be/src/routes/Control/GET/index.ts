@@ -1,7 +1,6 @@
 import Express from "express";
-import { adminCheck, controlCheck, loginCheck } from "@mw";
-import { ControlConfigModel, MonthMeterDataModel } from "@models";
-import { Distributor } from "@models/types";
+import { adminCheck } from "@mw";
+import { ControlConfigModel } from "@models";
 import { StatusCodes } from "http-status-codes";
 import { ResponseError } from "@common";
 import { generateToken } from "@utils";

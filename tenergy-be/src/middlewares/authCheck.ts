@@ -38,8 +38,9 @@ export function loginCheck(
     );
 
   try {
-    const { control } = jwt.verify(token, secret) as any;
+    const { household, control } = jwt.verify(token, secret) as any;
     req.control = control;
+    req.household = household;
   } catch (err) {
     return next(
       new ResponseError(StatusCodes.UNAUTHORIZED, "올바르지 않은 접근 입니다.")
