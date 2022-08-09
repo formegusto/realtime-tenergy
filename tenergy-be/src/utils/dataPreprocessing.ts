@@ -13,7 +13,7 @@ export function getWholeUsages(
 
 // histogram
 export function histogram(datas: Array<number>) {
-  if (_.every(datas, (v) => v === 0)) return [[-1, 0], [datas.length]];
+  if (_.every(datas, (v) => v === 0)) return [-1, 0];
 
   const max = Math.max.apply(null, datas);
   const min = Math.min.apply(null, datas);

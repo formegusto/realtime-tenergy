@@ -8,12 +8,14 @@ import {
   AuthHousehold,
   APT,
   MonthMeterData,
+  Distributor,
 } from "@models/types";
 import {
   DayMeterDataModel,
   APTModel,
   ControlConfigModel,
   MonthMeterDataModel,
+  DistributorModel,
 } from "@models";
 import { getWholeUsages, generateToken } from "@utils";
 
@@ -80,16 +82,16 @@ routes.post(
     };
     const _controlConfigDoc = await ControlConfigModel.create(controlConfigDoc);
     const control = _controlConfigDoc.toObject();
-
+    const controlId = control._id;
     // APT Cursor 생성
     const aptDoc: APT = {
       apt: 0,
       household: 0,
       public: 0,
       householdCount,
-      controlId: control._id,
+      controlId,
     };
-    const _aptDoc = await APTModel.create(aptDoc);
+    await APTModel.create(aptDoc);
     // 이제 이것을 JWT로 묶으면 됨
     const token = generateToken(
       {
@@ -97,6 +99,19 @@ routes.post(
       },
       "3d"
     );
+
+    // Distributor 생성
+    // const distributor = {
+    //   binRange: Distributor.generateBinValues(
+    //     _.fill(_.sampleSize(dayMeter, 1)[0].data, 0)
+    //   ),
+    //   controlId,
+    // };
+    const distributor = new Distributor(
+      _.fill(_.sampleSize(dayMeter, 1)[0].data, 0)
+    );
+    distributor.controlId = controlId;
+    await DistributorModel.create(distributor);
 
     return res.status(StatusCodes.CREATED).json({
       token,

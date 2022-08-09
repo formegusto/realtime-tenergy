@@ -14,4 +14,6 @@ export class Distributor {
   constructor(datas: Array<number>) {
     this.binValues = histogram(datas);
   }
+
+  static generateBinValues = (datas: Array<number>) => histogram(datas);
 }
