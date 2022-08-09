@@ -1,5 +1,5 @@
 import Express from "express";
-import { setRoutes } from "../../utils";
+import { setRoutes } from "@utils";
 
 class Control {
   routes: Express.Router;

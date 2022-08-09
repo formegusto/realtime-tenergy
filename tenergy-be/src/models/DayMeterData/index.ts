@@ -11,8 +11,7 @@ const DayMeterDataSchema = new Schema<DayMeterData>(
   }
 );
 
-const DayMeterDataModel = model<DayMeterData>(
+export const DayMeterDataModel = model<DayMeterData>(
   "DayMeterData",
   DayMeterDataSchema
 );
-export default DayMeterDataModel;

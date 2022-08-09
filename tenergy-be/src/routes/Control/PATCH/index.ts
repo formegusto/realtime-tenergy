@@ -1,13 +1,15 @@
 import Express from "express";
-import { controlCheck, loginCheck } from "../../middlewares";
-import APTModel from "../../models/APT";
-import { StatusCodes } from "http-status-codes";
-import ResponseError from "../../common/ResponseError";
-import DayMeterDataModel from "../../models/DayMeterData";
-import MonthMeterDataModel from "../../models/MonthMeterData";
 import _ from "lodash";
-import ControlConfigModel from "../../models/ControlConfig";
-import { generateToken } from "../../utils/generateToken";
+import { StatusCodes } from "http-status-codes";
+import { controlCheck, loginCheck } from "@mw";
+import {
+  APTModel,
+  DayMeterDataModel,
+  MonthMeterDataModel,
+  ControlConfigModel,
+} from "@models";
+import { ResponseError } from "@common";
+import { generateToken } from "@utils";
 
 const routes: Express.Router = Express.Router();
 

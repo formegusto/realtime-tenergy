@@ -1,17 +1,21 @@
 import Express from "express";
-import { adminCheck } from "../../middlewares";
-import { ControlConfig } from "../../models/ControlConfig/types";
-import DayMeterDataModel from "../../models/DayMeterData";
 import _ from "lodash";
-import { DayMeterData, Household } from "../../models/DayMeterData/types";
-import { getWholeUsages } from "../../utils";
-import { APT } from "../../models/APT/types";
-import APTModel from "../../models/APT";
-import ControlConfigModel from "../../models/ControlConfig";
-import { generateToken } from "../../utils/generateToken";
 import { StatusCodes } from "http-status-codes";
-import MonthMeterDataModel from "../../models/MonthMeterData";
-import { MonthMeterData } from "../../models/MonthMeterData/types";
+import { adminCheck } from "@mw";
+import {
+  ControlConfig,
+  DayMeterData,
+  AuthHousehold,
+  APT,
+  MonthMeterData,
+} from "@models/types";
+import {
+  DayMeterDataModel,
+  APTModel,
+  ControlConfigModel,
+  MonthMeterDataModel,
+} from "@models";
+import { getWholeUsages, generateToken } from "@utils";
 
 const routes: Express.Router = Express.Router();
 
@@ -28,7 +32,7 @@ routes.post(
     const householdCount = dayMeter[0].data.length;
     const householdPart = Math.round(
       _.sumBy(dayMeter, (m: DayMeterData) =>
-        _.sumBy(m.data, (h: Household) => h.kwh)
+        _.sumBy(m.data, (h: AuthHousehold) => h.kwh)
       )
     );
     const [apt, publicPart] = getWholeUsages(householdPart, publicPercentage);
@@ -54,7 +58,7 @@ routes.post(
     // MonthMeterData 갱신
     const initHouseholds = _.map(
       _.sampleSize(dayMeter, 1)[0].data,
-      (h: Household) => new MonthMeterData(h.name, 0, month)
+      (h: AuthHousehold) => new MonthMeterData(h.name, 0, month)
     );
     _.forEach(initHouseholds, async (h) =>
       MonthMeterDataModel.findOneAndUpdate({ name: h.name }, h, {

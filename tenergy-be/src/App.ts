@@ -1,10 +1,12 @@
+import "module-alias/register";
 import Express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import routes from "./routes";
 import morgan from "morgan";
-import models from "./models";
-import errorHandler from "./routes/error";
+
+import { init } from "@models/connect";
+import routes from "@routes";
+import errorHandler from "@routes/error";
 
 dotenv.config();
 
@@ -35,7 +37,7 @@ class App {
       console.log(`[ Express ] Start Server PORT ${port}`);
     });
 
-    await models.init();
+    await init();
   }
 }
 

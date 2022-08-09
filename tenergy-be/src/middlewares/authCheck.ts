@@ -1,9 +1,11 @@
 import Express from "express";
-import ResponseError from "../common/ResponseError";
-import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
 import _ from "lodash";
-import ControlConfigModel from "../models/ControlConfig";
+
+import { StatusCodes } from "http-status-codes";
+
+import { ResponseError } from "@common";
+import { ControlConfigModel } from "@models";
 
 export function adminCheck(
   req: Express.Request,

@@ -1,6 +1,6 @@
 import { StatusCodes, getReasonPhrase } from "http-status-codes";
 
-export default class ResponseError extends Error {
+export class ResponseError extends Error {
   statusCode: StatusCodes;
 
   constructor(statusCode: StatusCodes, message: string) {

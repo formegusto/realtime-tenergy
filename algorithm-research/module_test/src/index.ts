@@ -8,6 +8,9 @@ const arr = [1, 5, 2, 4, 2, 5, 2, 3, 1];
 const [histInfo, bins] = histogram(arr, 2);
 const _histInfo = _.take(histInfo, histInfo.length - 1);
 
+console.log(histInfo);
+console.log(bins);
+
 // distribute group
 arr.map((v) => {
   console.log(

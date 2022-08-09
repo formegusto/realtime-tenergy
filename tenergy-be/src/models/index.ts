@@ -1,23 +1,5 @@
-import { connect } from "mongoose";
-
-async function dbConnect() {
-  const { MONGO_HOST, MONGO_PORT, MONGO_APP } = process.env;
-  const connectURL = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_APP}`;
-
-  try {
-    await connect(connectURL);
-    console.log("[mongoose] connected :)");
-  } catch (err) {
-    console.error("[mongoose] connect Error :(");
-    console.error(err);
-  }
-}
-
-async function init() {
-  await dbConnect();
-}
-
-export default {
-  dbConnect,
-  init,
-};
+export * from "./APT";
+export * from "./ControlConfig";
+export * from "./DayMeterData";
+export * from "./Household";
+export * from "./MonthMeterData";

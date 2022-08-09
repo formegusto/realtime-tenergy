@@ -1,5 +1,5 @@
 import Express from "express";
-import ResponseError from "../common/ResponseError";
+import { ResponseError } from "@common";
 
 export default function errorHandler(
   err: ResponseError,

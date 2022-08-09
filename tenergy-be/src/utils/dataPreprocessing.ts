@@ -8,3 +8,8 @@ export function getWholeUsages(
 
   return [apt, publicPart];
 }
+
+// histogram
+export function histogram(datas: Array<number>) {
+
+}

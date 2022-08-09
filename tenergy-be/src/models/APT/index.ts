@@ -14,5 +14,4 @@ const APTSchema = new Schema<APT>(
   }
 );
 
-const APTModel = model<APT>("APT", APTSchema);
-export default APTModel;
+export const APTModel = model<APT>("APT", APTSchema);

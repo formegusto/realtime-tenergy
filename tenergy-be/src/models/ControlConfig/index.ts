@@ -15,8 +15,7 @@ const ControlConfigSchema = new Schema<ControlConfig>(
   }
 );
 
-const ControlConfigModel = model<ControlConfig>(
+export const ControlConfigModel = model<ControlConfig>(
   "ControlConfig",
   ControlConfigSchema
 );
-export default ControlConfigModel;

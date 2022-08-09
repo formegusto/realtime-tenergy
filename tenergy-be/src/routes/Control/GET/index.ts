@@ -1,5 +1,5 @@
 import Express from "express";
-import { adminCheck } from "../../middlewares";
+import { adminCheck } from "@mw";
 
 const routes: Express.Router = Express.Router();
 

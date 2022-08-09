@@ -11,5 +11,4 @@ const HouseholdSchema = new Schema<Household>(
   }
 );
 
-const HouseholdModel = model<Household>("Household", HouseholdSchema);
-export default HouseholdModel;
+export const HouseholdModel = model<Household>("Household", HouseholdSchema);

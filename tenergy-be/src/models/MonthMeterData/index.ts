@@ -12,8 +12,7 @@ const MonthMeterDataSchema = new Schema<MonthMeterData>(
   }
 );
 
-const MonthMeterDataModel = model<MonthMeterData>(
+export const MonthMeterDataModel = model<MonthMeterData>(
   "MonthMeterData",
   MonthMeterDataSchema
 );
-export default MonthMeterDataModel;
