@@ -1,4 +1,4 @@
-import { histogram } from "@/utils";
+import { histogram } from "@utils";
 import { Schema } from "mongoose";
 
 export class Distributor {

@@ -1,11 +1,31 @@
 import Express from "express";
-import { adminCheck } from "@mw";
-import { ControlConfigModel } from "@models";
+import { adminCheck, controlCheck, loginCheck } from "@mw";
+import { ControlConfigModel, MonthMeterDataModel } from "@models";
+import { Distributor } from "@models/types";
 import { StatusCodes } from "http-status-codes";
 import { ResponseError } from "@common";
 import { generateToken } from "@utils";
+import _ from "lodash";
 
 const routes: Express.Router = Express.Router();
+
+// login test용
+routes.get(
+  "/test",
+  loginCheck,
+  controlCheck,
+  async (req: Express.Request, res: Express.Response) => {
+    const { _id } = req.control;
+
+    const monthMeterData = await MonthMeterDataModel.find({});
+    const usages = _.map(monthMeterData, (meter) => meter.kwh);
+    const distributor = new Distributor(usages);
+
+    console.log(distributor.binValues);
+
+    return res.send("Test");
+  }
+);
 
 routes.get(
   "/",

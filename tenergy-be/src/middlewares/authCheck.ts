@@ -18,7 +18,7 @@ export function adminCheck(
   if (ADMIN_KEY !== _ADMIN_KEY)
     throw new ResponseError(
       StatusCodes.UNAUTHORIZED,
-      "올바르지 않은 권한 입니다."
+      "올바르지 않은 접근 입니다."
     );
 
   return next();
@@ -42,7 +42,7 @@ export function loginCheck(
     req.control = control;
   } catch (err) {
     return next(
-      new ResponseError(StatusCodes.UNAUTHORIZED, "올바르지 않은 권한 입니다.")
+      new ResponseError(StatusCodes.UNAUTHORIZED, "올바르지 않은 접근 입니다.")
     );
   }
 
