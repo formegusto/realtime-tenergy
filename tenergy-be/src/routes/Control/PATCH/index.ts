@@ -19,7 +19,7 @@ routes.patch(
   controlCheck,
   async (req: Express.Request, res: Express.Response) => {
     const {
-      _id: configId,
+      _id: controlId,
       aptId,
       month,
       day,
@@ -58,7 +58,7 @@ routes.patch(
     });
 
     // APT Update
-    const apt = await APTModel.findOne({ _id: aptId });
+    const apt = await APTModel.findOne({ controlId });
     if (!apt)
       throw new ResponseError(StatusCodes.BAD_REQUEST, "잘못된 제어 입니다.");
     const { public: publicUsage } = apt.toObject();
@@ -77,7 +77,7 @@ routes.patch(
 
     const newControlConfig = await ControlConfigModel.findOneAndUpdate(
       {
-        _id: configId,
+        _id: controlId,
       },
       {
         $set: {
@@ -113,7 +113,7 @@ routes.patch(
     next: Express.NextFunction
   ) => {
     const {
-      _id: configId,
+      _id: controlId,
       day,
       month,
       aptId,
@@ -151,7 +151,7 @@ routes.patch(
     });
 
     // APT Update
-    const apt = await APTModel.findOne({ _id: aptId });
+    const apt = await APTModel.findOne({ controlId });
     if (!apt)
       return next(
         new ResponseError(StatusCodes.BAD_REQUEST, "잘못된 제어 입니다.")
@@ -172,7 +172,7 @@ routes.patch(
 
     const newControlConfig = await ControlConfigModel.findOneAndUpdate(
       {
-        _id: configId,
+        _id: controlId,
       },
       {
         $set: {

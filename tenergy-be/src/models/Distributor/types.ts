@@ -9,7 +9,7 @@ export class Distributor {
   createdAt!: Date;
   updatedAt!: Date;
 
-  controlId!: number;
+  controlId!: Schema.Types.ObjectId;
 
   constructor(datas: Array<number>) {
     this.binValues = histogram(datas);

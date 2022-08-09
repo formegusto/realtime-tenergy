@@ -7,7 +7,7 @@ const APTSchema = new Schema<APT>(
     household: { type: Number, required: true },
     public: { type: Number, required: true },
     householdCount: { type: Number, required: true },
-    controlId: { type: Number, required: true },
+    controlId: { type: Schema.Types.ObjectId, required: true },
   },
   {
     collection: "APT",

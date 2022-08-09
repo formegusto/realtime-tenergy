@@ -68,20 +68,10 @@ routes.post(
       })
     );
 
-    // APT Cursor 생성
-    const aptDoc: APT = {
-      apt: 0,
-      household: 0,
-      public: 0,
-      householdCount,
-    };
-    const _aptDoc = await APTModel.create(aptDoc);
-
     // ControlConfig 생성
     const controlConfigDoc: ControlConfig = {
       month,
       publicPercentage,
-      aptId: _aptDoc.id,
       increasePublicUsage,
       day: {
         now: 0,
@@ -91,6 +81,15 @@ routes.post(
     const _controlConfigDoc = await ControlConfigModel.create(controlConfigDoc);
     const control = _controlConfigDoc.toObject();
 
+    // APT Cursor 생성
+    const aptDoc: APT = {
+      apt: 0,
+      household: 0,
+      public: 0,
+      householdCount,
+      controlId: control._id,
+    };
+    const _aptDoc = await APTModel.create(aptDoc);
     // 이제 이것을 JWT로 묶으면 됨
     const token = generateToken(
       {
