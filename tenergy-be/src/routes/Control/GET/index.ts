@@ -9,23 +9,25 @@ import _ from "lodash";
 
 const routes: Express.Router = Express.Router();
 
-// login test용
-routes.get(
-  "/test",
-  loginCheck,
-  controlCheck,
-  async (req: Express.Request, res: Express.Response) => {
-    const { _id } = req.control;
+// // login test용
+// routes.get(
+//   "/test",
+//   loginCheck,
+//   controlCheck,
+//   async (req: Express.Request, res: Express.Response) => {
+//     const { _id } = req.control;
 
-    const monthMeterData = await MonthMeterDataModel.find({});
-    const usages = _.map(monthMeterData, (meter) => meter.kwh);
-    const distributor = new Distributor(usages);
+//     const monthMeterData = await MonthMeterDataModel.find({});
+//     const usages = _.map(monthMeterData, (meter) => meter.kwh);
+//     const distributor = new Distributor(usages);
 
-    console.log(distributor.binValues);
+//     // await Distributor.update();
 
-    return res.send("Test");
-  }
-);
+//     console.log(distributor.binValues);
+
+//     return res.send("Test");
+//   }
+// );
 
 routes.get(
   "/",

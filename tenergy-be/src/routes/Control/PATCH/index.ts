@@ -7,9 +7,11 @@ import {
   DayMeterDataModel,
   MonthMeterDataModel,
   ControlConfigModel,
+  DistributorModel,
 } from "@models";
 import { ResponseError } from "@common";
 import { generateToken } from "@utils";
+import { Distributor } from "@models/types";
 
 const routes: Express.Router = Express.Router();
 
@@ -95,6 +97,13 @@ routes.patch(
         control: newControlConfig?.toObject(),
       },
       "3d"
+    );
+
+    await DistributorModel.findOneAndUpdate(
+      { controlId },
+      {
+        $set: await Distributor.update(),
+      }
     );
 
     return res.status(StatusCodes.CREATED).json({
@@ -189,6 +198,13 @@ routes.patch(
         control: newControlConfig?.toObject(),
       },
       "3d"
+    );
+
+    await DistributorModel.findOneAndUpdate(
+      { controlId },
+      {
+        $set: await Distributor.update(),
+      }
     );
 
     return res.status(StatusCodes.CREATED).json({

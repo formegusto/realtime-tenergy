@@ -108,9 +108,9 @@ routes.post(
     //   controlId,
     // };
     const distributor = new Distributor(
-      _.fill(_.sampleSize(dayMeter, 1)[0].data, 0)
+      _.fill(_.sampleSize(dayMeter, 1)[0].data, 0),
+      controlId
     );
-    distributor.controlId = controlId;
     await DistributorModel.create(distributor);
 
     return res.status(StatusCodes.CREATED).json({
