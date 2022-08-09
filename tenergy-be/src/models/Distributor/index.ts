@@ -7,6 +7,7 @@ const DistributorSchema = new Schema<Distributor>(
     binValues: [{ type: Schema.Types.Number, required: true }],
     createdAt: { type: Date },
     updatedAt: { type: Date },
+    controlId: { type: Schema.Types.Number, required: true },
   },
   {
     collection: "Distributor",

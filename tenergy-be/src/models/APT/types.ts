@@ -13,4 +13,6 @@ export type APT = {
   householdCount: number;
   createdAt?: Date;
   updatedAt?: Date;
+
+  controlId: number;
 };

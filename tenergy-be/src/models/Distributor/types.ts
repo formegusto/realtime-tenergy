@@ -9,6 +9,8 @@ export class Distributor {
   createdAt!: Date;
   updatedAt!: Date;
 
+  controlId!: number;
+
   constructor(datas: Array<number>) {
     this.binValues = histogram(datas);
   }
