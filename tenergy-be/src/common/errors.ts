@@ -9,3 +9,8 @@ export class ResponseError extends Error {
     this.name = getReasonPhrase(this.statusCode);
   }
 }
+
+export const ServerError = new ResponseError(
+  StatusCodes.INTERNAL_SERVER_ERROR,
+  "시스템 오류 입니다. 관리자에게 문의해주세요."
+);

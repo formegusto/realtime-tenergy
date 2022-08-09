@@ -1,5 +1,5 @@
 import Express from "express";
-import { ResponseError } from "@common";
+import { ResponseError, ServerError } from "@common";
 
 export default function errorHandler(
   err: ResponseError,
@@ -7,6 +7,8 @@ export default function errorHandler(
   res: Express.Response,
   next: Express.NextFunction
 ) {
+  if (!err.hasOwnProperty("statusCode")) return next(ServerError);
+
   return res.status(err.statusCode).json({
     name: err.name,
     message: err.message,

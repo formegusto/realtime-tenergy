@@ -56,8 +56,10 @@ export async function controlCheck(
   next: Express.NextFunction
 ) {
   const { _id } = req.control;
+  console.log(req.control);
 
   const controlConfig = await ControlConfigModel.findById(_id);
+  console.log(controlConfig);
   if (!controlConfig)
     return next(
       new ResponseError(StatusCodes.BAD_REQUEST, "잘못된 토큰입니다.")
