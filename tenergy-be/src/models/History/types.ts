@@ -8,5 +8,5 @@ export type History = {
   sellerCount: number[];
   tradable: number[];
 
-  controlId: Schema.Types.ObjectId;
+  controlId?: Schema.Types.ObjectId;
 };

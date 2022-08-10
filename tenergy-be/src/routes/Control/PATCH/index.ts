@@ -8,10 +8,11 @@ import {
   MonthMeterDataModel,
   ControlConfigModel,
   DistributorModel,
+  HistoryModel,
 } from "@models";
 import { ResponseError } from "@common";
 import { generateToken, getRole } from "@utils";
-import { Distributor, MonthMeterData } from "@models/types";
+import { Distributor, History, MonthMeterData } from "@models/types";
 
 const routes: Express.Router = Express.Router();
 
@@ -101,10 +102,37 @@ routes.patch(
       "3d"
     );
 
+    // Distributor Update
     await DistributorModel.findOneAndUpdate(
       { controlId },
       {
         $set: await Distributor.update(),
+      }
+    );
+
+    // History Update
+    const buyerCount = _.filter(
+      newMonthMeter,
+      (meter) => meter.role === "buyer"
+    ).length;
+    const sellerCount = _.filter(
+      newMonthMeter,
+      (meter) => meter.role === "seller"
+    ).length;
+    const history: History = {
+      APT: [householdPart + publicPart],
+      public: [publicPart],
+      buyerCount: [buyerCount],
+      sellerCount: [sellerCount],
+      tradable: [sellerCount],
+    };
+
+    await HistoryModel.findOneAndUpdate(
+      {
+        controlId,
+      },
+      {
+        $push: history,
       }
     );
 
@@ -208,6 +236,21 @@ routes.patch(
       { controlId },
       {
         $set: await Distributor.update(),
+      }
+    );
+
+    await HistoryModel.findOneAndUpdate(
+      {
+        controlId,
+      },
+      {
+        $pop: {
+          APT: 1,
+          public: 1,
+          buyerCount: 1,
+          sellerCount: 1,
+          tradable: 1,
+        },
       }
     );
 

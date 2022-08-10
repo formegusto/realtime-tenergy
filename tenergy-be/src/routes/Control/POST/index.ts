@@ -9,6 +9,7 @@ import {
   APT,
   MonthMeterData,
   Distributor,
+  History,
 } from "@models/types";
 import {
   DayMeterDataModel,
@@ -17,6 +18,7 @@ import {
   MonthMeterDataModel,
   DistributorModel,
   MonthMeterHistoryModel,
+  HistoryModel,
 } from "@models";
 import { getWholeUsages, generateToken } from "@utils";
 
@@ -125,6 +127,18 @@ routes.post(
       controlId
     );
     await DistributorModel.create(distributor);
+
+    // History 생성
+    const history: History = {
+      APT: [0],
+      public: [0],
+      buyerCount: [0],
+      sellerCount: [householdCount],
+      tradable: [householdCount],
+
+      controlId,
+    };
+    await HistoryModel.create(history);
 
     return res.status(StatusCodes.CREATED).json({
       token,
