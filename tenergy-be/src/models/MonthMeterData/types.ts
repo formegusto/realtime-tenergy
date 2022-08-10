@@ -2,6 +2,7 @@ import { Schema } from "mongoose";
 import { BASIC, ELECRATE, NUGIN_ERR, NUGIN_STEP } from "../../common";
 import { monthToSeason } from "../../utils";
 import _ from "lodash";
+import { MonthMeterHistoryModel } from "../MonthMeterHistory";
 
 export class MonthMeterData {
   // mongo data
@@ -71,5 +72,30 @@ export class MonthMeterData {
 
   get bill(): number {
     return this.basic + this.elecRate;
+  }
+
+  async pushHistory() {
+    await MonthMeterHistoryModel.findOneAndUpdate(
+      { name: this.name },
+      {
+        $push: { kwh: this.kwh },
+      },
+      {
+        new: true,
+      }
+    );
+  }
+
+  async popHistory(count: number) {
+    // 음수면 shift, 양수면 pop
+    await MonthMeterHistoryModel.findOneAndUpdate(
+      { name: this.name },
+      {
+        $pop: { kwh: count },
+      },
+      {
+        new: true,
+      }
+    );
   }
 }

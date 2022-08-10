@@ -11,7 +11,7 @@ import {
 } from "@models";
 import { ResponseError } from "@common";
 import { generateToken, getRole } from "@utils";
-import { Distributor } from "@models/types";
+import { Distributor, MonthMeterData } from "@models/types";
 
 const routes: Express.Router = Express.Router();
 
@@ -42,15 +42,21 @@ routes.patch(
         ..._.find(monthMeter, { name: meter.name })?.toObject(),
       };
       _monthMeter.kwh! += meter.kwh;
-      return _monthMeter;
+      const role = getRole(_monthMeter.kwh!, month);
+      return new MonthMeterData(
+        _monthMeter.name!,
+        _monthMeter.kwh!,
+        month,
+        role
+      );
     });
     _.forEach(newMonthMeter, async (meter) => {
-      const role = getRole(meter.kwh!, month);
+      await meter.pushHistory();
       await MonthMeterDataModel.findOneAndUpdate(
         { name: meter.name },
         {
           kwh: meter.kwh,
-          role,
+          role: meter.role,
         }
       );
     });
@@ -138,15 +144,21 @@ routes.patch(
         ..._.find(monthMeter, { name: meter.name })?.toObject(),
       };
       _monthMeter.kwh! -= meter.kwh;
-      return _monthMeter;
+      const role = getRole(_monthMeter.kwh!, month);
+      return new MonthMeterData(
+        _monthMeter.name!,
+        _monthMeter.kwh!,
+        month,
+        role
+      );
     });
     _.forEach(newMonthMeter, async (meter) => {
-      const role = getRole(meter.kwh!, month);
+      await meter.popHistory(1);
       await MonthMeterDataModel.findOneAndUpdate(
         { name: meter.name },
         {
           kwh: meter.kwh,
-          role,
+          role: meter.role,
         }
       );
     });

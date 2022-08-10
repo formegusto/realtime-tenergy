@@ -16,6 +16,7 @@ import {
   ControlConfigModel,
   MonthMeterDataModel,
   DistributorModel,
+  MonthMeterHistoryModel,
 } from "@models";
 import { getWholeUsages, generateToken } from "@utils";
 
@@ -62,13 +63,25 @@ routes.post(
       _.sampleSize(dayMeter, 1)[0].data,
       (h: AuthHousehold) => new MonthMeterData(h.name, 0, month, "seller")
     );
-    _.forEach(initHouseholds, async (h) =>
-      MonthMeterDataModel.findOneAndUpdate({ name: h.name }, h, {
+    _.forEach(initHouseholds, async (h) => {
+      await MonthMeterHistoryModel.findOneAndUpdate(
+        { name: h.name },
+        {
+          name: h.name,
+          kwh: [0],
+        },
+        {
+          new: true,
+          upsert: true,
+          setDefaultsOnInsert: true,
+        }
+      );
+      await MonthMeterDataModel.findOneAndUpdate({ name: h.name }, h, {
         upsert: true,
         new: true,
         setDefaultsOnInsert: true,
-      })
-    );
+      });
+    });
 
     // ControlConfig 생성
     const controlConfigDoc: ControlConfig = {
