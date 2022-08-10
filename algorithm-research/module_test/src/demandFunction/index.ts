@@ -11,11 +11,15 @@ export function getDemand(tardeQty: number, kwh: number) {
     _.map(NUGIN_STEP, (v) => kwh - v),
     (v) => (v > 0 ? v : 0)
   );
+  console.log(demands);
 
   let [X1, X2] = [demands[1] * -1, demands[0] - demands[1]];
   let [Y2, Y1] = ELECRATE;
+  console.log(X1, X2);
+  console.log(Y2, Y1);
 
   const gradient = (Y2 - Y1) / (X2 - 0);
+  console.log(gradient);
   const _getDemand = (x: number) => gradient * x + Y1;
   Y1 = _getDemand(X1);
   console.log(Y1);

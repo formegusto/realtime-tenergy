@@ -29,4 +29,4 @@ arr.map((v) => {
 console.log(getColList(400));
 
 // demand function
-console.log(getDemand(10, 600) * 30);
+console.log(getDemand(1, 339.28000000000003) * 1);
