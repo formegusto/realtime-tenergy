@@ -49,9 +49,7 @@ export function demandFunction(
   month: number
 ): number {
   const season = monthToSeason(month);
-
   const _nuginStep = _.takeRight(NUGIN_STEP[season], 2);
-  const min = _nuginStep[1];
 
   const demands = _.map(
     _.map(_nuginStep, (v) => kwh - v),
@@ -62,8 +60,8 @@ export function demandFunction(
   let [Y2, Y1] = ELECRATE;
 
   const gradient = (Y2 - Y1) / (X2 - 0);
-  const _getDemand = (x: number) => gradient * x * Y1;
+  const _getDemand = (x: number) => gradient * x + Y1;
   Y1 = _getDemand(X1);
 
-  return _getDemand(quantity);
+  return _getDemand(quantity) * quantity;
 }
