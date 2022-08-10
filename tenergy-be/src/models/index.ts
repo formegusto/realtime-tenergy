@@ -6,3 +6,4 @@ export * from "./MonthMeterData";
 export * from "./Distributor";
 export * from "./MixedData";
 export * from "./MonthMeterHistory";
+export * from "./History";
