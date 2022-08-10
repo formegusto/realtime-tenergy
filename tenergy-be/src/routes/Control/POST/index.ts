@@ -60,7 +60,7 @@ routes.post(
     // MonthMeterData 갱신
     const initHouseholds = _.map(
       _.sampleSize(dayMeter, 1)[0].data,
-      (h: AuthHousehold) => new MonthMeterData(h.name, 0, month)
+      (h: AuthHousehold) => new MonthMeterData(h.name, 0, month, "seller")
     );
     _.forEach(initHouseholds, async (h) =>
       MonthMeterDataModel.findOneAndUpdate({ name: h.name }, h, {

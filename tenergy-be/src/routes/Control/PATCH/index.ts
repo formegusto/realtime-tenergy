@@ -10,7 +10,7 @@ import {
   DistributorModel,
 } from "@models";
 import { ResponseError } from "@common";
-import { generateToken } from "@utils";
+import { generateToken, getRole } from "@utils";
 import { Distributor } from "@models/types";
 
 const routes: Express.Router = Express.Router();
@@ -45,10 +45,12 @@ routes.patch(
       return _monthMeter;
     });
     _.forEach(newMonthMeter, async (meter) => {
+      const role = getRole(meter.kwh!, month);
       await MonthMeterDataModel.findOneAndUpdate(
         { name: meter.name },
         {
           kwh: meter.kwh,
+          role,
         }
       );
     });
@@ -139,10 +141,12 @@ routes.patch(
       return _monthMeter;
     });
     _.forEach(newMonthMeter, async (meter) => {
+      const role = getRole(meter.kwh!, month);
       await MonthMeterDataModel.findOneAndUpdate(
         { name: meter.name },
         {
           kwh: meter.kwh,
+          role,
         }
       );
     });

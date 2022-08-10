@@ -4,3 +4,4 @@ export * from "./DayMeterData";
 export * from "./Household";
 export * from "./MonthMeterData";
 export * from "./Distributor";
+export * from "./MixedData";

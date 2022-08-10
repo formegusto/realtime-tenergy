@@ -8,14 +8,22 @@ export class MonthMeterData {
   _id!: Schema.Types.ObjectId;
   name!: string;
   kwh!: number;
+  role!: "buyer" | "seller";
+
   createdAt!: Date;
   updatedAt!: Date;
 
   month: number;
-  constructor(name: string, kwh: number, month: number) {
+  constructor(
+    name: string,
+    kwh: number,
+    month: number,
+    role: "buyer" | "seller"
+  ) {
     this.name = name;
     this.kwh = kwh;
     this.month = month;
+    this.role = role;
   }
 
   get steps(): Array<number> {

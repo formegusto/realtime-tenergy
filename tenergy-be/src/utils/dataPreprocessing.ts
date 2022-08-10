@@ -1,4 +1,6 @@
+import { NUGIN_ERR } from "@common";
 import _ from "lodash";
+import { monthToSeason } from "./convert";
 
 // public percentage와 세대부 사용량 전달 시, APT와 공용부 사용량 반환
 export function getWholeUsages(
@@ -30,4 +32,12 @@ export function histogram(datas: Array<number>) {
   });
 
   return _.filter(values, (v, idx) => idx === 0 || v !== 0);
+}
+
+// 구매자, 판매자 역할 여부 판단
+export function getRole(kwh: number, month: number): "buyer" | "seller" {
+  const season = monthToSeason(month);
+  const nuginErr = NUGIN_ERR[season];
+
+  return kwh <= nuginErr[0] ? "seller" : "buyer";
 }
