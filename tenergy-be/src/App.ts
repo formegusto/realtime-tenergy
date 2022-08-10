@@ -37,7 +37,10 @@ class App {
       console.log(`[ Express ] Start Server PORT ${port}`);
     });
 
-    await init({ drop: false });
+    const dbDrop = process.env.DB_DROP ? process.env.DB_DROP === "true" : false;
+    console.log(dbDrop);
+
+    await init({ drop: dbDrop });
   }
 }
 

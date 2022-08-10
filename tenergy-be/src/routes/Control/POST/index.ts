@@ -134,7 +134,7 @@ routes.post(
       public: [0],
       buyerCount: [0],
       sellerCount: [householdCount],
-      tradable: [householdCount],
+      tradable: [0],
 
       controlId,
     };

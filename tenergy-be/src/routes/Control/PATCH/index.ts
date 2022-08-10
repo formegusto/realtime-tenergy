@@ -10,8 +10,8 @@ import {
   DistributorModel,
   HistoryModel,
 } from "@models";
-import { ResponseError } from "@common";
-import { generateToken, getRole } from "@utils";
+import { NUGIN_STEP, ResponseError } from "@common";
+import { generateToken, getRole, monthToSeason } from "@utils";
 import { Distributor, History, MonthMeterData } from "@models/types";
 
 const routes: Express.Router = Express.Router();
@@ -115,16 +115,18 @@ routes.patch(
       newMonthMeter,
       (meter) => meter.role === "buyer"
     ).length;
-    const sellerCount = _.filter(
+    const sellers = _.filter(newMonthMeter, (meter) => meter.role === "seller");
+    const tradable = _.sumBy(
       newMonthMeter,
-      (meter) => meter.role === "seller"
-    ).length;
+      (meter) => NUGIN_STEP[monthToSeason(month)][1] - meter.kwh
+    );
+
     const history: History = {
       APT: [householdPart + publicPart],
       public: [publicPart],
       buyerCount: [buyerCount],
-      sellerCount: [sellerCount],
-      tradable: [sellerCount],
+      sellerCount: [sellers.length],
+      tradable: [tradable],
     };
 
     await HistoryModel.findOneAndUpdate(
