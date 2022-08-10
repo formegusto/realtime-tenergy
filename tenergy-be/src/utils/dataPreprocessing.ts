@@ -1,4 +1,4 @@
-import { NUGIN_ERR } from "@common";
+import { ELECRATE, NUGIN_ERR, NUGIN_STEP } from "@common";
 import _ from "lodash";
 import { monthToSeason } from "./convert";
 
@@ -40,4 +40,30 @@ export function getRole(kwh: number, month: number): "buyer" | "seller" {
   const nuginErr = NUGIN_ERR[season];
 
   return kwh <= nuginErr[0] ? "seller" : "buyer";
+}
+
+// 수요함수
+export function demandFunction(
+  kwh: number,
+  quantity: number,
+  month: number
+): number {
+  const season = monthToSeason(month);
+
+  const _nuginStep = _.takeRight(NUGIN_STEP[season], 2);
+  const min = _nuginStep[1];
+
+  const demands = _.map(
+    _.map(_nuginStep, (v) => kwh - v),
+    (v) => (v > 0 ? v : 0)
+  );
+
+  let [X1, X2] = [demands[1] * -1, demands[0] - demands[1]];
+  let [Y2, Y1] = ELECRATE;
+
+  const gradient = (Y2 - Y1) / (X2 - 0);
+  const _getDemand = (x: number) => gradient * x * Y1;
+  Y1 = _getDemand(X1);
+
+  return _getDemand(quantity);
 }

@@ -37,7 +37,7 @@ class App {
       console.log(`[ Express ] Start Server PORT ${port}`);
     });
 
-    await init({ drop: true });
+    await init({ drop: false });
   }
 }
 
