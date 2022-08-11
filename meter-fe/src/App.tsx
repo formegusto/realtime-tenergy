@@ -1,7 +1,7 @@
-import MainContainer from "@containers/MainContainer";
+import ReadContainer from "@containers/ReadContainer";
 
 function App() {
-  return <MainContainer />;
+  return <ReadContainer />;
 }
 
 export default App;
