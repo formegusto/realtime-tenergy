@@ -7,6 +7,18 @@
             ],
             "@colors": [
                 "./styles/colors"
+            ],
+            "@typo": [
+                "./styles/typo"
+            ],
+            "@screen": [
+                "./screens"
+            ],
+            "@screen/*": [
+                "./screens/*"
+            ],
+            "@component/*": [
+                "./components/*"
             ]
         }
     }
