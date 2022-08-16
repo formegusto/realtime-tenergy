@@ -29,3 +29,23 @@ export const checkControl = async (token: string) => {
 
   return res.data;
 };
+
+export const nextControl = async (token: string) => {
+  const res = await client.patch<ResControl>(`/control/next`, null, {
+    headers: {
+      authorization: token,
+    },
+  });
+
+  return res.data;
+};
+
+export const prevControl = async (token: string) => {
+  const res = await client.patch<ResControl>(`/control/prev`, null, {
+    headers: {
+      authorization: token,
+    },
+  });
+
+  return res.data;
+};

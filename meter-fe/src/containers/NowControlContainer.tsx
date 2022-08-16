@@ -12,6 +12,7 @@ function NowControlContainer() {
     ({ queryKey }) => checkControl(queryKey[1] as string),
     {
       enabled: token !== null,
+      keepPreviousData: true,
     }
   );
 
