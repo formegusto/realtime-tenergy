@@ -1,6 +1,6 @@
 import { IconType } from "react-icons";
 import {
-  MdOutlineBatteryFull,
+  MdOutlineBatteryChargingFull,
   MdAttachMoney,
   MdBarChart,
   MdPermIdentity,
@@ -17,7 +17,7 @@ export const navigationItems: NavigationItem[] = [
   {
     title: "Seller",
     path: "/seller",
-    icon: MdOutlineBatteryFull,
+    icon: MdOutlineBatteryChargingFull,
     type: "basic",
   },
   {

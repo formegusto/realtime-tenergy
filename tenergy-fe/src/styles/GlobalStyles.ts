@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { blue, white } from "./colors";
+import { blue } from "./colors";
 
 export default createGlobalStyle`
     /* reset code */
@@ -43,7 +43,6 @@ export default createGlobalStyle`
     }
     * {
         font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important;
-        color: ${white[900]};
     }
 
     html {

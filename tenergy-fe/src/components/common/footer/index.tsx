@@ -20,5 +20,8 @@ const Wrap = styled.footer`
 
   width: 100%;
   background-color: ${white[900]};
-  color: #bbb;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 `;
