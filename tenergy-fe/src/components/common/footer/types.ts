@@ -9,7 +9,7 @@ import {
 export type NavigationItem = {
   title: string;
   path: string;
-  icon: IconType;
+  icon: IconType | null;
   type: "basic" | "main";
 };
 
@@ -25,6 +25,12 @@ export const navigationItems: NavigationItem[] = [
     path: "/buyer",
     icon: MdAttachMoney,
     type: "basic",
+  },
+  {
+    title: "Main",
+    path: "/",
+    icon: null,
+    type: "main",
   },
   {
     title: "Public",

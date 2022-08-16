@@ -5,6 +5,7 @@ import GlobalStyles from "@styles/GlobalStyles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter as Router } from "react-router-dom";
+// import { Splash } from "@component/common";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ root.render(
       <Router>
         <App />
       </Router>
+      {/* <Splash /> */}
     </RecoilRoot>
   </QueryClientProvider>
 );

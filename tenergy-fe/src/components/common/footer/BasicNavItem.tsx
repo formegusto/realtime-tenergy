@@ -14,7 +14,8 @@ function BasicNavItem({ item }: NavItemProps) {
       onClick={() => navigate(item.path)}
       className={`nav-item ${active ? "active" : ""}`}
     >
-      <item.icon size={24} />
+      {item.icon && <item.icon size={24} />}
+
       <Tag1>{item.title}</Tag1>
     </Wrap>
   );
