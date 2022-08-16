@@ -7,3 +7,7 @@ export type ResControls = {
 export type ResControl = {
   token: string;
 };
+
+export type ResCheck = {
+  control: Control;
+};

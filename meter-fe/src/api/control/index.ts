@@ -1,5 +1,5 @@
 import client from "@common/client";
-import { ResControl, ResControls } from "./types";
+import { ResCheck, ResControl, ResControls } from "./types";
 
 export const getControls = async () => {
   const res = await client.get<ResControls>("/control", {
@@ -14,6 +14,16 @@ export const getControl = async (_id: string) => {
   const res = await client.get<ResControl>(`/control/${_id}`, {
     headers: {
       authorization: process.env.REACT_APP_ADMIN_REQUEST_KEY!,
+    },
+  });
+
+  return res.data;
+};
+
+export const checkControl = async (token: string) => {
+  const res = await client.get<ResCheck>(`/control/check`, {
+    headers: {
+      authorization: token,
     },
   });
 
