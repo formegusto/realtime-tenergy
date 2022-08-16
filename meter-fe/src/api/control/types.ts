@@ -1,4 +1,4 @@
-import { Control } from "@store/types";
+import { APT, Control } from "@store/types";
 
 export type ResControls = {
   controls: Control[];
@@ -10,4 +10,5 @@ export type ResControl = {
 
 export type ResCheck = {
   control: Control;
+  APT: APT;
 };

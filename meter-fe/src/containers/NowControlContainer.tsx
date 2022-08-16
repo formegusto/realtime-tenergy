@@ -13,11 +13,12 @@ function NowControlContainer() {
     {
       enabled: token !== null,
       keepPreviousData: true,
+      refetchOnWindowFocus: false,
     }
   );
 
   return data ? (
-    <NowControlComponent control={data?.control} />
+    <NowControlComponent {...data} />
   ) : (
     <Typography fontSize={24} fontWeight={700} p={2}>
       현재 선택된 제어가 없습니다.
