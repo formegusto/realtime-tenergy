@@ -109,6 +109,15 @@ routes.get(
   }
 );
 
+routes.get(
+  "/check",
+  loginCheck,
+  controlCheck,
+  async (req: Express.Request, res: Express.Response) => {
+    return res.status(StatusCodes.OK).json({ control: req.control });
+  }
+);
+
 // control 토큰 재발급
 routes.get(
   "/:id",
@@ -122,7 +131,7 @@ routes.get(
 
     const control = await ControlConfigModel.findById(controlId);
     if (!control)
-      next(
+      return next(
         new ResponseError(StatusCodes.BAD_REQUEST, "잘못된 제어번호 입니다.")
       );
 
@@ -134,6 +143,7 @@ routes.get(
     );
 
     return res.status(StatusCodes.CREATED).json({
+      _id: controlId,
       token,
     });
   }
