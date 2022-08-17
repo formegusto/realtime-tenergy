@@ -3,14 +3,20 @@ import { TextInput } from "@component/common/input";
 import { white } from "@styles/colors";
 import { H5 } from "@styles/typo";
 import styled from "styled-components";
+import { LoginProps } from "./types";
 
-export function LoginComponent() {
+export function LoginComponent(props: LoginProps) {
   return (
     <Wrap>
-      <Form>
+      <Form onSubmit={props.onSubmit}>
         <Group>
           <H5>Your Household Name</H5>
-          <TextInput type="text" name="name" autoFocus />
+          <TextInput
+            type="text"
+            name="name"
+            onChange={props.changeName}
+            autoFocus
+          />
         </Group>
         <Button type="submit">Log In to Household Account</Button>
       </Form>

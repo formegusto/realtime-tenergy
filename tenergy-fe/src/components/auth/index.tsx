@@ -1,10 +1,10 @@
 import { Splash } from "@component/common";
 import { Button } from "@component/common/button";
 import styled from "styled-components";
-import { Props } from "./types";
+import { AuthProps } from "./types";
 
 export * from "./LoginComponent";
-export function AuthComponent(props: Props) {
+export function AuthComponent(props: AuthProps) {
   return (
     <>
       <Wrap>
