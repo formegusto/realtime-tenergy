@@ -3,6 +3,8 @@ import { MdMiscellaneousServices } from "react-icons/md";
 import { white } from "@styles/colors";
 import SimpleProfile from "./SimpleProfile";
 
+export * from "./NavigateHeader";
+
 export function Header() {
   return (
     <Wrap>

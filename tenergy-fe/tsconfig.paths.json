@@ -17,6 +17,9 @@
             "@screen/*": [
                 "./screens/*"
             ],
+            "@component": [
+                "./components"
+            ],
             "@component/*": [
                 "./components/*"
             ],

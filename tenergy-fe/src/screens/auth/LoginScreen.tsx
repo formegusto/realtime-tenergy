@@ -1,5 +1,7 @@
+import { LoginContainer } from "@container";
+
 function LoginScreen() {
-  return <>끄인</>;
+  return <LoginContainer />;
 }
 
 export default LoginScreen;

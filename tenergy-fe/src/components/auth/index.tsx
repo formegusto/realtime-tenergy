@@ -3,6 +3,7 @@ import { H4 } from "@styles/typo";
 import styled from "styled-components";
 import { Props } from "./types";
 
+export * from "./LoginComponent";
 export function AuthComponent(props: Props) {
   return (
     <Wrap>
