@@ -1,4 +1,3 @@
-import { NavigateHeader } from "@component/common";
 import { Button } from "@component/common/button";
 import { TextInput } from "@component/common/input";
 import { white } from "@styles/colors";
@@ -8,7 +7,6 @@ import styled from "styled-components";
 export function LoginComponent() {
   return (
     <Wrap>
-      <NavigateHeader title="Log In" />
       <Form>
         <Group>
           <H5>Your Household Name</H5>
@@ -21,10 +19,7 @@ export function LoginComponent() {
 }
 
 const Wrap = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-
+  position: absolute;
   width: calc(100vw - 32px);
   height: calc(100vh - 108px);
 

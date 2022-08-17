@@ -23,8 +23,10 @@ export function NavigateHeader(props: NavigateHeaderProps) {
 const Wrap = styled.header`
   position: fixed;
 
-  left: 0;
+  z-index: 255;
+
   top: 0;
+  left: 0;
 
   height: 60px;
   width: calc(100%);

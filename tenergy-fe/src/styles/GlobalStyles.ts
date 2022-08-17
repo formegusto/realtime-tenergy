@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import { blue } from "./colors";
 
-export default createGlobalStyle`
+export const ResetStyle = createGlobalStyle`
     /* reset code */
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, 
@@ -54,5 +54,50 @@ export default createGlobalStyle`
         max-width: 500px;
 
         margin: 0 auto;
+    }
+`;
+
+export const NavigateAnimation = createGlobalStyle`
+    .transition-wrapper {
+        position: relative;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        z-index: 225;
+    }
+    .right-enter {
+        transform: translateX(100%);
+    }
+  
+    .right-enter-active {
+        transform: translateX(0);
+        transition: transform 300ms ease-in-out;
+    }
+  
+    .right-exit {
+        transform: translateX(0);
+    }
+  
+    .right-exit-active {
+        transform: translateX(-100%);
+        transition: transform 300ms ease-in-out;
+    }
+
+    .left-enter {
+        transform: translateX(-100%);
+    }
+    
+    .left-enter-active {
+        transform: translateX(0);
+        transition: transform 300ms ease-in-out;
+    }
+    
+    .left-exit {
+        transform: translateX(0);
+    }
+    
+    .left-exit-active {
+        transform: translateX(100%);
+        transition: transform 300ms ease-in-out;
     }
 `;

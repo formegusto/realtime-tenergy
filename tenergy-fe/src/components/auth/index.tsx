@@ -1,3 +1,4 @@
+import { Splash } from "@component/common";
 import { Button } from "@component/common/button";
 import styled from "styled-components";
 import { Props } from "./types";
@@ -5,14 +6,25 @@ import { Props } from "./types";
 export * from "./LoginComponent";
 export function AuthComponent(props: Props) {
   return (
-    <Wrap>
-      <Button onClick={props.navigateLogin}>Log In to Household Account</Button>
-    </Wrap>
+    <>
+      <Wrap>
+        <Splash logoAnimation={false} absolute />
+        <Button onClick={props.navigateLogin} colorTheme="transparent">
+          Log In to Household Account
+        </Button>
+      </Wrap>
+    </>
   );
 }
 
 const Wrap = styled.div`
-  position: fixed;
+  &.right-exit-active {
+    & > button {
+      display: none;
+    }
+  }
+
+  position: absolute;
 
   width: 100vw;
   height: 100vh;

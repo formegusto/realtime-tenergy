@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import GlobalStyles from "@styles/GlobalStyles";
+import { NavigateAnimation, ResetStyle } from "@styles/GlobalStyles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -14,7 +14,8 @@ const queryClient = new QueryClient();
 root.render(
   <QueryClientProvider client={queryClient}>
     <RecoilRoot>
-      <GlobalStyles />
+      <ResetStyle />
+      <NavigateAnimation />
       <Router>
         <App />
       </Router>

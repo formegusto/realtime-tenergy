@@ -1,6 +1,6 @@
 import { FlattenSimpleInterpolation } from "styled-components";
 
-export type ColorTheme = "blue" | "green" | "red";
+export type ColorTheme = "blue" | "green" | "red" | "transparent";
 
 export type ButtonStyleProps = {
   isBlock?: boolean;
