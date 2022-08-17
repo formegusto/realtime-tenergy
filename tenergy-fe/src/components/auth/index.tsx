@@ -1,7 +1,16 @@
+import { Button } from "@component/common/button";
+import { H4 } from "@styles/typo";
 import styled from "styled-components";
+import { Props } from "./types";
 
-export function AuthComponent() {
-  return <Wrap></Wrap>;
+export function AuthComponent(props: Props) {
+  return (
+    <Wrap>
+      <Button onClick={props.navigateLogin}>
+        <H4>Log In to Household Account</H4>
+      </Button>
+    </Wrap>
+  );
 }
 
 const Wrap = styled.div`
@@ -11,7 +20,16 @@ const Wrap = styled.div`
   height: 100vh;
 
   z-index: 255;
-  background-color: #fff;
+
+  & > button {
+    width: calc(100% - 32px);
+    position: absolute;
+    bottom: 48px;
+    left: 0;
+    right: 0;
+
+    margin: 0 auto;
+  }
 `;
 
 export default AuthComponent;

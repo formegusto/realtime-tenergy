@@ -18,8 +18,11 @@ export function RootContainer() {
       <Footer />
     </>
   ) : SPLASHPAGES.includes(pathname) ? (
-    <Splash logoAnimation={pathname === "/"} />
+    <>
+      <Splash logoAnimation={pathname === "/"} />
+      <Outlet />
+    </>
   ) : (
-    <></>
+    <Outlet />
   );
 }
