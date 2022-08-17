@@ -1,3 +1,5 @@
+import { MainContainer } from "@container";
+
 export function MainScreen() {
-  return <>메인 화면</>;
+  return <MainContainer />;
 }

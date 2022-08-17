@@ -18,3 +18,9 @@ export const other: Color = {
   lightred: "#D58480",
   fluorescent: "#D8F50C",
 };
+
+export const chartPalette: Color = {
+  public: "#169CDE",
+  household: "#16DEB4",
+  trading: "#1EBCC7",
+};

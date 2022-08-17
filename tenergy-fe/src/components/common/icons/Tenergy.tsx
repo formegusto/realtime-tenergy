@@ -8,7 +8,7 @@ export function Tenergy({
   ...props
 }: TenergyStyleOption & TenergyInteractionOption) {
   return (
-    <SVG viewBox="0 0 100 100" xmlns="https://www.w3.org/svg/2000" {...props}>
+    <SVG viewBox="0 0 100 100" xmlns="https://www.w3.org/2000/svg" {...props}>
       <path
         className="stem"
         d="

@@ -15,6 +15,7 @@ export function LoginContainer() {
   const loginMutate = useMutation<ResLogin, unknown, string>(login, {
     onSuccess: ({ token }) => {
       setTokenState(token);
+      localStorage.setItem("token", token);
     },
   });
 
