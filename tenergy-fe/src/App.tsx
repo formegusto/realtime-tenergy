@@ -1,4 +1,5 @@
 import {
+  AuthScreen,
   BuyerScreen,
   MainScreen,
   MyScreen,
@@ -17,6 +18,7 @@ function App() {
         <Route path="/buyer" element={<BuyerScreen />} />
         <Route path="/public" element={<PublicScreen />} />
         <Route path="/my" element={<MyScreen />} />
+        <Route path="/auth/*" element={<AuthScreen />} />
       </Route>
     </Routes>
   );

@@ -1,18 +1,12 @@
-import { Footer, Header } from "@component/common";
-import { Outlet } from "react-router-dom";
+import { RootContainer } from "@container";
 
 export * from "./buyer";
 export * from "./main";
 export * from "./my";
 export * from "./seller";
 export * from "./public";
+export * from "./auth";
 
 export function RootScreen() {
-  return (
-    <>
-      <Header />
-      <Outlet />
-      <Footer />
-    </>
-  );
+  return <RootContainer />;
 }

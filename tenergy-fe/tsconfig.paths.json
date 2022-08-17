@@ -19,6 +19,15 @@
             ],
             "@component/*": [
                 "./components/*"
+            ],
+            "@container": [
+                "./containers"
+            ], 
+            "@container/*": [
+                "./containers/*"
+            ], 
+            "@store/*": [
+                "./store/*"
             ]
         }
     }

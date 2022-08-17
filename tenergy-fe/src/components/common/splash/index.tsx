@@ -1,12 +1,25 @@
 import { blue, white } from "@styles/colors";
 import { P2 } from "@styles/typo";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Tenergy } from "../icons";
+import { SplashInteractionProps } from "./types";
 
-export function Splash() {
+export function Splash(props: SplashInteractionProps) {
+  const navigate = useNavigate();
+  const onAnimationEnd = React.useCallback(() => {
+    setTimeout(() => {
+      navigate("/auth");
+    }, 500);
+  }, [navigate]);
+
   return (
     <Wrap>
-      <Tenergy animation />
+      <Tenergy
+        onAnimationEnd={onAnimationEnd}
+        animation={props.logoAnimation}
+      />
       <P2 className="org">
         <span>K</span>orea <span>E</span>lectronics <span>T</span>echnology{" "}
         <span>I</span>nstitute
@@ -23,7 +36,7 @@ const Wrap = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 255;
+  z-index: 200;
 
   display: flex;
   flex-direction: column;

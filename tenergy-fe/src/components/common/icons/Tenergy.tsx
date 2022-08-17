@@ -1,9 +1,12 @@
 import { white } from "@styles/colors";
 import React from "react";
 import styled, { css, keyframes } from "styled-components";
-import { TenergyStyleOption } from "./types";
+import { TenergyInteractionOption, TenergyStyleOption } from "./types";
 
-export function Tenergy(props: TenergyStyleOption) {
+export function Tenergy({
+  onAnimationEnd,
+  ...props
+}: TenergyStyleOption & TenergyInteractionOption) {
   return (
     <SVG viewBox="0 0 100 100" xmlns="https://www.w3.org/svg/2000" {...props}>
       <path
@@ -16,6 +19,7 @@ export function Tenergy(props: TenergyStyleOption) {
       />
       <g>
         <path
+          onAnimationEnd={onAnimationEnd}
           className="leaf second"
           d="
               M 2.5 10
