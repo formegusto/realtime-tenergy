@@ -1,4 +1,5 @@
 import { NavigateHeader } from "@component/common";
+import { Button } from "@component/common/button";
 import { TextInput } from "@component/common/input";
 import { white } from "@styles/colors";
 import { H5 } from "@styles/typo";
@@ -9,8 +10,11 @@ export function LoginComponent() {
     <Wrap>
       <NavigateHeader title="Log In" />
       <Form>
-        <H5>Your Household Name</H5>
-        <TextInput />
+        <Group>
+          <H5>Your Household Name</H5>
+          <TextInput type="text" name="name" autoFocus />
+        </Group>
+        <Button type="submit">Log In to Household Account</Button>
       </Form>
     </Wrap>
   );
@@ -29,8 +33,23 @@ const Wrap = styled.div`
   color: ${white[900]};
 `;
 
+const Group = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & > input[name="name"] {
+    margin: 10px 0 0;
+  }
+
+  flex: 1;
+`;
+
 const Form = styled.form`
   display: flex;
-
   flex-direction: column;
+  height: 100%;
+
+  & > button[type="submit"] {
+    margin: 0 0 48px;
+  }
 `;

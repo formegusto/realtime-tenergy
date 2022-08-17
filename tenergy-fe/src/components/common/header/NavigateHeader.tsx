@@ -10,12 +10,12 @@ export function NavigateHeader(props: NavigateHeaderProps) {
 
   return (
     <Wrap>
+      <span className="title">{props.title}</span>
       <MdOutlineArrowBack
         size={24}
         className="back-button"
         onClick={() => navigate(-1)}
       />
-      <span className="title">{props.title}</span>
     </Wrap>
   );
 }
