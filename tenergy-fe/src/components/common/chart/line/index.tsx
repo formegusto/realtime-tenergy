@@ -1,7 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import { blue } from "@styles/colors";
-import { SVGInformation } from "./types";
+import { LineStyleProps, SVGInformation } from "./types";
 import styled from "styled-components";
 
 function getPath(d: Array<string | number>): SVGPathElement {
@@ -16,11 +16,10 @@ function getPath(d: Array<string | number>): SVGPathElement {
   return path;
 }
 
-export function Line() {
+export function Line({ datas }: LineStyleProps) {
   const [svgInfo, setSvgInfo] = React.useState<SVGInformation | null>(null);
   const refWrap = React.useRef<HTMLDivElement>(null);
   const refSVG = React.useRef<SVGSVGElement>(null);
-  const datas = [10, 20, 35, 40, 80, 81, 90];
 
   React.useEffect(() => {
     const width = refWrap.current!.clientWidth;
@@ -59,7 +58,7 @@ export function Line() {
 
       refSVG.current?.appendChild(getPath(d));
     }
-  }, [svgInfo]);
+  }, [svgInfo, datas]);
 
   return (
     <Wrap ref={refWrap} className="line">

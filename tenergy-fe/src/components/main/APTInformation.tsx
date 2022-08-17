@@ -12,7 +12,7 @@ function APTInformation() {
         <Doughnut data={[5, 3, 2]} size={150} />
         <ContentIntro>
           <ChartInformation />
-          <Line />
+          <Line datas={[10, 20, 30]} />
         </ContentIntro>
       </Content>
     </TopContainer>
@@ -39,6 +39,9 @@ const ContentIntro = styled.div`
 
   & > .line {
     flex: 1;
+
+    margin: 0;
+    padding: 0;
   }
 `;
 
