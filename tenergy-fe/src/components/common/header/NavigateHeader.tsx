@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { NavigateHeaderProps } from "./types";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { white } from "@styles/colors";
-import { H5 } from "@styles/typo";
 import { useNavigate } from "react-router-dom";
+import { fontStyles } from "@styles/typo/styles";
 
 export function NavigateHeader(props: NavigateHeaderProps) {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export function NavigateHeader(props: NavigateHeaderProps) {
         className="back-button"
         onClick={() => navigate(-1)}
       />
-      <H5 className="title">{props.title}</H5>
+      <span className="title">{props.title}</span>
     </Wrap>
   );
 }
@@ -44,10 +44,7 @@ const Wrap = styled.header`
   }
 
   & > .title {
-    width: 0;
-    height: 0;
-
-    white-space: nowrap;
+    ${fontStyles["h5"]}
     position: absolute;
 
     top: 0;

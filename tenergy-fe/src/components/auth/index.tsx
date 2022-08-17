@@ -1,5 +1,4 @@
 import { Button } from "@component/common/button";
-import { H4 } from "@styles/typo";
 import styled from "styled-components";
 import { Props } from "./types";
 
@@ -7,9 +6,7 @@ export * from "./LoginComponent";
 export function AuthComponent(props: Props) {
   return (
     <Wrap>
-      <Button onClick={props.navigateLogin}>
-        <H4>Log In to Household Account</H4>
-      </Button>
+      <Button onClick={props.navigateLogin}>Log In to Household Account</Button>
     </Wrap>
   );
 }

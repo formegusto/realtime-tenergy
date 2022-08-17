@@ -1,13 +1,10 @@
 import styled from "styled-components";
+import { paragraph } from "./styles";
 
 export const P1 = styled.p`
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
+  ${paragraph["p1"]}
 `;
 
 export const P2 = styled.p`
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
+  ${paragraph["p2"]}
 `;
