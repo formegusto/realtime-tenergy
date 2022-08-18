@@ -1,9 +1,9 @@
 import { blue, white } from "@styles/colors";
-import { P2 } from "@styles/typo";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { Tenergy } from "../icons";
+import { KETI } from "../icons";
 import { SplashInteractionProps, SplashStyleProps } from "./types";
 
 export function Splash({
@@ -20,10 +20,7 @@ export function Splash({
   return (
     <Wrap {...styleProps}>
       <Tenergy onAnimationEnd={onAnimationEnd} animation={logoAnimation} />
-      <P2 className="org">
-        <span>K</span>orea <span>E</span>lectronics <span>T</span>echnology{" "}
-        <span>I</span>nstitute
-      </P2>
+      <KETI className="org" />
     </Wrap>
   );
 }
@@ -56,10 +53,5 @@ const Wrap = styled.div<SplashStyleProps>`
 
   & > p.org {
     margin: 8px 0 0;
-    font-weight: 100;
-
-    & > span {
-      font-weight: 900;
-    }
   }
 `;

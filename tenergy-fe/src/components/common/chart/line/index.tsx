@@ -24,7 +24,7 @@ export function Line({ datas }: LineStyleProps) {
   React.useEffect(() => {
     const width = refWrap.current!.clientWidth;
     const height = refWrap.current!.clientHeight;
-    console.log(width, height);
+    // console.log(width, height);
     setSvgInfo({
       viewX: width,
       viewY: height,

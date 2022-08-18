@@ -1,30 +1,31 @@
 import { Line } from "@component/common/chart";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
 import { white } from "@styles/colors";
-import { Tag2 } from "@styles/typo";
+import { Tag1, Tag2 } from "@styles/typo";
 import styled from "styled-components";
 
 function MarketStatus() {
   return (
     <Wrap>
+      <Tag1 className="title">MARKET STATUS</Tag1>
       <CardColGroup>
         <CardRowGroup>
           <Card>
-            <Tag2 className="title">BUYER COUNT</Tag2>
+            <Tag2 className="card-title">BUYER COUNT</Tag2>
             <Count>56</Count>
           </Card>
           <Card>
-            <Tag2 className="title">SELLER COUNT</Tag2>
+            <Tag2 className="card-title">SELLER COUNT</Tag2>
             <Count>12</Count>
           </Card>
         </CardRowGroup>
         <CardRowGroup>
           <Card>
-            <Tag2 className="title">TOTAL AVERAGE</Tag2>
+            <Tag2 className="card-title">TOTAL AVERAGE</Tag2>
             <Line datas={[10, 20, 30, 31, 40, 41, 51]} />
           </Card>
           <Card>
-            <Tag2 className="title">TRADABLE USAGE</Tag2>
+            <Tag2 className="card-title">TRADABLE USAGE</Tag2>
             <Line datas={[10, 20, 30, 31, 40, 41, 51]} />
           </Card>
         </CardRowGroup>
@@ -39,8 +40,9 @@ const Wrap = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
+  padding: 0 0 32px;
 
-  .title {
+  .card-title {
     color: ${white[500]};
     letter-spacing: 0.1em;
 

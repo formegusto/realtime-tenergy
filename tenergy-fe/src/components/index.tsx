@@ -8,4 +8,6 @@ export const Wrapper = styled.main`
   height: calc(100vh - 116px);
 
   margin: 60px 0 56px;
+
+  overflow-y: scroll;
 `;
