@@ -1,4 +1,7 @@
-export type SelectedPieProps = {
+export type BasicPieProps = {
   datas: number[];
+};
+
+export type SelectedPieProps = BasicPieProps & {
   selectedIdx: number;
 };

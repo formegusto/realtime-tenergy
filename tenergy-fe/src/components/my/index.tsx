@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import IntegratedInformation from "./IntegratedInformation";
 import UsageHistory from "./UsageHistory";
+import PriceInformation from "./PriceInformation";
 
 export function MyComponent() {
   return (
     <Wrap>
       <UsageHistory />
       <IntegratedInformation />
+      <PriceInformation />
     </Wrap>
   );
 }

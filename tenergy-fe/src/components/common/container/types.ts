@@ -23,7 +23,8 @@ export type CardBackgroundColor =
   | "blue"
   | "transparent"
   | "deepblue"
-  | "trading";
+  | "trading"
+  | "public";
 
 export type CardBackgroundPalette = {
   [key in CardBackgroundColor]: string;
@@ -34,4 +35,5 @@ export const cardBackgroundPalette: CardBackgroundPalette = {
   transparent: "transparent",
   deepblue: blue[100]!,
   trading: chartPalette["trading"]!,
+  public: chartPalette["public"]!,
 };
