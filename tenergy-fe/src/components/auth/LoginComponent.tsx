@@ -26,8 +26,8 @@ export function LoginComponent(props: LoginProps) {
 
 const Wrap = styled.div`
   position: absolute;
-  width: calc(100vw - 32px);
-  height: calc(100vh - 108px);
+  width: calc(100% - 32px);
+  height: calc(100% - 108px);
 
   padding: 108px 16px 0;
 

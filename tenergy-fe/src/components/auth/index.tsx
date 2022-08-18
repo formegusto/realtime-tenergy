@@ -26,8 +26,8 @@ const Wrap = styled.div`
 
   position: absolute;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   z-index: 255;
 

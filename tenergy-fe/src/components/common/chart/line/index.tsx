@@ -22,17 +22,19 @@ export function Line({ datas }: LineStyleProps) {
   const refSVG = React.useRef<SVGSVGElement>(null);
 
   React.useEffect(() => {
-    const width = refWrap.current!.clientWidth;
-    const height = refWrap.current!.clientHeight;
-    // console.log(width, height);
-    setSvgInfo({
-      viewX: width,
-      viewY: height,
-    });
-    refSVG.current?.setAttribute("width", width.toString());
-    refSVG.current?.setAttribute("height", height.toString());
-    refSVG.current!.setAttribute("viewBox", [0, 0, width, height].join(" "));
-  }, []);
+    if (!svgInfo) {
+      const width = refWrap.current!.clientWidth;
+      const height = refWrap.current!.clientHeight;
+      // console.log(width, height);
+      setSvgInfo({
+        viewX: width,
+        viewY: height,
+      });
+      refSVG.current?.setAttribute("width", width.toString());
+      refSVG.current?.setAttribute("height", height.toString());
+      refSVG.current!.setAttribute("viewBox", [0, 0, width, height].join(" "));
+    }
+  }, [svgInfo]);
 
   React.useEffect(() => {
     while (refSVG.current?.hasChildNodes()) {

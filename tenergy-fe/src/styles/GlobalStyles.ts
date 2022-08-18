@@ -64,6 +64,8 @@ export const NavigateAnimation = createGlobalStyle`
         height: 100vh;
         width: 100vw;
         z-index: 225;
+
+        max-width: 500px;
     }
     .right-enter {
         transform: translateX(100%);

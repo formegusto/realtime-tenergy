@@ -40,6 +40,96 @@ function BuyerList() {
             <Tag1 className="compare benefit">+₩12.13</Tag1>
           </PriceWrap>
         </Card>
+        <Card direction="row" columnGap={6} padding="10px 16px">
+          <UsageProfile>420</UsageProfile>
+          <HouseholdNames>
+            <H5 className="dong">101동</H5>
+            <Tag1 className="ho">1000호</Tag1>
+          </HouseholdNames>
+          <LineWrap>
+            <Shadowing />
+            <Line datas={[1, 2, 3, 4, 5, 6]} />
+          </LineWrap>
+          <PriceWrap>
+            <H5 className="price">₩82,755.27</H5>
+            <Tag1 className="compare benefit">+₩12.13</Tag1>
+          </PriceWrap>
+        </Card>
+        <Card direction="row" columnGap={6} padding="10px 16px">
+          <UsageProfile>420</UsageProfile>
+          <HouseholdNames>
+            <H5 className="dong">101동</H5>
+            <Tag1 className="ho">1000호</Tag1>
+          </HouseholdNames>
+          <LineWrap>
+            <Shadowing />
+            <Line datas={[1, 2, 3, 4, 5, 6]} />
+          </LineWrap>
+          <PriceWrap>
+            <H5 className="price">₩82,755.27</H5>
+            <Tag1 className="compare benefit">+₩12.13</Tag1>
+          </PriceWrap>
+        </Card>
+        <Card direction="row" columnGap={6} padding="10px 16px">
+          <UsageProfile>420</UsageProfile>
+          <HouseholdNames>
+            <H5 className="dong">101동</H5>
+            <Tag1 className="ho">1000호</Tag1>
+          </HouseholdNames>
+          <LineWrap>
+            <Shadowing />
+            <Line datas={[1, 2, 3, 4, 5, 6]} />
+          </LineWrap>
+          <PriceWrap>
+            <H5 className="price">₩82,755.27</H5>
+            <Tag1 className="compare benefit">+₩12.13</Tag1>
+          </PriceWrap>
+        </Card>
+        <Card direction="row" columnGap={6} padding="10px 16px">
+          <UsageProfile>420</UsageProfile>
+          <HouseholdNames>
+            <H5 className="dong">101동</H5>
+            <Tag1 className="ho">1000호</Tag1>
+          </HouseholdNames>
+          <LineWrap>
+            <Shadowing />
+            <Line datas={[1, 2, 3, 4, 5, 6]} />
+          </LineWrap>
+          <PriceWrap>
+            <H5 className="price">₩82,755.27</H5>
+            <Tag1 className="compare benefit">+₩12.13</Tag1>
+          </PriceWrap>
+        </Card>
+        <Card direction="row" columnGap={6} padding="10px 16px">
+          <UsageProfile>420</UsageProfile>
+          <HouseholdNames>
+            <H5 className="dong">101동</H5>
+            <Tag1 className="ho">1000호</Tag1>
+          </HouseholdNames>
+          <LineWrap>
+            <Shadowing />
+            <Line datas={[1, 2, 3, 4, 5, 6]} />
+          </LineWrap>
+          <PriceWrap>
+            <H5 className="price">₩82,755.27</H5>
+            <Tag1 className="compare benefit">+₩12.13</Tag1>
+          </PriceWrap>
+        </Card>
+        <Card direction="row" columnGap={6} padding="10px 16px">
+          <UsageProfile>420</UsageProfile>
+          <HouseholdNames>
+            <H5 className="dong">101동</H5>
+            <Tag1 className="ho">1000호</Tag1>
+          </HouseholdNames>
+          <LineWrap>
+            <Shadowing />
+            <Line datas={[1, 2, 3, 4, 5, 6]} />
+          </LineWrap>
+          <PriceWrap>
+            <H5 className="price">₩82,755.27</H5>
+            <Tag1 className="compare benefit">+₩12.13</Tag1>
+          </PriceWrap>
+        </Card>
       </CardColGroup>
     </Wrap>
   );
