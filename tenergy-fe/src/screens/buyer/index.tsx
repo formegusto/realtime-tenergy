@@ -1,3 +1,5 @@
+import { BuyerContainer } from "@container";
+
 export function BuyerScreen() {
-  return <>구매자 화면</>;
+  return <BuyerContainer />;
 }

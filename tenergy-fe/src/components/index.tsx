@@ -4,6 +4,7 @@ import styled from "styled-components";
 export * from "./auth";
 export * from "./main";
 export * from "./seller";
+export * from "./buyer";
 
 export const Wrapper = styled.main`
   width: 100%;
