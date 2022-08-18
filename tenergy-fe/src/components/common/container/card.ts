@@ -24,12 +24,24 @@ export const CardColGroup = styled.div<CardGroupStyleProps>`
     `}
 `;
 
-export const CardRowGroup = styled.div`
+export const CardRowGroup = styled.div<CardGroupStyleProps>`
   width: 100%;
   display: flex;
   flex-direction: row;
 
-  column-gap: 16px;
+  ${({ columnGap }) =>
+    columnGap
+      ? css`
+          column-gap: ${columnGap}px;
+        `
+      : css`
+          column-gap: 16px;
+        `}
+  ${({ rowGap }) =>
+    rowGap &&
+    css`
+      row-gap: ${rowGap}px;
+    `}
 `;
 
 export const Card = styled.div<CardStyleProps>`

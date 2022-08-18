@@ -6,6 +6,7 @@ export * from "./main";
 export * from "./seller";
 export * from "./buyer";
 export * from "./public";
+export * from "./my";
 
 export const Wrapper = styled.main`
   width: 100%;
