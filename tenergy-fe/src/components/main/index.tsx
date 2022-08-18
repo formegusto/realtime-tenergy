@@ -1,11 +1,13 @@
 import { white } from "@styles/colors";
 import styled from "styled-components";
 import APTInformation from "./APTInformation";
+import MarketStatus from "./MarketStatus";
 
 export function MainComponent() {
   return (
     <Wrap>
       <APTInformation />
+      <MarketStatus />
     </Wrap>
   );
 }

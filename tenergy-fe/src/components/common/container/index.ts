@@ -8,3 +8,14 @@ export const TopContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const SubContainer = styled.div`
+  padding: 0 0 32px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export * from "./card";
