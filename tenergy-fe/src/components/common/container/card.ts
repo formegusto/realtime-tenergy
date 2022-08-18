@@ -1,5 +1,6 @@
 import { blue } from "@styles/colors";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { CardStyleProps } from "./types";
 
 export const CardColGroup = styled.div`
   width: 100%;
@@ -17,8 +18,15 @@ export const CardRowGroup = styled.div`
   column-gap: 16px;
 `;
 
-export const Card = styled.div`
-  padding: 8px 10px;
+export const Card = styled.div<CardStyleProps>`
+  ${({ padding }) =>
+    padding
+      ? css`
+          padding: ${padding};
+        `
+      : css`
+          padding: 8px 10px;
+        `}
   flex: 1;
 
   display: flex;

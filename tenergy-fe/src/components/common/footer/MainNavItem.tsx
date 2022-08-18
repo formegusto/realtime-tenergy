@@ -7,7 +7,7 @@ import { NavItemProps } from "./types";
 function MainNavItem({ item }: NavItemProps) {
   const navigate = useNavigate();
   return (
-    <Wrap onClick={() => navigate(item.path)}>
+    <Wrap onClick={() => navigate(item.path, { replace: true })}>
       <Tenergy size={36} animation />
     </Wrap>
   );
