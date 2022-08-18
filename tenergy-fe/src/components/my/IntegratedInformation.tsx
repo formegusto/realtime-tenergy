@@ -11,43 +11,43 @@ function IntegratedInformation() {
       </UsageProfile>
       <CardColGroup>
         <CardRowGroup columnGap={12}>
-          <Card backgroundColor="transparent">
+          <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">기본요금</H4>
             <H4 className="value">₩ 7,300</H4>
           </Card>
-          <Card backgroundColor="transparent">
+          <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">전력량요금</H4>
             <H4 className="value">₩ 16,852</H4>
           </Card>
         </CardRowGroup>
         <CardRowGroup columnGap={12}>
-          <Card backgroundColor="transparent">
+          <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">기여도 그룹</H4>
             <H4 className="value">4</H4>
           </Card>
-          <Card backgroundColor="transparent">
-            <H4 className="cat">공용부 요금</H4>
-            <H4 className="value">₩ 17,190</H4>
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup columnGap={12}>
-          <Card backgroundColor="trading">
-            <H4 className="cat">기여도 그룹</H4>
-            <H4 className="value">4</H4>
-          </Card>
-          <Card backgroundColor="trading">
+          <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">공용부 요금</H4>
             <H4 className="value">₩ 17,190</H4>
           </Card>
         </CardRowGroup>
       </CardColGroup>
+      <CardRowGroup columnGap={12} className="trade-information">
+        <Card backgroundColor="trading" padding="10px">
+          <H4 className="cat">기여도 그룹</H4>
+          <H4 className="value">4</H4>
+        </Card>
+        <Card backgroundColor="trading" padding="10px">
+          <H4 className="cat">공용부 요금</H4>
+          <H4 className="value">₩ 17,190</H4>
+        </Card>
+      </CardRowGroup>
     </Wrap>
   );
 }
 
 const Wrap = styled.div`
   position: relative;
-  margin: 24px 12px 40px;
+  margin: 24px 12px 48px;
 
   .cat {
     text-align: center;
@@ -58,6 +58,10 @@ const Wrap = styled.div`
     text-align: center;
     color: ${white[900]};
     margin: 10px 0 0;
+  }
+
+  .trade-information {
+    margin: 24px 0 0;
   }
 `;
 
