@@ -41,9 +41,8 @@ export function Doughnut({
   const refSVG = React.useRef<SVGSVGElement>(null);
 
   React.useEffect(() => {
-    while (refSVG.current?.hasChildNodes()) {
+    while (refSVG.current?.hasChildNodes())
       refSVG.current.removeChild(refSVG.current.firstChild!);
-    }
 
     const colors = [
       chartPalette["household"],

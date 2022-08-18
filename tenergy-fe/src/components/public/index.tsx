@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import GroupStatus from "./GroupStatus";
 import PrivatePrice from "./PrivatePrice";
 import PublicPrice from "./PublicPrice";
 import SelectedGroup from "./SelectedGroup";
@@ -10,6 +11,7 @@ export function PublicComponent() {
       <SubContent>
         <SelectedGroup />
         <PrivatePrice />
+        <GroupStatus />
       </SubContent>
     </Wrap>
   );
