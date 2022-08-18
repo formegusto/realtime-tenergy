@@ -1,6 +1,7 @@
 import { blue, chartPalette, white } from "@styles/colors";
 import _ from "lodash";
 import React from "react";
+import { SelectedPieProps } from "./types";
 import { describeArc } from "./utils";
 
 const RADIUS = 50;
@@ -20,10 +21,8 @@ function getPath(d: string, isSelected: boolean): SVGPathElement {
   return path;
 }
 
-export function SelectedPie() {
+export function SelectedPie({ datas, selectedIdx }: SelectedPieProps) {
   const refSVG = React.useRef<SVGSVGElement>(null);
-  const datas = [1, 2, 3, 4, 5];
-  const selectedIdx = 3;
 
   React.useEffect(() => {
     if (refSVG.current) {
@@ -49,6 +48,7 @@ export function SelectedPie() {
 
   return (
     <svg
+      className="pie"
       ref={refSVG}
       xmlns="https://www.w3.org/2000/svg"
       viewBox={`0 0 ${RADIUS * 2} ${RADIUS * 2}`}

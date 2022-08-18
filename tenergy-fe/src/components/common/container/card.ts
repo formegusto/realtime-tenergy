@@ -1,13 +1,28 @@
 import { blue } from "@styles/colors";
 import styled, { css } from "styled-components";
-import { CardStyleProps } from "./types";
+import {
+  cardBackgroundPalette,
+  CardGroupStyleProps,
+  CardStyleProps,
+} from "./types";
 
-export const CardColGroup = styled.div`
+export const CardColGroup = styled.div<CardGroupStyleProps>`
   width: 100%;
   display: flex;
   flex-direction: column;
 
   row-gap: 12px;
+
+  ${({ columnGap }) =>
+    columnGap &&
+    css`
+      column-gap: ${columnGap}px;
+    `}
+  ${({ rowGap }) =>
+    rowGap &&
+    css`
+      row-gap: ${rowGap}px;
+    `}
 `;
 
 export const CardRowGroup = styled.div`
@@ -50,6 +65,14 @@ export const Card = styled.div<CardStyleProps>`
 
   display: flex;
 
+  ${({ backgroundColor }) =>
+    backgroundColor
+      ? css`
+          background-color: ${cardBackgroundPalette[backgroundColor]};
+        `
+      : css`
+          background-color: ${cardBackgroundPalette["blue"]};
+        `}
   background-color: ${blue[500]};
 
   cursor: pointer;
