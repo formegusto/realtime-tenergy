@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 
 export * from "./auth";
 export * from "./main";
+export * from "./seller";
 
 const SPLASHPAGES = ["/", "/auth"];
 

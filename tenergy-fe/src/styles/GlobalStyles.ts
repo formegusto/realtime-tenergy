@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { blue } from "./colors";
+import { blue, other } from "./colors";
 
 export const ResetStyle = createGlobalStyle`
     /* reset code */
@@ -99,5 +99,21 @@ export const NavigateAnimation = createGlobalStyle`
     .left-exit-active {
         transform: translateX(100%);
         transition: transform 300ms ease-in-out;
+    }
+
+    * {
+        -ms-overflow-style: "none";
+        scrollbar-width: none;
+    }
+    *::-webkit-scrollbar {
+        display: "none";
+    }
+
+    .benefit {
+        color: ${other["lightgreen"]}
+    }
+
+    .loss {
+        color: ${other["lightred"]}
     }
 `;

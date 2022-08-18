@@ -13,7 +13,7 @@ export function KETI(props: StyledComponentProps<"p", any, {}, never>) {
 const Logo = styled.p`
   ${fontStyles["p2"]}
   font-weight: 100;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
 
   & > span {
     font-weight: 900;

@@ -1,3 +1,4 @@
+import { KETI } from "@component/common";
 import { other, white } from "@styles/colors";
 import { fontStyles } from "@styles/typo/styles";
 import styled from "styled-components";
@@ -11,19 +12,13 @@ export function MainComponent() {
       <APTInformation />
       <MarketStatus />
       <PublicDistributor />
+      <KETI className="org" />
     </Wrap>
   );
 }
 
 const Wrap = styled.div`
-  padding: 0 0 34px;
-
-  & .title {
-    color: ${white[100]};
-    letter-spacing: 0.1em;
-
-    margin: 0 0 12px;
-  }
+  padding: 0 0 50px;
 
   .distribute-table {
     & .group-price {
@@ -43,5 +38,12 @@ const Wrap = styled.div`
     & .loss {
       color: ${other["lightred"]};
     }
+  }
+
+  & > .org {
+    color: ${white[900]};
+    text-align: center;
+
+    margin: 16px 0 0;
   }
 `;
