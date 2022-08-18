@@ -4,4 +4,7 @@ export type CardGroupStyleProps = {
 
 export type CardStyleProps = {
   padding?: string;
+  direction?: "column" | "row";
+  columnGap?: number;
+  rowGap?: number;
 };

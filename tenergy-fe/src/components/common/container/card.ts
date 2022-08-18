@@ -28,9 +28,27 @@ export const Card = styled.div<CardStyleProps>`
           padding: 8px 10px;
         `}
   flex: 1;
+  ${({ direction }) =>
+    direction
+      ? css`
+          flex-direction: ${direction};
+        `
+      : css`
+          flex-direction: column;
+        `}
+
+  ${({ columnGap }) =>
+    columnGap &&
+    css`
+      column-gap: ${columnGap}px;
+    `}
+  ${({ rowGap }) =>
+    rowGap &&
+    css`
+      row-gap: ${rowGap}px;
+    `}
 
   display: flex;
-  flex-direction: column;
 
   background-color: ${blue[500]};
 
