@@ -1,6 +1,7 @@
 import { blue } from "@styles/colors";
 import styled from "styled-components";
 
+export * from "./ScrollToTop";
 export const UsageProfile = styled.div`
   width: 48px;
   height: 48px;

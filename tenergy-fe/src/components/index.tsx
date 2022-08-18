@@ -10,11 +10,11 @@ export * from "./my";
 
 export const Wrapper = styled.main`
   width: 100%;
-  height: calc(100vh - 116px);
+  /* height: calc(100vh - 116px); */
 
   margin: 60px 0 56px;
 
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 
   .title {
     color: ${white[100]};
