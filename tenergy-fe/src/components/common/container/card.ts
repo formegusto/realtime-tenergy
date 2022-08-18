@@ -1,4 +1,3 @@
-import { blue } from "@styles/colors";
 import styled, { css } from "styled-components";
 import {
   cardBackgroundPalette,
@@ -73,8 +72,8 @@ export const Card = styled.div<CardStyleProps>`
       : css`
           background-color: ${cardBackgroundPalette["blue"]};
         `}
-  background-color: ${blue[500]};
 
-  cursor: pointer;
+  /* cursor: pointer; */
   border-radius: 8px;
+  /* box-sizing: border-box; */
 `;

@@ -19,13 +19,14 @@ export type CardStyleProps = {
   backgroundColor?: CardBackgroundColor;
 };
 
-export type CardBackgroundColor = "blue" | "transparent";
+export type CardBackgroundColor = "blue" | "transparent" | "deepblue";
 
 export type CardBackgroundPalette = {
-  [key in "blue" | "transparent"]: string;
+  [key in CardBackgroundColor]: string;
 };
 
 export const cardBackgroundPalette: CardBackgroundPalette = {
   blue: blue[500]!,
   transparent: "transparent",
+  deepblue: blue[100]!,
 };

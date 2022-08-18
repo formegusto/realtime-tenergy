@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PrivatePrice from "./PrivatePrice";
 import PublicPrice from "./PublicPrice";
 import SelectedGroup from "./SelectedGroup";
 
@@ -8,6 +9,7 @@ export function PublicComponent() {
       <PublicPrice />
       <SubContent>
         <SelectedGroup />
+        <PrivatePrice />
       </SubContent>
     </Wrap>
   );
