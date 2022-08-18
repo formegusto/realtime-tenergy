@@ -1,3 +1,8 @@
+export type TopContainerStyleProps = {
+  isRadius?: boolean;
+  isShadow?: boolean;
+};
+
 export type CardGroupStyleProps = {
   isWrap?: boolean;
 };

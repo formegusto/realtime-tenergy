@@ -8,6 +8,7 @@ export * from "./auth";
 export * from "./main";
 export * from "./seller";
 export * from "./buyer";
+export * from "./public";
 
 const SPLASHPAGES = ["/", "/auth"];
 

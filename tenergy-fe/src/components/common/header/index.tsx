@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MdMiscellaneousServices } from "react-icons/md";
-import { white } from "@styles/colors";
+import { blue, white } from "@styles/colors";
 import SimpleProfile from "./SimpleProfile";
 
 export * from "./NavigateHeader";
@@ -30,4 +30,5 @@ const Wrap = styled.header`
   padding: 0 12px;
 
   color: ${white[900]};
+  background-color: ${blue[100]};
 `;
