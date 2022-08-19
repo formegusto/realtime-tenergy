@@ -1,6 +1,7 @@
 import Express from "express";
 import { adminCheck, controlCheck, loginCheck } from "@mw";
 import {
+  APTModel,
   ControlConfigModel,
   MonthMeterDataModel,
   MonthMeterHistoryModel,
@@ -114,7 +115,10 @@ routes.get(
   loginCheck,
   controlCheck,
   async (req: Express.Request, res: Express.Response) => {
-    return res.status(StatusCodes.OK).json({ control: req.control });
+    const { _id: controlId } = req.control;
+    const APT = await APTModel.findOne({ controlId });
+
+    return res.status(StatusCodes.OK).json({ control: req.control, APT });
   }
 );
 
