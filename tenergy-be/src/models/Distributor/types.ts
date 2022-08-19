@@ -48,4 +48,16 @@ export class Distributor {
   };
 
   static generateBinValues = (datas: Array<number>) => histogram(datas);
+
+  get contributions() {
+    const contRange = _.range(1, this.binValues.length);
+    const medians = _.map(
+      contRange,
+      (idx) => (this.binValues[idx] + this.binValues[idx - 1]) / 2
+    );
+    const medianTotal = _.sum(medians);
+    const contributions = _.map(medians, (median) => median / medianTotal);
+
+    return contributions;
+  }
 }

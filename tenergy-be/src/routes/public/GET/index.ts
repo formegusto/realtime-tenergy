@@ -51,6 +51,9 @@ routes.get(
     const publicPrice = distributor.mixedData!.publicPrice;
     console.log("Public Price", publicPrice);
 
+    // get contributions
+    console.log("contributions", distributor.contributions);
+
     return res.status(StatusCodes.OK).json({
       publicPrice,
     });
