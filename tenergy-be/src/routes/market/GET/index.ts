@@ -9,7 +9,7 @@ import { loginCheck } from "@mw";
 import Express from "express";
 import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
-import { ReqRootQuery, ResRootBody } from "./types";
+import { ReqRootQuery } from "./types";
 
 const routes = Express.Router();
 

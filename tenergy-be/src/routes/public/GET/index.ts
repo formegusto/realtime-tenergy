@@ -83,4 +83,13 @@ routes.get(
   }
 );
 
+// :my id
+routes.get(
+  "/:id",
+  loginCheck,
+  async (req: Express.Request, res: Express.Response) => {
+    return res.send("/public/:kd");
+  }
+);
+
 export default routes;
