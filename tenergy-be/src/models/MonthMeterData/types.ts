@@ -1,8 +1,9 @@
-import { Schema } from "mongoose";
+import { Document, Schema } from "mongoose";
 import { BASIC, ELECRATE, NUGIN_ERR, NUGIN_STEP } from "../../common";
 import { monthToSeason } from "../../utils";
 import _ from "lodash";
 import { MonthMeterHistoryModel } from "../MonthMeterHistory";
+import { MonthMeterDataModel } from ".";
 
 export class MonthMeterData {
   // mongo data
@@ -15,6 +16,7 @@ export class MonthMeterData {
   updatedAt!: Date;
 
   month: number;
+
   constructor(
     name: string,
     kwh: number,
@@ -25,6 +27,15 @@ export class MonthMeterData {
     this.kwh = kwh;
     this.month = month;
     this.role = role;
+  }
+
+  static getFromDocument(document: MonthMeterData, month: number) {
+    return new MonthMeterData(
+      document.name,
+      document.kwh,
+      month,
+      document.role
+    );
   }
 
   get steps(): Array<number> {
