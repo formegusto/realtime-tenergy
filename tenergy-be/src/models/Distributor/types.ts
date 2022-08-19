@@ -2,6 +2,7 @@ import { histogram } from "@utils";
 import { Schema } from "mongoose";
 import { MonthMeterDataModel } from "../MonthMeterData";
 import _ from "lodash";
+import { MixedData, MixedDataBuilder } from "../MixedData";
 
 export class Distributor {
   _id!: Schema.Types.ObjectId;
@@ -13,9 +14,26 @@ export class Distributor {
 
   controlId!: Schema.Types.ObjectId;
 
-  constructor(datas: Array<number>, controlId?: any) {
-    this.binValues = histogram(datas);
+  mixedBuilder?: MixedDataBuilder;
+  mixedData?: MixedData;
+
+  constructor(datas: Array<number> | null, controlId?: any) {
+    this.binValues = datas ? histogram(datas) : [];
     this.controlId = controlId;
+  }
+
+  static getFromDocs(document: Distributor) {
+    const distributor = new Distributor(null, document.controlId);
+    distributor.binValues = document.binValues;
+    distributor.mixedBuilder = new MixedDataBuilder();
+
+    return distributor;
+  }
+
+  async setMixedData(aptUsage: number, month: number) {
+    this.mixedData = (await this.mixedBuilder!.step1(month))
+      .step2(aptUsage, month)
+      .get();
   }
 
   static update = async () => {

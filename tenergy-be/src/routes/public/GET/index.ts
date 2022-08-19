@@ -1,7 +1,9 @@
+import { Distributor } from "@models/types";
 import { ResponseError } from "@common";
 import {
   APTModel,
   ControlConfigModel,
+  DistributorModel,
   MixedDataBuilder,
   MonthMeterDataModel,
 } from "@models";
@@ -40,12 +42,13 @@ routes.get(
     );
 
     // bill calc
-    const builder = new MixedDataBuilder();
-    await builder.step1(control.month);
-    builder.step2!(apt!.apt, control.month);
-
-    const mixedData = builder.get();
-    const publicPrice = mixedData.publicPrice;
+    // distributor
+    const distributorDocs = await DistributorModel.findOne({
+      controlId: control._id,
+    });
+    const distributor = Distributor.getFromDocs(distributorDocs!);
+    await distributor.setMixedData(apt!.apt, control.month);
+    const publicPrice = distributor.mixedData!.publicPrice;
     console.log("Public Price", publicPrice);
 
     return res.status(StatusCodes.OK).json({

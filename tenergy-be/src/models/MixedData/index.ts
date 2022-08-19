@@ -38,6 +38,7 @@ export class MixedDataBuilder {
     );
 
     this.mix.households = monthMeterData;
+    return this;
   }
 
   // set APT()
@@ -48,6 +49,7 @@ export class MixedDataBuilder {
       month,
       "seller"
     );
+    return this;
   }
 
   get() {
