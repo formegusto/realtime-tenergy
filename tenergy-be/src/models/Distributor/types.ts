@@ -61,12 +61,12 @@ export class Distributor {
     return contributions;
   }
   get histInfo() {
-    const histSizeBins = _.takeRight(this.binValues, this.binValues.length - 1);
+    const histSizeBins = _.dropRight(this.binValues);
     const histInfo = _.fill(new Array(this.binValues.length - 1), 0);
     _.forEach(this.mixedData!.households, (household) => {
       const idx = _.filter(histSizeBins, (bin) => bin < household.kwh).length;
 
-      histInfo[idx]++;
+      histInfo[idx - 1]++;
     });
 
     return histInfo;

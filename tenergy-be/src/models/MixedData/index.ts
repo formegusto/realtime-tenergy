@@ -27,13 +27,13 @@ export class MixedData {
 
   get householdDistribution() {
     const table = this.distributor!.table;
-    console.log(table);
 
     const checkBins = _.dropRight(this.distributor!.binValues);
     const groupNum = _.filter(
       checkBins,
       (bin) => bin < this.household!.kwh
     ).length;
+    console.log(this.household!.kwh, groupNum, table);
 
     return _.find(table, (t) => t.groupNo === groupNum);
   }
