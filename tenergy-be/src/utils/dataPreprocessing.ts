@@ -63,5 +63,7 @@ export function demandFunction(
   const _getDemand = (x: number) => gradient * x + Y1;
   Y1 = _getDemand(X1);
 
-  return _getDemand(quantity) * quantity;
+  const demand = _getDemand(quantity) * quantity;
+
+  return _.isNaN(demand) || demand < 0 ? 0 : demand;
 }
