@@ -60,4 +60,63 @@ export class Distributor {
 
     return contributions;
   }
+  get histInfo() {
+    const histSizeBins = _.takeRight(this.binValues, this.binValues.length - 1);
+    const histInfo = _.fill(new Array(this.binValues.length - 1), 0);
+    _.forEach(this.mixedData!.households, (household) => {
+      const idx = _.filter(histSizeBins, (bin) => bin < household.kwh).length;
+
+      histInfo[idx]++;
+    });
+
+    return histInfo;
+  }
+
+  get priPrice() {
+    return this.mixedData!.publicPrice / this.mixedData!.households!.length;
+  }
+
+  get groupPrice() {
+    const groupContributionPrices = _.map(
+      this.contributions,
+      (contribution) => this.priPrice * contribution
+    );
+    const totalContributionPrice = _.sum(
+      _.map(_.zip(this.histInfo, groupContributionPrices), (v) =>
+        _.multiply.apply(null, v as any)
+      )
+    );
+    const errPriPrice =
+      (this.mixedData!.publicPrice - totalContributionPrice) /
+      this.mixedData!.households!.length;
+    const groupPrice = _.map(
+      groupContributionPrices,
+      (contPrice) => contPrice + errPriPrice
+    );
+
+    return groupPrice;
+  }
+
+  get errGroupPrice() {
+    return _.map(this.groupPrice, (gPrice) => gPrice - this.priPrice);
+  }
+
+  get table() {
+    const contributions = this.contributions;
+    const groupPrice = this.groupPrice;
+    const errGroupPrice = this.errGroupPrice;
+    const groupRange = _.range(1, this.binValues.length);
+
+    return _.map(groupRange, (groupNo, idx) =>
+      _.zipObject(
+        ["groupNo", "contribute", "price", "err"],
+        [
+          groupNo,
+          Math.round(contributions[idx] * 100) / 100,
+          Math.round(groupPrice[idx]),
+          Math.round(errGroupPrice[idx]),
+        ]
+      )
+    );
+  }
 }

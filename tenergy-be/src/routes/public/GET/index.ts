@@ -52,10 +52,33 @@ routes.get(
     console.log("Public Price", publicPrice);
 
     // get contributions
+    const contributions = distributor.contributions;
     console.log("contributions", distributor.contributions);
+
+    // histInfo
+
+    console.log(
+      "hist information",
+      distributor.histInfo,
+      _.sum(distributor.histInfo)
+    );
+
+    // get groupPrices
+    // contribution price
+    console.log(distributor.binValues);
+
+    const groupPrice = distributor.groupPrice;
+    console.log(groupPrice);
+
+    // groupPrices Error
+    const errGroupPrice = distributor.errGroupPrice;
+    console.log(distributor.errGroupPrice);
+
+    const table = distributor.table;
 
     return res.status(StatusCodes.OK).json({
       publicPrice,
+      distributionTable: table,
     });
   }
 );
