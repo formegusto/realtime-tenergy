@@ -1,8 +1,26 @@
 import { white } from "@styles/colors";
 import { fontStyles } from "@styles/typo/styles";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { block, colors } from "./styles";
-import { ButtonStyleProps } from "./types";
+import { ButtonGroupStyleProps, ButtonStyleProps } from "./types";
+
+export const CircleButton = styled.button<ButtonStyleProps>`
+  width: 64px;
+  height: 64px;
+  ${({ colorTheme }) => (colorTheme ? colors[colorTheme] : colors["blue"])}
+
+  border-radius: 100%;
+  outline: none;
+  border: none;
+
+  color: ${white[900]};
+  ${fontStyles["h5"]}
+  &:hover {
+    opacity: 0.9;
+  }
+  cursor: pointer;
+  transition: 0.2s;
+`;
 
 export const Button = styled.button<ButtonStyleProps>`
   ${fontStyles["h4"]}
@@ -25,12 +43,18 @@ export const Button = styled.button<ButtonStyleProps>`
   }
 `;
 
-export const ButtonGroup = styled.div`
+export const ButtonGroup = styled.div<ButtonGroupStyleProps>`
   display: flex;
   width: 100%;
   column-gap: 12px;
+  justify-content: center;
+  align-items: center;
 
   & > button {
-    flex: 1;
+    ${({ nonFlex }) =>
+      !nonFlex &&
+      css`
+        flex: 1;
+      `};
   }
 `;

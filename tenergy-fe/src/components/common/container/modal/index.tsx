@@ -14,6 +14,8 @@ import { Tag1 } from "@styles/typo";
 import QuantitySetting from "./QuantitySetting";
 import { Button } from "@component/common/button";
 
+export * from "./styles";
+
 export function ModalHeader() {
   return (
     <Header>

@@ -7,8 +7,9 @@ import { RecoilRoot } from "recoil";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ScrollToTop } from "@component/common/etc";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { QuantitySettingModal } from "@component/common/container";
-// import { TradeInformation } from "@component";
+import { TradeConfirmModal } from "@component";
+// import { QuantitySettingModal } from "@component/common/container";
+import { TradeInformation } from "@component";
 // import { TradeRequest, TradeRequestList } from "@component";
 
 // import { Splash } from "@component/common";
@@ -28,8 +29,9 @@ root.render(
         <App />
         {/* <TradeRequest type="response" /> */}
         {/* <TradeRequestList /> */}
-        {/* <TradeInformation /> */}
-        <QuantitySettingModal />
+        <TradeInformation />
+        {/* <QuantitySettingModal /> */}
+        <TradeConfirmModal />
       </Router>
       {/* <Splash /> */}
     </RecoilRoot>

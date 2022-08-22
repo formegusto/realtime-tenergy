@@ -1,4 +1,4 @@
-import { blue, other } from "@styles/colors";
+import { blue, chartPalette, other } from "@styles/colors";
 import { css } from "styled-components";
 import { Colors } from "./types";
 
@@ -10,6 +10,9 @@ export const block = css`
 export const colors: Colors = {
   blue: css`
     background-color: ${blue[900]};
+  `,
+  lightblue: css`
+    background-color: ${chartPalette["public"]};
   `,
   red: css`
     background-color: ${other["lightred"]};
