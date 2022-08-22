@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^4.2.1",
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.183",
     "@types/react-transition-group": "^4.4.5",

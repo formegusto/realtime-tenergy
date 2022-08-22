@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ScrollToTop } from "@component/common/etc";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // import { Splash } from "@component/common";
 
 const root = ReactDOM.createRoot(
@@ -14,6 +15,7 @@ const root = ReactDOM.createRoot(
 const queryClient = new QueryClient();
 root.render(
   <QueryClientProvider client={queryClient}>
+    <ReactQueryDevtools initialIsOpen />
     <RecoilRoot>
       <ResetStyle />
       <NavigateAnimation />
