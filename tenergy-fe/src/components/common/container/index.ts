@@ -35,3 +35,4 @@ export const SubContainer = styled.div`
 `;
 
 export * from "./card";
+export * from "./modal";

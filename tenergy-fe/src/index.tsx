@@ -7,6 +7,7 @@ import { RecoilRoot } from "recoil";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ScrollToTop } from "@component/common/etc";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { TradeRequest } from "@component";
 // import { Splash } from "@component/common";
 
 const root = ReactDOM.createRoot(
@@ -22,6 +23,7 @@ root.render(
       <Router>
         <ScrollToTop />
         <App />
+        <TradeRequest />
       </Router>
       {/* <Splash /> */}
     </RecoilRoot>
