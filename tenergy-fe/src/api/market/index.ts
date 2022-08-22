@@ -28,7 +28,7 @@ export const getSellers = async () =>
 export const getBuyers = async (quantity: number) =>
   (
     await client.get<ResGetBuyers>(
-      `${BASEPATH}/buyer?${QueryString.stringify({ quantity })}}`,
+      `${BASEPATH}/buyer?${QueryString.stringify({ quantity })}`,
       {
         headers: {
           authorization: localStorage.getItem("token")!,

@@ -1,12 +1,17 @@
+import { ResGetBuyers } from "@api/types";
 import styled from "styled-components";
 import BuyerList from "./BuyerList";
 import TotalAverage from "./TotalAverage";
 
-export function BuyerComponent() {
+type Props = {
+  data: ResGetBuyers;
+};
+
+export function BuyerComponent({ data }: Props) {
   return (
     <Wrap>
-      <TotalAverage />
-      <BuyerList />
+      <TotalAverage {...data} />
+      <BuyerList datas={data.buyers} />
     </Wrap>
   );
 }

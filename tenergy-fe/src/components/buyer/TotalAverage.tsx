@@ -4,16 +4,23 @@ import { H1, Tag1 } from "@styles/typo";
 import { fontStyles } from "@styles/typo/styles";
 import styled from "styled-components";
 
-function TotalAverage() {
+type Props = {
+  average: number;
+  prevErr: number;
+};
+
+function TotalAverage({ average, prevErr }: Props) {
   return (
     <TopContainer>
       <Tag1 className="title">TOTAL AVERAGE</Tag1>
       <PriceWrap>
         <span className="unit unit-con">₩</span>
-        <H1>35,736.12</H1>
+        <H1>{average.toLocaleString("ko-KR")}</H1>
         <span className="unit unit-price">KRW</span>
       </PriceWrap>
-      <Tag1 className="compare benefit">+₩67.13</Tag1>
+      <Tag1 className={`compare ${prevErr < 0 ? "loss" : "benefit"}`}>
+        {prevErr > 0 && "+"}₩{prevErr.toLocaleString("ko-KR")}
+      </Tag1>
     </TopContainer>
   );
 }

@@ -1,135 +1,47 @@
+import { Buyer } from "@api/types";
 import { Line } from "@component/common/chart";
 import { Card, CardColGroup } from "@component/common/container";
 import { UsageProfile } from "@component/common/etc";
 import { white } from "@styles/colors";
 import { H5, Tag1 } from "@styles/typo";
 import styled from "styled-components";
+import _ from "lodash";
 
-function BuyerList() {
+type Props = {
+  datas: Buyer[];
+};
+
+function BuyerList({ datas }: Props) {
   return (
     <Wrap>
       <Tag1>거래 추천 가구</Tag1>
       <CardColGroup>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
-        <Card direction="row" columnGap={6} padding="10px 16px">
-          <UsageProfile>420</UsageProfile>
-          <HouseholdNames>
-            <H5 className="dong">101동</H5>
-            <Tag1 className="ho">1000호</Tag1>
-          </HouseholdNames>
-          <LineWrap>
-            <Shadowing />
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </LineWrap>
-          <PriceWrap>
-            <H5 className="price">₩82,755.27</H5>
-            <Tag1 className="compare benefit">+₩12.13</Tag1>
-          </PriceWrap>
-        </Card>
+        {datas.map((data, idx) => (
+          <Card
+            key={`buyer-table-col-${idx}`}
+            direction="row"
+            columnGap={6}
+            padding="10px 16px"
+          >
+            <UsageProfile>{Math.round(_.nth(data.history, -1)!)}</UsageProfile>
+            <HouseholdNames>
+              <H5 className="dong">{data.name.split("-")[1]}동</H5>
+              <Tag1 className="ho">{data.name.split("-")[2]}호</Tag1>
+            </HouseholdNames>
+            <LineWrap>
+              <Shadowing />
+              <Line datas={data.history} />
+            </LineWrap>
+            <PriceWrap>
+              <H5 className="price">
+                ₩{data.nowPrice.toLocaleString("ko-KR")}
+              </H5>
+              <Tag1 className={`compare ${data.err < 0 ? "loss" : "benefit"}`}>
+                {data.err > 0 && "+"}₩{data.err.toLocaleString("ko-KR")}
+              </Tag1>
+            </PriceWrap>
+          </Card>
+        ))}
       </CardColGroup>
     </Wrap>
   );
