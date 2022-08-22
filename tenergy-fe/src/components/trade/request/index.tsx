@@ -1,4 +1,4 @@
-import { Button } from "@component/common/button";
+import { Button, ButtonGroup } from "@component/common/button";
 import { FullScreenModal } from "@component/common/container";
 import {
   Table,
@@ -11,15 +11,23 @@ import {
 } from "@component/common/table";
 import RequestTable from "./RequestTable";
 import RequestUsage from "./RequestUsage";
+import { TradeRequestProps } from "./types";
 
-export function TradeRequest() {
+export function TradeRequest({ type }: TradeRequestProps) {
   return (
     <FullScreenModal>
       <RequestUsage>30</RequestUsage>
       <RequestTable />
-      <Button className="confirm-btn" colorTheme="darkgreen" isBlock>
-        거래요청
-      </Button>
+      {type === "request" ? (
+        <Button className="confirm-btn" colorTheme="darkgreen" isBlock>
+          거래요청
+        </Button>
+      ) : (
+        <ButtonGroup className="confirm-btn">
+          <Button colorTheme="red">거절</Button>
+          <Button colorTheme="darkgreen">수정</Button>
+        </ButtonGroup>
+      )}
     </FullScreenModal>
   );
 }

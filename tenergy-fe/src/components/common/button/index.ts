@@ -24,3 +24,13 @@ export const Button = styled.button<ButtonStyleProps>`
     opacity: 0.9;
   }
 `;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  width: 100%;
+  column-gap: 12px;
+
+  & > button {
+    flex: 1;
+  }
+`;
