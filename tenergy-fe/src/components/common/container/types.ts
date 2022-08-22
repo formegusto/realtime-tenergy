@@ -1,4 +1,4 @@
-import { blue, chartPalette } from "@styles/colors";
+import { blue, chartPalette, other } from "@styles/colors";
 
 export type TopContainerStyleProps = {
   isRadius?: boolean;
@@ -14,6 +14,8 @@ export type CardGroupStyleProps = {
 export type CardStyleProps = {
   padding?: string;
   direction?: "column" | "row";
+  // justify?: string;
+  // align?: string;
   columnGap?: number;
   rowGap?: number;
   backgroundColor?: CardBackgroundColor;
@@ -24,6 +26,7 @@ export type CardBackgroundColor =
   | "transparent"
   | "deepblue"
   | "trading"
+  | "darkgreen"
   | "public";
 
 export type CardBackgroundPalette = {
@@ -36,4 +39,5 @@ export const cardBackgroundPalette: CardBackgroundPalette = {
   deepblue: blue[100]!,
   trading: chartPalette["trading"]!,
   public: chartPalette["public"]!,
+  darkgreen: other["darkgreen"]!,
 };

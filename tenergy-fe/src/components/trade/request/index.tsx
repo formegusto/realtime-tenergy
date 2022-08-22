@@ -9,6 +9,8 @@ import {
   TableHeadCol,
   TableHeadRow,
 } from "@component/common/table";
+import { H2 } from "@styles/typo";
+import Information from "./Information";
 import RequestTable from "./RequestTable";
 import RequestUsage from "./RequestUsage";
 import { TradeRequestProps } from "./types";
@@ -71,6 +73,15 @@ export function TradeRequestList() {
           </TableBodyRow>
         </TableBody>
       </Table>
+    </FullScreenModal>
+  );
+}
+
+export function TradeInformation() {
+  return (
+    <FullScreenModal>
+      <H2 className="title">보유 거래 사용량</H2>
+      <Information />
     </FullScreenModal>
   );
 }
