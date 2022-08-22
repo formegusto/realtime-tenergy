@@ -1,13 +1,22 @@
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import SellerList from "./SellerList";
 import TradableUsage from "./TrableUsage";
+import _ from "lodash";
+import { getSellers } from "@api";
 
 export function SellerComponent() {
-  return (
+  const { data } = useQuery(["getSellersQuery"], getSellers, {
+    refetchOnWindowFocus: false,
+  });
+
+  return data ? (
     <Wrap>
-      <TradableUsage />
-      <SellerList />
+      <TradableUsage data={data.tradableUsage} />
+      <SellerList datas={_.chunk(data.sellers, 2)} />
     </Wrap>
+  ) : (
+    <></>
   );
 }
 

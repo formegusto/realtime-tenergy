@@ -1,213 +1,37 @@
+import { Seller } from "@api/types";
 import { Line } from "@component/common/chart";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
 import { UsageProfile } from "@component/common/etc";
 import { white } from "@styles/colors";
 import { H5, Tag1 } from "@styles/typo";
 import styled from "styled-components";
+import _ from "lodash";
 
-function SellerList() {
+type Props = {
+  datas: Seller[][];
+};
+
+function SellerList({ datas }: Props) {
   return (
     <Wrap>
       <Tag1>거래 가능 판매자</Tag1>
       <CardColGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-          <Card padding="16px 12px">
-            <HouseholdInformation>
-              <UsageProfile>10</UsageProfile>
-              <HouseholdNames>
-                <H5 className="dong">101동</H5>
-                <Tag1 className="ho">1000호</Tag1>
-              </HouseholdNames>
-            </HouseholdInformation>
-            <Line datas={[1, 2, 3, 4, 5, 6]} />
-          </Card>
-        </CardRowGroup>
+        {datas.map((data, idx) => (
+          <CardRowGroup key={`seller-table-row-${idx}`}>
+            {data.map(({ _id, kwh, name }) => (
+              <Card padding="16px 12px" key={`seller-${_id}`}>
+                <HouseholdInformation>
+                  <UsageProfile>{Math.round(_.nth(kwh, -1)!)}</UsageProfile>
+                  <HouseholdNames>
+                    <H5 className="dong">{name.split("-")[1]}동</H5>
+                    <Tag1 className="ho">{name.split("-")[2]}호</Tag1>
+                  </HouseholdNames>
+                </HouseholdInformation>
+                <Line datas={kwh} />
+              </Card>
+            ))}
+          </CardRowGroup>
+        ))}
       </CardColGroup>
     </Wrap>
   );

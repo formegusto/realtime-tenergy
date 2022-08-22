@@ -1,3 +1,4 @@
+import { TradableUsage as ITradableUsage } from "@api/types";
 import { TopContainer } from "@component/common/container";
 import { white } from "@styles/colors";
 import { H1, H2, Tag1 } from "@styles/typo";
@@ -5,16 +6,23 @@ import { fontStyles } from "@styles/typo/styles";
 import { MdFlashOn } from "react-icons/md";
 import styled from "styled-components";
 
-function TradableUsage() {
+type Props = {
+  data: ITradableUsage;
+};
+
+function TradableUsage({ data }: Props) {
   return (
     <TopContainer>
       <Tag1 className="title">TRADABLE USAGE</Tag1>
       <Usage>
         <MdFlashOn size={20} color={white[500]} />
-        <H1 className="usage">2,124</H1>
+        <H1 className="usage">{data.kwh.toLocaleString("ko-KR")}</H1>
         <H2 className="unit">kWh</H2>
       </Usage>
-      <Compare className="benefit">+100kWh</Compare>
+      <Compare className={`${data.prevErr < 0 ? "loss" : "benefit"}`}>
+        {data.prevErr > 0 && "+"}
+        {data.prevErr.toLocaleString("ko-KR")}kWh
+      </Compare>
     </TopContainer>
   );
 }
