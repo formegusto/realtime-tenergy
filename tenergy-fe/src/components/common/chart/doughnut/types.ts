@@ -1,7 +1,10 @@
+import { Apt } from "@api/types";
+
 export type DoughnutStyleProps = {
   size?: number;
 };
 
 export type DoughnutInteractionProps = {
-  data: Array<number>;
+  apt: Apt;
+  aptMean: Apt;
 };

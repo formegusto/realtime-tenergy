@@ -1,18 +1,22 @@
+import { getAPT } from "@api";
 import { Doughnut, Line } from "@component/common/chart";
 import { TopContainer } from "@component/common/container";
 import { Tag1 } from "@styles/typo";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import ChartInformation from "./ChartInformation";
 
 function APTInformation() {
+  const { data } = useQuery(["getAptQuery"], getAPT, {});
+
   return (
     <TopContainer>
       <Tag1 className="title">APT INFORMATION</Tag1>
       <Content>
-        <Doughnut data={[5, 3, 2]} size={150} />
+        {data && <Doughnut apt={data.apt} aptMean={data.aptMean} size={150} />}
         <ContentIntro>
           <ChartInformation />
-          <Line datas={[10, 20, 30]} />
+          {data && <Line datas={data.history} />}
         </ContentIntro>
       </Content>
     </TopContainer>

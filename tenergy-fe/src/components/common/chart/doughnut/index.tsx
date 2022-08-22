@@ -35,34 +35,34 @@ function GetCircle(
 }
 
 export function Doughnut({
-  data,
+  apt,
+  aptMean,
   ...styleProps
 }: DoughnutInteractionProps & DoughnutStyleProps) {
   const refSVG = React.useRef<SVGSVGElement>(null);
 
   React.useEffect(() => {
+    const seq = ["household", "trading", "public"];
+    const datas = _.range(0, 3).map((idx) => (aptMean as any)[seq[idx]]);
+
     while (refSVG.current?.hasChildNodes())
       refSVG.current.removeChild(refSVG.current.firstChild!);
-
     const colors = [
       chartPalette["household"],
       chartPalette["trading"],
       chartPalette["public"],
     ];
-
     const acc = _.reduce(
-      data,
+      datas,
       (prev, cur, idx) => _.concat(prev, prev[idx] + cur),
       [0]
     );
-    const total = _.sum(data);
-
-    _.forEach(data, (d, idx) => {
+    const total = _.sum(datas);
+    _.forEach(datas, (d, idx) => {
       const ratio = d / total;
       const offset = (acc[idx] / total) * DIAMETER - DIAMETER / 4;
       const fillSpace = DIAMETER * ratio;
       const emptySpace = DIAMETER - fillSpace;
-
       refSVG.current!.appendChild(
         GetCircle(
           colors[idx]!,
@@ -73,7 +73,7 @@ export function Doughnut({
         )
       );
     });
-  }, [data]);
+  }, [aptMean]);
 
   return (
     <Wrap {...styleProps}>
@@ -84,7 +84,7 @@ export function Doughnut({
         viewBox={`0 0 ${RADIUS * 2 + STROKEWIDTH} ${RADIUS * 2 + STROKEWIDTH}`}
         xmlns="https://www.w3.org/2000/svg"
       />
-      <Title>{_.sum(data)}</Title>
+      <Title>{aptMean.apt}</Title>
     </Wrap>
   );
 }
