@@ -1,5 +1,10 @@
 import { MonthMeterDataModel } from "../MonthMeterData";
-import { Distributor, MonthMeterData } from "../types";
+import {
+  Distributor,
+  MonthMeterData,
+  ControlConfig,
+  HouseholdIntegratedInformation,
+} from "../types";
 import _ from "lodash";
 import { DistributorModel } from "../Distributor";
 import { MonthMeterHistoryModel } from "../MonthMeterHistory";
@@ -37,11 +42,47 @@ export class MixedData {
 
     return _.find(table, (t) => t.groupNo === groupNum);
   }
+
+  get houesholdIntegratedBill() {
+    const householdDistribution = this.householdDistribution;
+
+    const basicPrice = this.household!.basic;
+    const elecRatePrice = this.household!.elecRate;
+    const householdPrice = basicPrice + elecRatePrice;
+    const publicPrice = householdDistribution!.price;
+    const tradePrice = 0;
+    const bill = householdPrice + publicPrice - tradePrice;
+
+    return {
+      meter: {
+        kwh: this.household!.kwh,
+        step: this.household!.step + 1,
+      },
+      price: {
+        basicPrice,
+        elecRatePrice,
+        householdPrice,
+        publicPrice,
+        tradePrice,
+        bill,
+      },
+      distribution: householdDistribution,
+    };
+  }
 }
 
 export class MixedDataBuilder {
   private _prev: number;
   mix: MixedData;
+  month?: number;
+
+  // autoSet
+  async set(control: ControlConfig, name: string) {
+    await this.step1(control.month);
+    await this.step2_ex(control._id, control.month);
+    await this.step3(name);
+    await this.step4(control._id as any);
+  }
 
   set prev(prev: number) {
     this._prev = prev - 1;
@@ -59,6 +100,7 @@ export class MixedDataBuilder {
   // set households
   // prev == 전날이면 -1 => 실제 쿼리는 -2로
   async step1(month: number) {
+    this.month = month;
     const _monthMeterData = await MonthMeterHistoryModel.find(
       {},
       { _id: 0, name: 1, kwh: { $slice: this.prev } }
@@ -116,7 +158,10 @@ export class MixedDataBuilder {
       },
       { name: 1, kwh: 1 }
     );
-    this.mix.household = meterData!;
+    this.mix.household = MonthMeterData.getFromDocument(
+      meterData!,
+      this.month!
+    );
     return this;
   }
 

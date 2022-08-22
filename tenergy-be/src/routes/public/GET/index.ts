@@ -56,7 +56,6 @@ routes.get(
     console.log("contributions", distributor.contributions);
 
     // histInfo
-
     console.log(
       "hist information",
       distributor.histInfo,
@@ -128,7 +127,7 @@ routes.get(
 
     await distributor.setMixedData(APTUsage, control.month);
 
-    // get Groupd
+    // get Group
 
     return res.status(StatusCodes.OK).json({
       publicPrice: nowPublicPrice,

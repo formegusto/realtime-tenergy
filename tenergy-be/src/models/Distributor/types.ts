@@ -120,3 +120,10 @@ export class Distributor {
     );
   }
 }
+
+export type Distribution = {
+  groupNo: number;
+  contribute: number;
+  price: number;
+  err: number;
+};
