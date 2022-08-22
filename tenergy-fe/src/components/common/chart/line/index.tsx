@@ -42,20 +42,22 @@ export function Line({ datas }: LineStyleProps) {
     }
     if (svgInfo) {
       const dataLength = datas.length;
-      const increaseX = svgInfo.viewX / dataLength;
+      const increaseX = svgInfo.viewX / (dataLength - 1);
 
       const min = _.min(datas)!;
       const max = _.max(datas)!;
 
       const d: Array<string | number> = [];
-      d.push("M");
-      d.push(0, svgInfo.viewY);
+      // d.push("M");
+      // d.push(0, svgInfo.viewY);
       datas.forEach((data, idx) => {
-        const xEnd = increaseX * (idx + 1);
+        if (idx === 0) d.push("M");
+        else d.push("L");
+        const xEnd = increaseX * idx;
         const norm = (data - min) / (max - min);
         const yEnd = svgInfo.viewY * (1 - norm);
 
-        d.push("L", xEnd, yEnd);
+        d.push(xEnd, yEnd);
       });
 
       refSVG.current?.appendChild(getPath(d));

@@ -1,10 +1,24 @@
+import { getMarketStatus } from "@api";
 import { Line } from "@component/common/chart";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
+import { quantityState } from "@store/atom";
 import { white } from "@styles/colors";
 import { Tag1, Tag2 } from "@styles/typo";
+import { useQuery } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 function MarketStatus() {
+  const quantity = useRecoilValue(quantityState);
+  console.log(quantity);
+  const { data } = useQuery(
+    ["getMarketStatus", quantity],
+    ({ queryKey }) => getMarketStatus(queryKey[1] as number),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
+
   return (
     <Wrap>
       <Tag1 className="title">MARKET STATUS</Tag1>
@@ -12,21 +26,21 @@ function MarketStatus() {
         <CardRowGroup>
           <Card>
             <Tag2 className="card-title">BUYER COUNT</Tag2>
-            <Count>56</Count>
+            <Count>{data?.buyerCount}</Count>
           </Card>
           <Card>
             <Tag2 className="card-title">SELLER COUNT</Tag2>
-            <Count>12</Count>
+            <Count>{data?.sellerCount}</Count>
           </Card>
         </CardRowGroup>
         <CardRowGroup>
           <Card>
             <Tag2 className="card-title">TOTAL AVERAGE</Tag2>
-            <Line datas={[10, 20, 30, 31, 40, 41, 51]} />
+            {data && <Line datas={data.average} />}
           </Card>
           <Card>
             <Tag2 className="card-title">TRADABLE USAGE</Tag2>
-            <Line datas={[10, 20, 30, 31, 40, 41, 51]} />
+            {data && <Line datas={data.tradable} />}
           </Card>
         </CardRowGroup>
       </CardColGroup>
