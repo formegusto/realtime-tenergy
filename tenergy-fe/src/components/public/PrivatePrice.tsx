@@ -4,23 +4,31 @@ import { H2, Tag2 } from "@styles/typo";
 import { fontStyles } from "@styles/typo/styles";
 import styled from "styled-components";
 
-function PrivatePrice() {
+type Props = {
+  privatePublicPrice: number;
+  price: number;
+  err: number;
+};
+
+function PrivatePrice({ privatePublicPrice, price, err }: Props) {
   return (
     <Wrap>
       <CardRowGroup>
         <Card backgroundColor="deepblue" padding="0" className="card">
           <Tag2 className="private-public-title">공용부 요금</Tag2>
           <H2 className="price">
-            <span>16,685</span>
+            <span>{privatePublicPrice.toLocaleString("ko-KR")}</span>
             <span className="unit">KRW</span>
           </H2>
         </Card>
         <DetailCardWrap>
-          <Detail>+505</Detail>
+          <Detail className={err < 0 ? "error-benefit" : "error-loss"}>
+            {err.toLocaleString("ko-KR")}
+          </Detail>
           <Card backgroundColor="deepblue" padding="0" className="card">
             <Tag2 className="private-public-title">분배 요금</Tag2>
             <H2 className="price">
-              <span>17,190</span>
+              <span>{price.toLocaleString("ko-KR")}</span>
               <span className="unit">KRW</span>
             </H2>
           </Card>
@@ -50,7 +58,13 @@ const Detail = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 65px;
-  background-color: ${other["lightred"]};
+  &.error-benefit {
+    background-color: ${other["lightgreen"]};
+  }
+  &.error-loss {
+    background-color: ${other["lightred"]};
+  }
+
   padding: 0 0 6px;
 
   transform: translateY(28px);

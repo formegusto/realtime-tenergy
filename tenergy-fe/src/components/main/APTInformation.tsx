@@ -7,7 +7,9 @@ import styled from "styled-components";
 import ChartInformation from "./ChartInformation";
 
 function APTInformation() {
-  const { data } = useQuery(["getAptQuery"], getAPT, {});
+  const { data } = useQuery(["getAptQuery"], getAPT, {
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <TopContainer>

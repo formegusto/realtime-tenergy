@@ -1,23 +1,38 @@
+import { Distribution } from "@api/types";
 import { SelectedPie } from "@component/common/chart";
 import { Card, CardColGroup } from "@component/common/container";
 import { white } from "@styles/colors";
 import { H1, Tag1 } from "@styles/typo";
 import styled from "styled-components";
+import _ from "lodash";
 
-function SelectedGroup() {
+type Props = {
+  data: Distribution;
+  table: Distribution[];
+};
+
+function SelectedGroup({ data, table }: Props) {
+  const numbers = _.map(table, ({ groupNo }) => groupNo);
+
   return (
     <Wrap>
       <PieWrap>
-        <SelectedPie datas={[1, 2, 3, 4, 3, 4]} selectedIdx={2} />
+        <SelectedPie
+          datas={numbers}
+          selectedIdx={_.findIndex(
+            numbers,
+            (number) => number === data.groupNo
+          )}
+        />
       </PieWrap>
       <CardColGroup rowGap={10}>
         <Card backgroundColor="transparent" padding="0">
           <Tag1 className="selected-text selected-title">기여도 그룹</Tag1>
-          <H1 className="selected-text selected-value">24</H1>
+          <H1 className="selected-text selected-value">{data.groupNo}</H1>
         </Card>
         <Card backgroundColor="transparent" padding="0">
           <Tag1 className="selected-text selected-title">기여도</Tag1>
-          <H1 className="selected-text selected-value">0.18</H1>
+          <H1 className="selected-text selected-value">{data.contribute}</H1>
         </Card>
       </CardColGroup>
     </Wrap>

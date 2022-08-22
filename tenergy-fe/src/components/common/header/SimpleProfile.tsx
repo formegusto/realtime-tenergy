@@ -3,15 +3,21 @@ import { Tag1 } from "@styles/typo";
 import styled from "styled-components";
 import { MdRoofing } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { Household } from "@api/types";
+import _ from "lodash";
 
-function SimpleProfile() {
+type Props = {
+  data: Household;
+};
+
+function SimpleProfile({ data }: Props) {
   const navigate = useNavigate();
 
   return (
     <Wrap>
       <MdRoofing size={16} />
       <Tag1 onClick={() => navigate("/my", { replace: true })}>
-        101동-1000호
+        {_.drop(data.name.split("-")).join("-")}
       </Tag1>
     </Wrap>
   );
