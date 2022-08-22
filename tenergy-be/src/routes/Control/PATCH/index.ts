@@ -117,7 +117,7 @@ routes.patch(
     ).length;
     const sellers = _.filter(newMonthMeter, (meter) => meter.role === "seller");
     const tradable = _.sumBy(
-      newMonthMeter,
+      sellers,
       (meter) => NUGIN_STEP[monthToSeason(month)][1] - meter.kwh
     );
 
