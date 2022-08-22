@@ -43,8 +43,11 @@ routes.get(
     console.log("apt 정보", apt);
 
     const { householdCount } = apt;
-    const aptMean = _.mapValues(apt, (a) => (a as number) / householdCount);
+    const aptMean = _.mapValues(apt, (a) =>
+      Math.round((a as number) / householdCount)
+    );
     delete (aptMean as any).householdCount;
+    aptMean.trading = 0;
     console.log("apt 평균정보", aptMean);
 
     const history = await HistoryModel.findOne(
