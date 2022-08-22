@@ -30,6 +30,29 @@ export const LeftItem = styled.div`
   justify-content: flex-start;
 `;
 
+export const DynamicScreen = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 250;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.6);
+`;
+export const DynamicBlock = styled.div`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: calc(100vw - 24px);
+  padding: 12px;
+  border-radius: 16px 16px 0 0;
+
+  background-color: ${other["green"]};
+`;
+
 export const FullScreen = styled.div`
   padding: 12px;
   position: fixed;
@@ -61,5 +84,25 @@ export const Wrap = styled.div`
 
   & > .title {
     margin: 8px 0;
+  }
+`;
+
+export const QuantitySettingWrap = styled.div`
+  padding: 32px 0 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  * {
+    letter-spacing: 0.1em;
+  }
+
+  & > .title {
+    color: ${white[100]};
+    margin: 8px 0 0;
+  }
+
+  #quantity-setting {
+    margin: 10px 0 32px;
   }
 `;

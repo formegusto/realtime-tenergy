@@ -1,6 +1,18 @@
-import { FullScreen, Wrap, Header, LeftItem, RightItem } from "./styles";
+import {
+  FullScreen,
+  Wrap,
+  Header,
+  LeftItem,
+  RightItem,
+  DynamicScreen,
+  DynamicBlock,
+  QuantitySettingWrap,
+} from "./styles";
 import { MdOutlineClear } from "react-icons/md";
 import { white } from "@styles/colors";
+import { Tag1 } from "@styles/typo";
+import QuantitySetting from "./QuantitySetting";
+import { Button } from "@component/common/button";
 
 export function ModalHeader() {
   return (
@@ -21,5 +33,24 @@ export function FullScreenModal({ children }: React.PropsWithChildren<any>) {
       <ModalHeader></ModalHeader>
       <Wrap>{children}</Wrap>
     </FullScreen>
+  );
+}
+
+export function QuantitySettingModal({
+  children,
+}: React.PropsWithChildren<any>) {
+  return (
+    <DynamicScreen>
+      <DynamicBlock>
+        <ModalHeader />
+        <QuantitySettingWrap>
+          <Tag1 className="title">Config Trading Usage</Tag1>
+          <QuantitySetting />
+          <Button colorTheme="darkgreen" isBlock>
+            Update
+          </Button>
+        </QuantitySettingWrap>
+      </DynamicBlock>
+    </DynamicScreen>
   );
 }
