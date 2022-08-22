@@ -33,12 +33,12 @@ function IntegratedInformation() {
       </CardColGroup>
       <CardRowGroup columnGap={12} className="trade-information">
         <Card backgroundColor="trading" padding="10px">
-          <H4 className="cat">기여도 그룹</H4>
+          <H4 className="cat">거래 요청</H4>
           <H4 className="value">4</H4>
         </Card>
         <Card backgroundColor="trading" padding="10px">
-          <H4 className="cat">공용부 요금</H4>
-          <H4 className="value">₩ 17,190</H4>
+          <H4 className="cat">거래 이익</H4>
+          <H4 className="value">₩ 1,996</H4>
         </Card>
       </CardRowGroup>
     </Wrap>
