@@ -55,6 +55,23 @@ export const ResetStyle = createGlobalStyle`
 
         margin: 0 auto;
     }
+
+
+    * {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    *::-webkit-scrollbar {
+        display: none;
+    }
+
+    .benefit {
+        color: ${other["lightgreen"]}
+    }
+
+    .loss {
+        color: ${other["lightred"]}
+    }
 `;
 
 export const NavigateAnimation = createGlobalStyle`
@@ -101,21 +118,5 @@ export const NavigateAnimation = createGlobalStyle`
     .left-exit-active {
         transform: translateX(100%);
         transition: transform 300ms ease-in-out;
-    }
-
-    * {
-        -ms-overflow-style: "none";
-        scrollbar-width: none;
-    }
-    *::-webkit-scrollbar {
-        display: "none";
-    }
-
-    .benefit {
-        color: ${other["lightgreen"]}
-    }
-
-    .loss {
-        color: ${other["lightred"]}
     }
 `;
