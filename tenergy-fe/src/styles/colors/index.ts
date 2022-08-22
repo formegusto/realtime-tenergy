@@ -12,11 +12,13 @@ export const white: Color = {
   500: "rgba(255, 255, 255, 0.8)",
   900: "rgba(255, 255, 255, 1)",
 };
+
 export const other: Color = {
   green: "#23AF91",
   lightgreen: "#7EB5BE",
   lightred: "#D58480",
   fluorescent: "#D8F50C",
+  darkgreen: "#197D67",
 };
 
 export const chartPalette: Color = {

@@ -44,10 +44,17 @@ export const FullScreen = styled.div`
 `;
 
 export const Wrap = styled.div`
+  position: relative;
+
   width: 100%;
   height: calc(100% - 36px);
 
   max-width: 500px;
   margin: 0 auto;
   overflow-y: scroll;
+
+  & > .confirm-btn {
+    position: absolute;
+    bottom: 12px;
+  }
 `;

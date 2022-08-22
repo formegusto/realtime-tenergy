@@ -17,6 +17,9 @@ export const colors: Colors = {
   green: css`
     background-color: ${other["green"]};
   `,
+  darkgreen: css`
+    background-color: ${other["darkgreen"]};
+  `,
   transparent: css`
     background-color: transparent;
   `,
