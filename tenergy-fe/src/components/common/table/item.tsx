@@ -1,16 +1,24 @@
 import { white } from "@styles/colors";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { TableColumnStyleProps, TableHeadStyleProps } from "./types";
 
-export const TableHead = styled.thead`
-  color: ${white[100]};
+export const TableHead = styled.thead<TableHeadStyleProps>`
+  ${({ fontDensity }) =>
+    fontDensity
+      ? css`
+          color: ${white[fontDensity]};
+        `
+      : css`
+          color: ${white[100]};
+        `}
 
   border-bottom: 1px solid ${white[500]};
 `;
 
 export const TableHeadRow = styled.tr``;
 
-export const TableHeadCol = styled.th`
-  text-align: left;
+export const TableHeadCol = styled.th<TableColumnStyleProps>`
+  text-align: ${({ isCenter }) => (isCenter ? "center" : "left")};
 `;
 
 export const TableBody = styled.tbody`
@@ -19,4 +27,6 @@ export const TableBody = styled.tbody`
 
 export const TableBodyRow = styled.tr``;
 
-export const TableBodyCol = styled.td``;
+export const TableBodyCol = styled.td<TableColumnStyleProps>`
+  text-align: ${({ isCenter }) => (isCenter ? "center" : "left")};
+`;
