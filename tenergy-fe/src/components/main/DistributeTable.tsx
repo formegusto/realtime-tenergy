@@ -1,3 +1,4 @@
+import { Distribution } from "@api/types";
 import {
   Table,
   TableBody,
@@ -8,7 +9,11 @@ import {
   TableHeadRow,
 } from "@component/common/table";
 
-function DistributeTable() {
+type Props = {
+  datas: Distribution[];
+};
+
+function DistributeTable({ datas }: Props) {
   return (
     <Table className="distribute-table">
       <colgroup>
@@ -23,54 +28,21 @@ function DistributeTable() {
         </TableHeadRow>
       </TableHead>
       <TableBody>
-        <TableBodyRow>
-          <TableBodyCol>1</TableBodyCol>
-          <TableBodyCol>0.03</TableBodyCol>
-          <TableBodyCol>
-            <span className="group-price">14,634</span>
-            <span className="compare benefit">-2,051</span>
-          </TableBodyCol>
-        </TableBodyRow>
-        <TableBodyRow>
-          <TableBodyCol>2</TableBodyCol>
-          <TableBodyCol>0.08</TableBodyCol>
-          <TableBodyCol>
-            <span className="group-price">15,486</span>
-            <span className="compare benefit">-1,191</span>
-          </TableBodyCol>
-        </TableBodyRow>
-        <TableBodyRow>
-          <TableBodyCol>3</TableBodyCol>
-          <TableBodyCol>0.13</TableBodyCol>
-          <TableBodyCol>
-            <span className="group-price">16,338</span>
-            <span className="compare benefit">-347</span>
-          </TableBodyCol>
-        </TableBodyRow>
-        <TableBodyRow>
-          <TableBodyCol>4</TableBodyCol>
-          <TableBodyCol>0.18</TableBodyCol>
-          <TableBodyCol>
-            <span className="group-price">17,190</span>
-            <span className="compare loss">+505</span>
-          </TableBodyCol>
-        </TableBodyRow>
-        <TableBodyRow>
-          <TableBodyCol>5</TableBodyCol>
-          <TableBodyCol>0.23</TableBodyCol>
-          <TableBodyCol>
-            <span className="group-price">18,042</span>
-            <span className="compare loss">+1,357</span>
-          </TableBodyCol>
-        </TableBodyRow>
-        <TableBodyRow>
-          <TableBodyCol>6</TableBodyCol>
-          <TableBodyCol>0.36</TableBodyCol>
-          <TableBodyCol>
-            <span className="group-price">19,746</span>
-            <span className="compare loss">+3,061</span>
-          </TableBodyCol>
-        </TableBodyRow>
+        {datas.map(({ groupNo, contribute, price, err }) => (
+          <TableBodyRow key={`main-distribution-table-row-${groupNo}`}>
+            <TableBodyCol>{groupNo}</TableBodyCol>
+            <TableBodyCol>{contribute}</TableBodyCol>
+            <TableBodyCol>
+              <span className="group-price">
+                {price.toLocaleString("ko-KR")}
+              </span>
+              <span className={`compare ${err < 0 ? "benefit" : "loss"}`}>
+                {err > 0 && "+"}
+                {err.toLocaleString("ko-KR")}
+              </span>
+            </TableBodyCol>
+          </TableBodyRow>
+        ))}
       </TableBody>
     </Table>
   );

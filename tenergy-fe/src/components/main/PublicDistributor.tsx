@@ -1,24 +1,36 @@
+import { getPublic } from "@api";
 import { Card, CardRowGroup } from "@component/common/container";
 import { white } from "@styles/colors";
 import { Tag1 } from "@styles/typo";
 import { fontStyles } from "@styles/typo/styles";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import DistributeTable from "./DistributeTable";
 
 function PublicDistributor() {
+  const { data } = useQuery(["getPublicQuery"], getPublic, {
+    refetchOnWindowFocus: false,
+  });
+
   return (
     <Wrap>
       <Tag1 className="title">PUBLIC DISTRIBUTOR</Tag1>
-      <CardRowGroup>
-        <Card>
-          <PublicPriceWrap>
-            <span className="unit unit-con">₩</span>
-            <span className="price">2,911,572</span>
-            <span className="unit unit-word">KRW</span>
-          </PublicPriceWrap>
-        </Card>
-      </CardRowGroup>
-      <DistributeTable />
+      {data && (
+        <>
+          <CardRowGroup>
+            <Card>
+              <PublicPriceWrap>
+                <span className="unit unit-con">₩</span>
+                <span className="price">
+                  {data.publicPrice.toLocaleString("ko-KR")}
+                </span>
+                <span className="unit unit-word">KRW</span>
+              </PublicPriceWrap>
+            </Card>
+          </CardRowGroup>
+          <DistributeTable datas={data.distributionTable} />
+        </>
+      )}
     </Wrap>
   );
 }
