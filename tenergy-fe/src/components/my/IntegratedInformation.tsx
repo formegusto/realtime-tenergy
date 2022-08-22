@@ -1,33 +1,46 @@
+import { Distribution, Meter, Price } from "@api/types";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
 import { blue, white } from "@styles/colors";
 import { H1, H4 } from "@styles/typo";
 import styled from "styled-components";
 
-function IntegratedInformation() {
+type Props = {
+  meter: Meter;
+  price: Price;
+  distribution: Distribution;
+};
+
+function IntegratedInformation({ meter, price, distribution }: Props) {
   return (
     <Wrap>
       <UsageProfile>
-        <H1>420</H1>
+        <H1>{Math.round(meter.kwh)}</H1>
       </UsageProfile>
       <CardColGroup>
         <CardRowGroup columnGap={12}>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">기본요금</H4>
-            <H4 className="value">₩ 7,300</H4>
+            <H4 className="value">
+              ₩ {price.basicPrice.toLocaleString("ko-KR")}
+            </H4>
           </Card>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">전력량요금</H4>
-            <H4 className="value">₩ 16,852</H4>
+            <H4 className="value">
+              ₩ {price.elecRatePrice.toLocaleString("ko-KR")}
+            </H4>
           </Card>
         </CardRowGroup>
         <CardRowGroup columnGap={12}>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">기여도 그룹</H4>
-            <H4 className="value">4</H4>
+            <H4 className="value">{distribution.groupNo}</H4>
           </Card>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">공용부 요금</H4>
-            <H4 className="value">₩ 17,190</H4>
+            <H4 className="value">
+              ₩ {distribution.price.toLocaleString("ko-KR")}
+            </H4>
           </Card>
         </CardRowGroup>
       </CardColGroup>

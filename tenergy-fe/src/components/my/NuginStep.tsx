@@ -3,9 +3,11 @@ import { H4 } from "@styles/typo";
 import { fontStyles } from "@styles/typo/styles";
 import styled from "styled-components";
 
-function NuginStep() {
-  const selectedStep = 2;
+type Props = {
+  selectedStep: number;
+};
 
+function NuginStep({ selectedStep }: Props) {
   return (
     <Wrap>
       <H4>누진단계</H4>
@@ -13,9 +15,7 @@ function NuginStep() {
         {[1, 2, 3].map((step) => (
           <StepItem
             key={`nugin-step-${step}`}
-            className={`step-${step} ${
-              step === selectedStep ? "active" : "active"
-            }`}
+            className={`step-${step} ${step === selectedStep ? "active" : ""}`}
           >
             {step}
           </StepItem>
