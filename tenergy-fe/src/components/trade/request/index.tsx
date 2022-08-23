@@ -1,5 +1,6 @@
 import { Button, ButtonGroup } from "@component/common/button";
 import { FullScreenModal } from "@component/common/container";
+import { ModalProps } from "@component/common/container/modal/types";
 import {
   Table,
   TableBody,
@@ -15,9 +16,12 @@ import RequestTable from "./RequestTable";
 import RequestUsage from "./RequestUsage";
 import { TradeRequestProps } from "./types";
 
-export function TradeRequest({ type }: TradeRequestProps) {
+export function TradeRequest({
+  type,
+  closeAction,
+}: TradeRequestProps & ModalProps) {
   return (
-    <FullScreenModal>
+    <FullScreenModal closeAction={closeAction}>
       <RequestUsage>30</RequestUsage>
       <RequestTable />
       {type === "request" ? (

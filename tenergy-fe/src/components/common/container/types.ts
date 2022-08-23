@@ -19,6 +19,7 @@ export type CardStyleProps = {
   columnGap?: number;
   rowGap?: number;
   backgroundColor?: CardBackgroundColor;
+  isCursor?: boolean;
 };
 
 export type CardBackgroundColor =

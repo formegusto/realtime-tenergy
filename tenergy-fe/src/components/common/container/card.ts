@@ -45,6 +45,11 @@ export const CardRowGroup = styled.div<CardGroupStyleProps>`
 `;
 
 export const Card = styled.div<CardStyleProps>`
+  ${({ isCursor }) =>
+    isCursor &&
+    css`
+      cursor: pointer;
+    `}
   ${({ padding }) =>
     padding
       ? css`

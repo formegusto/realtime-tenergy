@@ -1,4 +1,3 @@
-import { Seller } from "@api/types";
 import { Line } from "@component/common/chart";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
 import { UsageProfile } from "@component/common/etc";
@@ -6,20 +5,22 @@ import { white } from "@styles/colors";
 import { H5, Tag1 } from "@styles/typo";
 import styled from "styled-components";
 import _ from "lodash";
+import { SellerItemProps } from "./types";
 
-type Props = {
-  datas: Seller[][];
-};
-
-function SellerList({ datas }: Props) {
+function SellerList({ datas, onClick }: SellerItemProps) {
   return (
     <Wrap>
       <Tag1>거래 가능 판매자</Tag1>
       <CardColGroup>
-        {datas.map((data, idx) => (
+        {datas?.map((data, idx) => (
           <CardRowGroup key={`seller-table-row-${idx}`}>
             {data.map(({ _id, kwh, name }) => (
-              <Card padding="16px 12px" key={`seller-${_id}`}>
+              <Card
+                padding="16px 12px"
+                key={`seller-${_id}`}
+                onClick={onClick}
+                isCursor
+              >
                 <HouseholdInformation>
                   <UsageProfile>{Math.round(_.nth(kwh, -1)!)}</UsageProfile>
                   <HouseholdNames>

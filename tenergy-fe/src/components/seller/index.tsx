@@ -1,19 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import SellerList from "./SellerList";
 import TradableUsage from "./TrableUsage";
 import _ from "lodash";
-import { getSellers } from "@api";
+import { SellerComponentProps, SellerItemProps } from "./types";
 
-export function SellerComponent() {
-  const { data } = useQuery(["getSellersQuery"], getSellers, {
-    refetchOnWindowFocus: false,
-  });
-
+export function SellerComponent({
+  data,
+  onClick,
+}: SellerItemProps & SellerComponentProps) {
   return data ? (
     <Wrap>
       <TradableUsage data={data.tradableUsage} />
-      <SellerList datas={_.chunk(data.sellers, 2)} />
+      <SellerList datas={_.chunk(data.sellers, 2)} onClick={onClick} />
     </Wrap>
   ) : (
     <></>

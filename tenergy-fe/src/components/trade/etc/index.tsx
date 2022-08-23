@@ -1,12 +1,13 @@
 import { ButtonGroup, CircleButton } from "@component/common/button";
-import { DynamicScreen } from "@component/common/container";
+import { DynamicBg } from "@component/common/container";
 import { blue } from "@styles/colors";
 import { H5 } from "@styles/typo";
 import styled from "styled-components";
 
 export function TradeConfirmModal() {
   return (
-    <DynamicScreen>
+    <>
+      <DynamicBg />
       <Wrap>
         <H5>거래를 취소하시겠습니까?</H5>
         <ButtonGroup nonFlex>
@@ -14,12 +15,12 @@ export function TradeConfirmModal() {
           <CircleButton colorTheme="lightblue">닫기</CircleButton>
         </ButtonGroup>
       </Wrap>
-    </DynamicScreen>
+    </>
   );
 }
 
 const Wrap = styled.div`
-  position: absolute;
+  position: fixed;
 
   top: 0;
   left: 0;

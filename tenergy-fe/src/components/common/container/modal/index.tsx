@@ -4,9 +4,9 @@ import {
   Header,
   LeftItem,
   RightItem,
-  DynamicScreen,
   DynamicBlock,
   QuantitySettingWrap,
+  DynamicBg,
 } from "./styles";
 import { MdOutlineClear } from "react-icons/md";
 import { white } from "@styles/colors";
@@ -30,10 +30,13 @@ export function ModalHeader({ closeAction }: ModalProps) {
   );
 }
 
-export function FullScreenModal({ children }: React.PropsWithChildren<any>) {
+export function FullScreenModal({
+  children,
+  closeAction,
+}: React.PropsWithChildren<ModalProps>) {
   return (
     <FullScreen>
-      <ModalHeader></ModalHeader>
+      <ModalHeader closeAction={closeAction}></ModalHeader>
       <Wrap>{children}</Wrap>
     </FullScreen>
   );
@@ -41,7 +44,8 @@ export function FullScreenModal({ children }: React.PropsWithChildren<any>) {
 
 export function QuantitySettingModal({ closeAction }: ModalProps) {
   return (
-    <DynamicScreen>
+    <>
+      <DynamicBg onClick={closeAction} />
       <DynamicBlock>
         <ModalHeader closeAction={closeAction} />
         <QuantitySettingWrap>
@@ -52,6 +56,6 @@ export function QuantitySettingModal({ closeAction }: ModalProps) {
           </Button>
         </QuantitySettingWrap>
       </DynamicBlock>
-    </DynamicScreen>
+    </>
   );
 }

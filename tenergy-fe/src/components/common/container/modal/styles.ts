@@ -38,7 +38,7 @@ export const LeftItem = styled.div`
   justify-content: flex-start;
 `;
 
-export const DynamicScreen = styled.div`
+export const DynamicBg = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -48,8 +48,9 @@ export const DynamicScreen = styled.div`
 
   background: rgba(0, 0, 0, 0.6);
 `;
+
 export const DynamicBlock = styled.div`
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
 
@@ -72,6 +73,7 @@ export const FullScreen = styled.div`
   height: calc(100vh - 24px);
 
   background-color: ${other["green"]};
+  animation: ${UpAnimation} 0.15s linear forwards;
 `;
 
 export const Wrap = styled.div`
