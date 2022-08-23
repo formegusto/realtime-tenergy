@@ -101,6 +101,7 @@ export class MixedDataBuilder {
   // prev == 전날이면 -1 => 실제 쿼리는 -2로
   async step1(month: number) {
     this.month = month;
+
     const _monthMeterData = await MonthMeterHistoryModel.find(
       {},
       { _id: 0, name: 1, kwh: { $slice: this.prev } }
@@ -112,8 +113,8 @@ export class MixedDataBuilder {
         new MonthMeterData(
           meter.name,
           meter.kwh[0],
-          month,
-          getRole(meter.kwh[0], month)
+          getRole(meter.kwh[0], month),
+          month
         )
     );
 
@@ -126,8 +127,8 @@ export class MixedDataBuilder {
     this.mix.apt = new MonthMeterData(
       "APT",
       aptUsage / this.mix.households!.length,
-      month,
-      "seller"
+      "seller",
+      month
     );
     return this;
   }
@@ -144,8 +145,8 @@ export class MixedDataBuilder {
     this.mix.apt = new MonthMeterData(
       "APT",
       history!.APT[0] / this.mix.households!.length,
-      month,
-      "seller"
+      "seller",
+      month
     );
     return this;
   }

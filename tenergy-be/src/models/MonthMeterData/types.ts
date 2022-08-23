@@ -15,42 +15,47 @@ export class MonthMeterData {
   createdAt!: Date;
   updatedAt!: Date;
 
-  month: number;
+  month?: number;
 
   constructor(
     name: string,
     kwh: number,
-    month: number,
-    role: "buyer" | "seller"
+    role: "buyer" | "seller",
+    month?: number
   ) {
     this.name = name;
     this.kwh = kwh;
-    this.month = month;
     this.role = role;
+    this.month = month;
   }
 
-  static getFromDocument(document: MonthMeterData, month: number) {
+  static getFromDocument(document: MonthMeterData, month?: number) {
     return new MonthMeterData(
       document.name,
       document.kwh,
-      month,
-      document.role
+      document.role,
+      month
     );
+  }
+
+  static async getFromName(name: string) {
+    const monthMeterDataDocs = await MonthMeterDataModel.findOne({ name });
+    if (monthMeterDataDocs) return this.getFromDocument(monthMeterDataDocs);
   }
 
   get steps(): Array<number> {
     // 1. 각 단계별 차이를 구한다.
     let steps = _.map(
-      NUGIN_STEP[monthToSeason(this.month)],
+      NUGIN_STEP[monthToSeason(this.month!)],
       (v) => this.kwh - v
     );
     // console.log(steps);
 
     // 2. 각 단계별 오차보다 큰지 확인한다. 작으면 해당 단계의 가구이다.
     steps = _.map(steps, (v, idx) =>
-      v < NUGIN_ERR[monthToSeason(this.month)][idx]
+      v < NUGIN_ERR[monthToSeason(this.month!)][idx]
         ? v
-        : NUGIN_ERR[monthToSeason(this.month)][idx]
+        : NUGIN_ERR[monthToSeason(this.month!)][idx]
     );
     // console.log(steps);
 

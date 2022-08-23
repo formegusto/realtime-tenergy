@@ -47,8 +47,8 @@ routes.patch(
       return new MonthMeterData(
         _monthMeter.name!,
         _monthMeter.kwh!,
-        month,
-        role
+        role,
+        month
       );
     });
     _.forEach(newMonthMeter, async (meter) => {
@@ -178,8 +178,8 @@ routes.patch(
       return new MonthMeterData(
         _monthMeter.name!,
         _monthMeter.kwh!,
-        month,
-        role
+        role,
+        month
       );
     });
     _.forEach(newMonthMeter, async (meter) => {
