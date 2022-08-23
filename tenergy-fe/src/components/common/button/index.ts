@@ -4,6 +4,15 @@ import styled, { css } from "styled-components";
 import { block, colors } from "./styles";
 import { ButtonGroupStyleProps, ButtonStyleProps } from "./types";
 
+export const IconButton = styled.button`
+  color: ${white[900]};
+  background-color: transparent;
+
+  border: none;
+  padding: 0;
+  cursor: pointer;
+`;
+
 export const CircleButton = styled.button<ButtonStyleProps>`
   width: 64px;
   height: 64px;

@@ -7,10 +7,16 @@ import { householdState, tokenState } from "@store/atom";
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { check } from "@api";
+import { useModal } from "@hooks";
+import { IconButton } from "../button";
+import { QuantitySettingModal } from "../container";
 
 export * from "./NavigateHeader";
 
 export function Header() {
+  const [QuantityModal, isOpen, open, close] = useModal({
+    modal: QuantitySettingModal,
+  });
   const token = useRecoilValue(tokenState);
   const [household, setHousehold] = useRecoilState(householdState);
   const checkMutation = useMutation(["checkAuthQuery"], check, {
@@ -26,8 +32,11 @@ export function Header() {
 
   return (
     <Wrap>
-      <MdMiscellaneousServices size={24} />
+      <IconButton>
+        <MdMiscellaneousServices size={24} onClick={isOpen ? close : open} />
+      </IconButton>
       {household && <SimpleProfile data={household} />}
+      <QuantityModal />
     </Wrap>
   );
 }

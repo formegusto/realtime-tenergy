@@ -40,6 +40,9 @@
             ],
             "@utils": [
                 "./utils"
+            ],
+            "@hooks": [
+                "./utils/hooks"
             ]
         }
     }
