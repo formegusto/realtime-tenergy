@@ -3,7 +3,7 @@ import _ from "lodash";
 import { StatusCodes } from "http-status-codes";
 import { adminCheck } from "@mw";
 import {
-  ControlConfig,
+  IControlConfig,
   DayMeterData,
   AuthHousehold,
   APT,
@@ -28,7 +28,7 @@ routes.post(
   "/",
   adminCheck,
   async (req: Express.Request, res: Express.Response) => {
-    const { month, publicPercentage } = req.body as ControlConfig;
+    const { month, publicPercentage } = req.body as IControlConfig;
 
     // 기본설정
     const dayMeter = await DayMeterDataModel.find({
@@ -86,7 +86,7 @@ routes.post(
     });
 
     // ControlConfig 생성
-    const controlConfigDoc: ControlConfig = {
+    const controlConfigDoc: IControlConfig = {
       month,
       publicPercentage,
       increasePublicUsage,

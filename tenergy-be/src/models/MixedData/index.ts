@@ -2,7 +2,7 @@ import { MonthMeterDataModel } from "../MonthMeterData";
 import {
   Distributor,
   MonthMeterData,
-  ControlConfig,
+  IControlConfig,
   HouseholdIntegratedInformation,
 } from "../types";
 import _ from "lodash";
@@ -77,7 +77,7 @@ export class MixedDataBuilder {
   month?: number;
 
   // autoSet
-  async set(control: ControlConfig, name: string) {
+  async set(control: IControlConfig, name: string) {
     await this.step1(control.month);
     await this.step2_ex(control._id, control.month);
     await this.step3(name);

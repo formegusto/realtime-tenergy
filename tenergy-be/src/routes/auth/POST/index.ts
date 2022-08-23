@@ -25,6 +25,7 @@ routes.post(
       return next(
         new ResponseError(StatusCodes.NOT_FOUND, "존재하지 않는 건물입니다.")
       );
+
     const token = generateToken(
       {
         household,

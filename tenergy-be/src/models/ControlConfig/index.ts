@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { ControlConfig } from "./types";
+import { IControlConfig } from "./types";
 
-const ControlConfigSchema = new Schema<ControlConfig>(
+const ControlConfigSchema = new Schema<IControlConfig>(
   {
     month: { type: Number, required: true },
     publicPercentage: { type: Number, required: true },
@@ -14,7 +14,7 @@ const ControlConfigSchema = new Schema<ControlConfig>(
   }
 );
 
-export const ControlConfigModel = model<ControlConfig>(
+export const ControlConfigModel = model<IControlConfig>(
   "ControlConfig",
   ControlConfigSchema
 );
