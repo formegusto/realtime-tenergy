@@ -12,6 +12,10 @@ const TradeSchema = new Schema<ITrade>(
       default: "request",
       required: true,
     },
+    day: {
+      type: Number,
+      required: true,
+    },
   },
   {
     collection: "Trade",

@@ -1,3 +1,4 @@
+import { ControlConfig } from "@models/types";
 import { TradeModel } from "@models";
 import { loginCheck } from "@mw";
 import Express from "express";
@@ -15,10 +16,13 @@ routes.post(
   ) => {
     const { requester, responser, quantity } = req.body;
 
+    const controlConfig = await ControlConfig.getRecently();
+
     const requestTrade = await TradeModel.create({
       requester,
       responser,
       quantity,
+      day: controlConfig.day.now,
     });
 
     return res.status(StatusCodes.CREATED).json(requestTrade);

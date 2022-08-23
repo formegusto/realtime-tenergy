@@ -37,7 +37,7 @@ routes.patch(
 
     tradeMixedData.pushHistory(controlConfig.day.now);
 
-    return res.status(StatusCodes.OK);
+    return res.status(StatusCodes.OK).json();
   }
 );
 

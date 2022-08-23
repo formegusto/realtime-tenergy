@@ -9,6 +9,7 @@ import {
   ControlConfigModel,
   DistributorModel,
   HistoryModel,
+  TradeModel,
 } from "@models";
 import { NUGIN_STEP, ResponseError } from "@common";
 import { generateToken, getRole, monthToSeason } from "@utils";
@@ -192,6 +193,9 @@ routes.patch(
         }
       );
     });
+
+    // TradeUpdate
+    await TradeModel.deleteOne({ day: now });
 
     // APT Update
     const apt = await APTModel.findOne({ controlId });

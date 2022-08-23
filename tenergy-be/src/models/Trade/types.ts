@@ -14,6 +14,7 @@ export interface ITrade {
   responser: string;
   quantity: number;
   status: TradeStatus;
+  day: number;
 
   createdAt: Date;
   updatedAt: Date;
@@ -26,6 +27,7 @@ export class Trade implements ITrade {
   responser: string;
   quantity: number;
   status: TradeStatus;
+  day: number;
 
   createdAt!: Date;
   updatedAt!: Date;
@@ -34,12 +36,14 @@ export class Trade implements ITrade {
     requester: string,
     responser: string,
     quantity: number,
-    status: TradeStatus
+    status: TradeStatus,
+    day: number
   ) {
     this.requester = requester;
     this.responser = responser;
     this.quantity = quantity;
     this.status = status;
+    this.day = day;
   }
 }
 
@@ -50,6 +54,7 @@ export class AdvancedTrade {
   responser: MonthMeterData;
   quantity: number;
   status: TradeStatus;
+  day: number;
 
   createdAt!: Date;
   updatedAt!: Date;
@@ -58,12 +63,14 @@ export class AdvancedTrade {
     requester: MonthMeterData,
     responser: MonthMeterData,
     quantity: number,
-    status: TradeStatus
+    status: TradeStatus,
+    day: number
   ) {
     this.requester = requester;
     this.responser = responser;
     this.quantity = quantity;
     this.status = status;
+    this.day = day;
   }
 
   static async get(trade: Trade) {
@@ -74,7 +81,8 @@ export class AdvancedTrade {
       requester!,
       responser!,
       trade.quantity,
-      trade.status
+      trade.status,
+      trade.day
     );
   }
 }
