@@ -22,13 +22,20 @@ function SellerList({ datas, onClick }: SellerItemProps) {
                 isCursor
               >
                 <HouseholdInformation>
-                  <UsageProfile>{Math.round(_.nth(kwh, -1)!)}</UsageProfile>
+                  <UsageProfile>
+                    {Math.round(
+                      _.nth(
+                        _.map(kwh, ({ value }) => value),
+                        -1
+                      )!
+                    )}
+                  </UsageProfile>
                   <HouseholdNames>
                     <H5 className="dong">{name.split("-")[1]}동</H5>
                     <Tag1 className="ho">{name.split("-")[2]}호</Tag1>
                   </HouseholdNames>
                 </HouseholdInformation>
-                <Line datas={kwh} />
+                <Line datas={_.map(kwh, ({ value }) => value)} />
               </Card>
             ))}
           </CardRowGroup>

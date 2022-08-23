@@ -1,10 +1,10 @@
-import { Distribution, Meter, Price, ResGetMy } from "@api/types";
+import { Distribution, Price, ResGetMy } from "@api/types";
 
 export interface InformationProps {
   listOpen: () => void;
   infoOpen: () => void;
 
-  meter?: Meter;
+  kwh?: number;
   price?: Price;
   distribution?: Distribution;
 }

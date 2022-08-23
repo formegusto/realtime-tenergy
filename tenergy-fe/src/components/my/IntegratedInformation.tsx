@@ -7,14 +7,14 @@ import { InformationProps } from "./types";
 function IntegratedInformation({
   listOpen,
   infoOpen,
-  meter,
+  kwh,
   price,
   distribution,
 }: InformationProps) {
   return (
     <Wrap>
       <UsageProfile>
-        <H1>{Math.round(meter ? meter.kwh : 0)}</H1>
+        <H1>{Math.round(kwh ? kwh : 0)}</H1>
       </UsageProfile>
       <CardColGroup>
         <CardRowGroup columnGap={12}>

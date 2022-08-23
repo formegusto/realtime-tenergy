@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MdRoofing } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { Household } from "@api/types";
-import _ from "lodash";
+// import _ from "lodash";
 
 type Props = {
   data: Household;
@@ -17,7 +17,8 @@ function SimpleProfile({ data }: Props) {
     <Wrap>
       <MdRoofing size={16} />
       <Tag1 onClick={() => navigate("/my", { replace: true })}>
-        {_.drop(data.name.split("-")).join("-")}
+        {data.name}
+        {/* {_.drop(data.name.split("-")).join("-")} */}
       </Tag1>
     </Wrap>
   );

@@ -4,7 +4,12 @@ export interface ResGetMy {
   meter: Meter;
   price: Price;
   distribution: Distribution;
-  history: number[];
+  history: Kwh[];
+}
+
+export interface Kwh {
+  value: number;
+  day: number;
 }
 
 export interface Meter {

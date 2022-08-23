@@ -3,6 +3,7 @@ import IntegratedInformation from "./IntegratedInformation";
 import UsageHistory from "./UsageHistory";
 import PriceInformation from "./PriceInformation";
 import { InformationProps, MyComponentProps } from "./types";
+import _ from "lodash";
 
 export function MyComponent({
   data,
@@ -11,11 +12,19 @@ export function MyComponent({
 }: MyComponentProps & InformationProps) {
   return (
     <Wrap>
-      <UsageHistory meter={data.meter} history={data.history} />
+      <UsageHistory
+        meter={data.meter}
+        history={_.map(data.history, ({ value }) => value)}
+      />
       <IntegratedInformation
         listOpen={listOpen}
         infoOpen={infoOpen}
-        meter={data.meter}
+        kwh={
+          _.nth(
+            _.map(data.history, ({ value }) => value),
+            -1
+          )!
+        }
         price={data.price}
         distribution={data.distribution}
       />

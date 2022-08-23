@@ -21,14 +21,21 @@ function BuyerList({ datas, onClick }: BuyerItemProps) {
             padding="10px 16px"
             isCursor
           >
-            <UsageProfile>{Math.round(_.nth(data.history, -1)!)}</UsageProfile>
+            <UsageProfile>
+              {Math.round(
+                _.nth(
+                  _.map(data.history, ({ value }) => value),
+                  -1
+                )!
+              )}
+            </UsageProfile>
             <HouseholdNames>
               <H5 className="dong">{data.name.split("-")[1]}동</H5>
               <Tag1 className="ho">{data.name.split("-")[2]}호</Tag1>
             </HouseholdNames>
             <LineWrap>
               <Shadowing />
-              <Line datas={data.history} />
+              <Line datas={_.map(data.history, ({ value }) => value)} />
             </LineWrap>
             <PriceWrap>
               <H5 className="price">

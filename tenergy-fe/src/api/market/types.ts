@@ -1,3 +1,5 @@
+import { Kwh } from "@api/my/types";
+
 export interface ResGetMarketStatus {
   buyerCount: number;
   sellerCount: number;
@@ -24,7 +26,7 @@ export interface TradableUsage {
 export interface Seller {
   _id: string;
   name: string;
-  kwh: number[];
+  kwh: Kwh[];
 }
 
 export interface Buyer {
@@ -32,5 +34,5 @@ export interface Buyer {
   nowPrice: number;
   prevPrice: number;
   err: number;
-  history: number[];
+  history: Kwh[];
 }
