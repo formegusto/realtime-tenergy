@@ -42,8 +42,8 @@ export class TradeMixedData {
   }
 
   async pushHistory(day: number) {
-    this.buyer.pushHistory(day, { id: this.id });
-    this.seller.pushHistory(day, { id: this.id });
+    this.tradeBuyer.pushHistory(day, { id: this.id });
+    this.tradeSeller.pushHistory(day, { id: this.id });
   }
 }
 
