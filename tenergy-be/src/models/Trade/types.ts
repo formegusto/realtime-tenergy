@@ -1,6 +1,10 @@
 import { Schema } from "mongoose";
 import { MonthMeterData } from "../types";
 
+export type TradingLabel = {
+  id: string;
+};
+
 export type TradeStatus = "request" | "reject" | "establish" | "cancle";
 
 export interface ITrade {

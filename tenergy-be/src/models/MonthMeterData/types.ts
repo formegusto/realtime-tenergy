@@ -4,6 +4,7 @@ import { monthToSeason } from "../../utils";
 import _ from "lodash";
 import { MonthMeterHistoryModel } from "../MonthMeterHistory";
 import { MonthMeterDataModel } from ".";
+import { TradingLabel } from "../types";
 
 export class MonthMeterData {
   // mongo data
@@ -112,7 +113,7 @@ export class MonthMeterData {
     return this.basic + this.elecRate + this.tradePrice;
   }
 
-  async pushHistory(day: number) {
+  async pushHistory(day: number, tradingLabel?: TradingLabel) {
     await MonthMeterHistoryModel.findOneAndUpdate(
       { name: this.name },
       {
@@ -120,6 +121,7 @@ export class MonthMeterData {
           kwh: {
             value: this.kwh,
             day,
+            tradingLabel,
           },
         },
       },

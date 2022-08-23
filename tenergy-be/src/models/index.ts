@@ -8,3 +8,4 @@ export * from "./MixedData";
 export * from "./MonthMeterHistory";
 export * from "./History";
 export * from "./Trade";
+export * from "./TradeMixedData";

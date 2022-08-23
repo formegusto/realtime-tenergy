@@ -1,8 +1,10 @@
 import { Schema } from "mongoose";
+import { TradingLabel } from "../types";
 
 export type HistoryItem = {
   value: number;
   day: number;
+  tradingLabel?: TradingLabel;
 };
 
 export type MonthMeterHistory = {
