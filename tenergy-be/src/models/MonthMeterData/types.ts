@@ -16,6 +16,8 @@ export class MonthMeterData {
   updatedAt!: Date;
 
   month?: number;
+  tradeQuantity?: number;
+  tradePrice: number;
 
   constructor(
     name: string,
@@ -26,7 +28,8 @@ export class MonthMeterData {
     this.name = name;
     this.kwh = kwh;
     this.role = role;
-    this.month = month;
+    this.month = month ? month : 1;
+    this.tradePrice = 0;
   }
 
   static getFromDocument(document: MonthMeterData, month?: number) {
@@ -38,9 +41,28 @@ export class MonthMeterData {
     );
   }
 
-  static async getFromName(name: string) {
+  static async getFromName(name: string, month?: number) {
     const monthMeterDataDocs = await MonthMeterDataModel.findOne({ name });
-    if (monthMeterDataDocs) return this.getFromDocument(monthMeterDataDocs);
+    if (monthMeterDataDocs)
+      return this.getFromDocument(monthMeterDataDocs, month);
+  }
+
+  get tradeUsage() {
+    if (!this.tradeQuantity) return this.kwh + 0;
+    else
+      return (
+        this.kwh +
+        (this.role === "seller" ? this.tradeQuantity : this.tradeQuantity * -1)
+      );
+  }
+
+  get tradeObj() {
+    return new MonthMeterData(
+      this.name,
+      this.tradeUsage,
+      this.role,
+      this.month
+    );
   }
 
   get steps(): Array<number> {
@@ -87,7 +109,7 @@ export class MonthMeterData {
   }
 
   get bill(): number {
-    return this.basic + this.elecRate;
+    return this.basic + this.elecRate + this.tradePrice;
   }
 
   async pushHistory() {

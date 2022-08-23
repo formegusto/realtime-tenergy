@@ -1,9 +1,8 @@
 import { TradeModel } from "@models";
-import { ControlConfig } from "@models/types";
 import { loginCheck } from "@mw";
 import Express from "express";
 import { StatusCodes } from "http-status-codes";
-import { ReqPostTradeBody } from "./types";
+import { TradeRequest } from "../types";
 
 const routes = Express.Router();
 
@@ -11,7 +10,7 @@ routes.post(
   "/",
   loginCheck,
   async (
-    req: Express.Request<any, any, ReqPostTradeBody>,
+    req: Express.Request<any, any, TradeRequest>,
     res: Express.Response
   ) => {
     const { requester, responser, quantity } = req.body;
