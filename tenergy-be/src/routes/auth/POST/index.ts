@@ -29,7 +29,7 @@ routes.post(
       {
         household,
       },
-      "3h"
+      "1d"
     );
 
     return res.status(StatusCodes.OK).json({ token });

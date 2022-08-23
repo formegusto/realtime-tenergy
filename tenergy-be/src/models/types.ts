@@ -7,3 +7,4 @@ export * from "./Distributor/types";
 export * from "./MonthMeterHistory/types";
 export * from "./History/types";
 export * from "./MixedData/types";
+export * from "./Trade/types";
