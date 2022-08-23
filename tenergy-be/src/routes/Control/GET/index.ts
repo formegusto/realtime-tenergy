@@ -82,10 +82,10 @@ routes.get(
       );
       const buyerHistories = _.filter(
         meterHistory,
-        (meter) => getRole(meter.kwh[0], month) === "buyer"
+        (meter) => getRole(meter.kwh[0].value, month) === "buyer"
       );
       let demands = _.map(buyerHistories, (meter) =>
-        demandFunction(meter.kwh[0], 1, month)
+        demandFunction(meter.kwh[0].value, 1, month)
       );
       demands = _.filter(demands, (d) => d > 0);
       console.log(_.mean(demands));

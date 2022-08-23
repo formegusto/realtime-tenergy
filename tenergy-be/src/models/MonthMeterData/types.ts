@@ -112,11 +112,16 @@ export class MonthMeterData {
     return this.basic + this.elecRate + this.tradePrice;
   }
 
-  async pushHistory() {
+  async pushHistory(day: number) {
     await MonthMeterHistoryModel.findOneAndUpdate(
       { name: this.name },
       {
-        $push: { kwh: this.kwh },
+        $push: {
+          kwh: {
+            value: this.kwh,
+            day,
+          },
+        },
       },
       {
         new: true,
@@ -124,12 +129,12 @@ export class MonthMeterData {
     );
   }
 
-  async popHistory(count: number) {
+  async popHistory(day: number) {
     // 음수면 shift, 양수면 pop
     await MonthMeterHistoryModel.findOneAndUpdate(
       { name: this.name },
       {
-        $pop: { kwh: count },
+        $pull: { kwh: { day } },
       },
       {
         new: true,

@@ -112,8 +112,8 @@ export class MixedDataBuilder {
       (meter) =>
         new MonthMeterData(
           meter.name,
-          meter.kwh[0],
-          getRole(meter.kwh[0], month),
+          meter.kwh[0].value,
+          getRole(meter.kwh[0].value, month),
           month
         )
     );

@@ -52,7 +52,7 @@ routes.patch(
       );
     });
     _.forEach(newMonthMeter, async (meter) => {
-      await meter.pushHistory();
+      await meter.pushHistory(now);
       await MonthMeterDataModel.findOneAndUpdate(
         { name: meter.name },
         {
@@ -183,7 +183,7 @@ routes.patch(
       );
     });
     _.forEach(newMonthMeter, async (meter) => {
-      await meter.popHistory(1);
+      await meter.popHistory(now);
       await MonthMeterDataModel.findOneAndUpdate(
         { name: meter.name },
         {

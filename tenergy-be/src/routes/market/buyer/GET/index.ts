@@ -48,22 +48,22 @@ routes.get(
     const buyers = _.map(history, (h) => [
       h.name,
       demandFunction(
-        _.nth(h.kwh, -1)!,
+        _.nth(h.kwh, -1)!.value,
         parseInt(quantity as string),
         controlConfig[0].month
       ),
       demandFunction(
-        _.nth(h.kwh, -2)!,
+        _.nth(h.kwh, -2)!.value,
         parseInt(quantity as string),
         controlConfig[0].month
       ),
       demandFunction(
-        _.nth(h.kwh, -1)!,
+        _.nth(h.kwh, -1)!.value,
         parseInt(quantity as string),
         controlConfig[0].month
       ) -
         demandFunction(
-          _.nth(h.kwh, -2)!,
+          _.nth(h.kwh, -2)!.value,
           parseInt(quantity as string),
           controlConfig[0].month
         ),

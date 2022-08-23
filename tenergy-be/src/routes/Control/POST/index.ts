@@ -43,23 +43,6 @@ routes.post(
     const [apt, publicPart] = getWholeUsages(householdPart, publicPercentage);
     const increasePublicUsage = publicPart / dayMeter.length;
 
-    // 전체 계산 (공용부 증가값 구하기)
-    // 아까워서 놔둔다;;
-    // const aptObj = new Household(
-    //   "APT",
-    //   Math.round(apt / householdCount),
-    //   month
-    // );
-    // const households = _.groupBy(
-    //   _.flatten(dayMeter.map((meter) => meter.data)),
-    //   "name"
-    // );
-    // const householdsObj = _.map(
-    //   households,
-    //   (household, name) =>
-    //     new Household(name, Math.round(_.sumBy(household, (h) => h.kwh)), month)
-    // );
-
     // MonthMeterData 갱신
     const initHouseholds = _.map(
       _.sampleSize(dayMeter, 1)[0].data,
@@ -70,7 +53,12 @@ routes.post(
         { name: h.name },
         {
           name: h.name,
-          kwh: [0],
+          kwh: [
+            {
+              value: 0,
+              day: 0,
+            },
+          ],
         },
         {
           new: true,
@@ -115,13 +103,6 @@ routes.post(
       "3d"
     );
 
-    // Distributor 생성
-    // const distributor = {
-    //   binRange: Distributor.generateBinValues(
-    //     _.fill(_.sampleSize(dayMeter, 1)[0].data, 0)
-    //   ),
-    //   controlId,
-    // };
     const distributor = new Distributor(
       _.fill(_.sampleSize(dayMeter, 1)[0].data, 0),
       controlId

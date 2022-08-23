@@ -5,6 +5,7 @@ import { DistributorModel } from "./Distributor";
 import { HistoryModel } from "./History";
 import { MonthMeterDataModel } from "./MonthMeterData";
 import { MonthMeterHistoryModel } from "./MonthMeterHistory";
+import { TradeModel } from "./Trade";
 
 type Props = {
   drop: boolean;
@@ -24,6 +25,7 @@ export async function dbConnect({ drop }: Props) {
       await MonthMeterDataModel.deleteMany({});
       await MonthMeterHistoryModel.deleteMany({});
       await HistoryModel.deleteMany({});
+      await TradeModel.deleteMany({});
     }
 
     console.log("[mongoose] connected :)");

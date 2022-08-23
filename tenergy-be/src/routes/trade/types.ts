@@ -1,3 +1,10 @@
+import { TradeStatus } from "@models/types";
+
+export interface TradeStatusRequest {
+  id: string;
+  status: TradeStatus;
+}
+
 export interface TradeRequest {
   requester: string;
   responser: string;

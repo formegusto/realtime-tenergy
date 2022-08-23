@@ -72,13 +72,17 @@ routes.get(
     const buyerMeterHistory = _.filter(
       monthMeterHistory,
       (history) =>
-        getRole(_.nth(history, -1)!, controlConfig[0].month) === "buyer"
+        getRole(_.nth(history, -1)!.value, controlConfig[0].month) === "buyer"
     );
     console.log("buyer", buyerMeterHistory);
 
     const demandsHistory = _.map(buyerMeterHistory, (meters) =>
       _.map(meters, (m) =>
-        demandFunction(m, parseInt(quantity as string), controlConfig[0].month)
+        demandFunction(
+          m.value,
+          parseInt(quantity as string),
+          controlConfig[0].month
+        )
       )
     );
     console.log(demandsHistory);
