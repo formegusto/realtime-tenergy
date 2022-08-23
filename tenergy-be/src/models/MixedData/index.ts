@@ -3,13 +3,15 @@ import {
   Distributor,
   MonthMeterData,
   IControlConfig,
-  HouseholdIntegratedInformation,
+  Trade,
+  ControlConfig,
 } from "../types";
 import _ from "lodash";
 import { DistributorModel } from "../Distributor";
 import { MonthMeterHistoryModel } from "../MonthMeterHistory";
-import { getRole } from "@utils";
+import { demandFunction, getRole } from "@utils";
 import { HistoryModel } from "../History";
+import { TradeModel } from "../Trade";
 
 // Builder Pattern 적용
 export class MixedData {
@@ -17,6 +19,7 @@ export class MixedData {
   households?: MonthMeterData[];
   household?: MonthMeterData;
   distributor?: Distributor;
+  trades?: Trade[];
 
   get aptPrice() {
     return this.apt!.bill * this.households!.length;
@@ -43,14 +46,47 @@ export class MixedData {
     return _.find(table, (t) => t.groupNo === groupNum);
   }
 
-  get houesholdIntegratedBill() {
+  async houesholdIntegratedBill() {
+    const controlConfig = await ControlConfig.getRecently();
     const householdDistribution = this.householdDistribution;
 
     const basicPrice = this.household!.basic;
     const elecRatePrice = this.household!.elecRate;
     const householdPrice = basicPrice + elecRatePrice;
     const publicPrice = householdDistribution!.price;
-    const tradePrice = 0;
+    const tradeReqCount = _.filter(
+      this.trades!,
+      ({ status }) => status === "request"
+    ).length;
+
+    // tradePrice
+    // buyer일 경우
+    const estTrade = _.filter(
+      this.trades!,
+      ({ status }) => status === "establish"
+    );
+    let tradePrice = 0;
+    if (estTrade.length !== 0) {
+      console.log(this.household!);
+      if (this.household!.role === "buyer") {
+        let kwh = this.household!.kwh;
+        this.household!.tradeQuantity = _.sumBy(
+          estTrade,
+          ({ quantity }) => quantity
+        );
+        const tradeBuyer = this.household!.tradeObj;
+        const demands = _.map(estTrade, ({ quantity }) => {
+          const _kwh = kwh;
+          kwh -= quantity;
+          return demandFunction(_kwh, quantity, controlConfig.month);
+        });
+
+        tradeBuyer.tradePrice = _.sum(demands);
+        const tradeBill = tradeBuyer.bill;
+        tradePrice = householdPrice - tradeBill;
+      } else {
+      }
+    }
     const bill = householdPrice + publicPrice - tradePrice;
 
     return {
@@ -63,6 +99,7 @@ export class MixedData {
         elecRatePrice,
         householdPrice,
         publicPrice,
+        tradeReqCount,
         tradePrice,
         bill,
       },
@@ -82,6 +119,7 @@ export class MixedDataBuilder {
     await this.step2_ex(control._id, control.month);
     await this.step3(name);
     await this.step4(control._id as any);
+    await this.step5();
   }
 
   set prev(prev: number) {
@@ -157,7 +195,7 @@ export class MixedDataBuilder {
       {
         name,
       },
-      { name: 1, kwh: 1 }
+      { name: 1, kwh: 1, role: 1 }
     );
     this.mix.household = MonthMeterData.getFromDocument(
       meterData!,
@@ -172,6 +210,22 @@ export class MixedDataBuilder {
       controlId: controlId,
     });
     this.mix.distributor = Distributor.getFromDocs(distributorDocs!);
+    return this;
+  }
+
+  // trades setting
+  async step5() {
+    const trades = await TradeModel.find(
+      {
+        $or: [
+          { requester: this.mix.household?.name },
+          { responser: this.mix.household?.name },
+        ],
+      },
+      {},
+      { sort: { updatedAt: 1 } }
+    );
+    this.mix.trades = trades;
     return this;
   }
 

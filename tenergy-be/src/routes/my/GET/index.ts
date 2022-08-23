@@ -46,7 +46,7 @@ routes.get(
     const APTUsage = mixedData.apt!.kwh * mixedData.households!.length;
     const distributor = mixedData.distributor!;
     await distributor.setMixedData(APTUsage, control[0].month);
-    console.log(mixedData.houesholdIntegratedBill);
+    // console.log(mixedData.houesholdIntegratedBill);
 
     // history
     const monthMeterHistory = await MonthMeterHistoryModel.findOne(
@@ -55,8 +55,12 @@ routes.get(
     );
     console.log(monthMeterHistory);
 
+    console.log(mixedData.trades);
+    const houesholdIntegratedBill = await mixedData.houesholdIntegratedBill();
+    console.log(houesholdIntegratedBill);
+
     return res.status(StatusCodes.OK).json({
-      ...mixedData.houesholdIntegratedBill,
+      ...houesholdIntegratedBill,
       history: monthMeterHistory!.kwh,
     });
   }
