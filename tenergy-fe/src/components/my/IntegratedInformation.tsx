@@ -1,55 +1,65 @@
-import { Distribution, Meter, Price } from "@api/types";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
 import { blue, white } from "@styles/colors";
 import { H1, H4 } from "@styles/typo";
 import styled from "styled-components";
+import { InformationProps } from "./types";
 
-type Props = {
-  meter: Meter;
-  price: Price;
-  distribution: Distribution;
-};
-
-function IntegratedInformation({ meter, price, distribution }: Props) {
+function IntegratedInformation({
+  listOpen,
+  infoOpen,
+  meter,
+  price,
+  distribution,
+}: InformationProps) {
   return (
     <Wrap>
       <UsageProfile>
-        <H1>{Math.round(meter.kwh)}</H1>
+        <H1>{Math.round(meter ? meter.kwh : 0)}</H1>
       </UsageProfile>
       <CardColGroup>
         <CardRowGroup columnGap={12}>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">기본요금</H4>
             <H4 className="value">
-              ₩ {price.basicPrice.toLocaleString("ko-KR")}
+              ₩ {price?.basicPrice.toLocaleString("ko-KR")}
             </H4>
           </Card>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">전력량요금</H4>
             <H4 className="value">
-              ₩ {price.elecRatePrice.toLocaleString("ko-KR")}
+              ₩ {price?.elecRatePrice.toLocaleString("ko-KR")}
             </H4>
           </Card>
         </CardRowGroup>
         <CardRowGroup columnGap={12}>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">기여도 그룹</H4>
-            <H4 className="value">{distribution.groupNo}</H4>
+            <H4 className="value">{distribution?.groupNo}</H4>
           </Card>
           <Card backgroundColor="transparent" padding="10px">
             <H4 className="cat">공용부 요금</H4>
             <H4 className="value">
-              ₩ {distribution.price.toLocaleString("ko-KR")}
+              ₩ {distribution?.price.toLocaleString("ko-KR")}
             </H4>
           </Card>
         </CardRowGroup>
       </CardColGroup>
       <CardRowGroup columnGap={12} className="trade-information">
-        <Card backgroundColor="trading" padding="10px">
+        <Card
+          backgroundColor="trading"
+          padding="10px"
+          isCursor
+          onClick={listOpen}
+        >
           <H4 className="cat">거래 요청</H4>
           <H4 className="value">4</H4>
         </Card>
-        <Card backgroundColor="trading" padding="10px">
+        <Card
+          backgroundColor="trading"
+          padding="10px"
+          isCursor
+          onClick={infoOpen}
+        >
           <H4 className="cat">거래 이익</H4>
           <H4 className="value">₩ 1,996</H4>
         </Card>

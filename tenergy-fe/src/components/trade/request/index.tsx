@@ -38,9 +38,9 @@ export function TradeRequest({
   );
 }
 
-export function TradeRequestList() {
+export function TradeRequestList({ closeAction }: ModalProps) {
   return (
-    <FullScreenModal>
+    <FullScreenModal closeAction={closeAction}>
       <Table fontStyle="p2" padding="18px 0">
         <colgroup>
           <col width="20%"></col>
@@ -81,9 +81,9 @@ export function TradeRequestList() {
   );
 }
 
-export function TradeInformation() {
+export function TradeInformation({ closeAction }: ModalProps) {
   return (
-    <FullScreenModal>
+    <FullScreenModal closeAction={closeAction}>
       <H2 className="title">보유 거래 사용량</H2>
       <Information />
     </FullScreenModal>

@@ -2,17 +2,19 @@ import styled from "styled-components";
 import IntegratedInformation from "./IntegratedInformation";
 import UsageHistory from "./UsageHistory";
 import PriceInformation from "./PriceInformation";
-import { ResGetMy } from "@api/types";
+import { InformationProps, MyComponentProps } from "./types";
 
-type Props = {
-  data: ResGetMy;
-};
-
-export function MyComponent({ data }: Props) {
+export function MyComponent({
+  data,
+  listOpen,
+  infoOpen,
+}: MyComponentProps & InformationProps) {
   return (
     <Wrap>
       <UsageHistory meter={data.meter} history={data.history} />
       <IntegratedInformation
+        listOpen={listOpen}
+        infoOpen={infoOpen}
         meter={data.meter}
         price={data.price}
         distribution={data.distribution}
