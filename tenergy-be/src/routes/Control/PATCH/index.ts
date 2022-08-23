@@ -52,6 +52,7 @@ routes.patch(
         month
       );
     });
+
     _.forEach(newMonthMeter, async (meter) => {
       await meter.pushHistory(now);
       await MonthMeterDataModel.findOneAndUpdate(

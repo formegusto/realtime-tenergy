@@ -5,6 +5,7 @@ import _ from "lodash";
 import { MonthMeterHistoryModel } from "../MonthMeterHistory";
 import { MonthMeterDataModel } from ".";
 import { TradingLabel } from "../types";
+import { TradeModel } from "../Trade";
 
 export class MonthMeterData {
   // mongo data
@@ -114,14 +115,33 @@ export class MonthMeterData {
   }
 
   async pushHistory(day: number, tradingLabel?: TradingLabel) {
+    const trades = await TradeModel.find({
+      $or: [
+        {
+          requester: this.name,
+        },
+        {
+          responser: this.name,
+        },
+      ],
+      // status: "establish",
+    });
+    const totalQuantity = _.sumBy(trades, ({ quantity }) => quantity);
+
     await MonthMeterHistoryModel.findOneAndUpdate(
       { name: this.name },
       {
         $push: {
           kwh: {
-            value: this.kwh,
+            value:
+              this.kwh +
+              (tradingLabel
+                ? 0
+                : this.role === "buyer"
+                ? totalQuantity * -1
+                : totalQuantity),
             day,
-            tradingLabel,
+            ...(tradingLabel ? { tradingLabel } : {}),
           },
         },
       },
