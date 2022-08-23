@@ -1,6 +1,14 @@
 import { other, white } from "@styles/colors";
 import styled, { keyframes } from "styled-components";
 
+export const OpacityAnimation = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+`;
+
 export const UpAnimation = keyframes`
   from {
     transform: translateY(100%);
@@ -47,12 +55,14 @@ export const DynamicBg = styled.div`
   height: 100vh;
 
   background: rgba(0, 0, 0, 0.6);
+  z-index: 250;
 `;
 
 export const DynamicBlock = styled.div`
   position: fixed;
   left: 0;
   bottom: 0;
+  z-index: 255;
 
   width: calc(100vw - 24px);
   padding: 12px;

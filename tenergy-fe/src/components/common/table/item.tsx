@@ -1,6 +1,10 @@
 import { white } from "@styles/colors";
 import styled, { css } from "styled-components";
-import { TableColumnStyleProps, TableHeadStyleProps } from "./types";
+import {
+  TableColumnStyleProps,
+  TableHeadStyleProps,
+  TableRowStyleProps,
+} from "./types";
 
 export const TableHead = styled.thead<TableHeadStyleProps>`
   ${({ fontDensity }) =>
@@ -25,7 +29,13 @@ export const TableBody = styled.tbody`
   color: ${white[900]};
 `;
 
-export const TableBodyRow = styled.tr``;
+export const TableBodyRow = styled.tr<TableRowStyleProps>`
+  ${({ isCursor }) =>
+    isCursor &&
+    css`
+      cursor: pointer;
+    `}
+`;
 
 export const TableBodyCol = styled.td<TableColumnStyleProps>`
   text-align: ${({ isCenter }) => (isCenter ? "center" : "left")};

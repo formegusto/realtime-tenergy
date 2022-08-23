@@ -5,3 +5,7 @@ export type TableItemProps = {
 export type TradeRequestProps = {
   type: "request" | "response";
 };
+
+export interface InformationProps {
+  cancleOpen: () => void;
+}

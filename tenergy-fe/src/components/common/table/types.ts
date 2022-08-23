@@ -12,3 +12,7 @@ export type TableHeadStyleProps = {
 export type TableColumnStyleProps = {
   isCenter?: boolean;
 };
+
+export type TableRowStyleProps = {
+  isCursor?: boolean;
+};

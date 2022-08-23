@@ -4,52 +4,33 @@ import { MdHorizontalRule } from "react-icons/md";
 import { white } from "@styles/colors";
 import { Button } from "@component/common/button";
 import { H2, H4 } from "@styles/typo";
+import { InformationProps } from "./types";
 
-function Information() {
+function Information({ cancleOpen }: InformationProps) {
   return (
     <Wrap>
       <CardColGroup>
         <CardRowGroup>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
             <Button className="remove-btn" colorTheme="transparent">
               <MdHorizontalRule size={24} color={white[900]} />
             </Button>
             <H2 className="usage">24</H2>
             <H4 className="rate">₩ 1,996</H4>
           </Card>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
-            <Button className="remove-btn" colorTheme="transparent">
-              <MdHorizontalRule size={24} color={white[900]} />
-            </Button>
-            <H2 className="usage">24</H2>
-            <H4 className="rate">₩ 1,996</H4>
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
-            <Button className="remove-btn" colorTheme="transparent">
-              <MdHorizontalRule size={24} color={white[900]} />
-            </Button>
-            <H2 className="usage">24</H2>
-            <H4 className="rate">₩ 1,996</H4>
-          </Card>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
-            <Button className="remove-btn" colorTheme="transparent">
-              <MdHorizontalRule size={24} color={white[900]} />
-            </Button>
-            <H2 className="usage">24</H2>
-            <H4 className="rate">₩ 1,996</H4>
-          </Card>
-        </CardRowGroup>
-        <CardRowGroup>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
-            <Button className="remove-btn" colorTheme="transparent">
-              <MdHorizontalRule size={24} color={white[900]} />
-            </Button>
-            <H2 className="usage">24</H2>
-            <H4 className="rate">₩ 1,996</H4>
-          </Card>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
             <Button className="remove-btn" colorTheme="transparent">
               <MdHorizontalRule size={24} color={white[900]} />
             </Button>
@@ -58,14 +39,82 @@ function Information() {
           </Card>
         </CardRowGroup>
         <CardRowGroup>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
             <Button className="remove-btn" colorTheme="transparent">
               <MdHorizontalRule size={24} color={white[900]} />
             </Button>
             <H2 className="usage">24</H2>
             <H4 className="rate">₩ 1,996</H4>
           </Card>
-          <Card className="card" backgroundColor="darkgreen" padding="12px">
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
+            <Button className="remove-btn" colorTheme="transparent">
+              <MdHorizontalRule size={24} color={white[900]} />
+            </Button>
+            <H2 className="usage">24</H2>
+            <H4 className="rate">₩ 1,996</H4>
+          </Card>
+        </CardRowGroup>
+        <CardRowGroup>
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
+            <Button className="remove-btn" colorTheme="transparent">
+              <MdHorizontalRule size={24} color={white[900]} />
+            </Button>
+            <H2 className="usage">24</H2>
+            <H4 className="rate">₩ 1,996</H4>
+          </Card>
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
+            <Button className="remove-btn" colorTheme="transparent">
+              <MdHorizontalRule size={24} color={white[900]} />
+            </Button>
+            <H2 className="usage">24</H2>
+            <H4 className="rate">₩ 1,996</H4>
+          </Card>
+        </CardRowGroup>
+        <CardRowGroup>
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
+            <Button className="remove-btn" colorTheme="transparent">
+              <MdHorizontalRule size={24} color={white[900]} />
+            </Button>
+            <H2 className="usage">24</H2>
+            <H4 className="rate">₩ 1,996</H4>
+          </Card>
+          <Card
+            className="card"
+            backgroundColor="darkgreen"
+            padding="12px"
+            onClick={cancleOpen}
+            isCursor
+          >
             <Button className="remove-btn" colorTheme="transparent">
               <MdHorizontalRule size={24} color={white[900]} />
             </Button>
