@@ -1,13 +1,13 @@
 import React from "react";
 
-type Props = {
-  modal: (args: any) => JSX.Element;
-};
+interface Props<P> {
+  modal: (args: P) => JSX.Element;
+}
 
-export function useModal({
+export function useModal<P>({
   modal,
-}: Props): [
-  (args: any) => JSX.Element | null,
+}: Props<P>): [
+  (args: P) => JSX.Element | null,
   boolean,
   () => void,
   () => void

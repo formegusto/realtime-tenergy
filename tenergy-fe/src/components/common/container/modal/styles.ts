@@ -1,5 +1,13 @@
 import { other, white } from "@styles/colors";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+export const UpAnimation = keyframes`
+  from {
+    transform: translateY(100%);
+  } to {
+    transform: translateY(0);
+  }
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -50,6 +58,7 @@ export const DynamicBlock = styled.div`
   border-radius: 16px 16px 0 0;
 
   background-color: ${other["green"]};
+  animation: ${UpAnimation} 0.15s linear forwards;
 `;
 
 export const FullScreen = styled.div`

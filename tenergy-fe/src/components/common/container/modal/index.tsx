@@ -13,15 +13,16 @@ import { white } from "@styles/colors";
 import { Tag1 } from "@styles/typo";
 import QuantitySetting from "./QuantitySetting";
 import { Button } from "@component/common/button";
+import { ModalProps } from "./types";
 
 export * from "./styles";
 
-export function ModalHeader() {
+export function ModalHeader({ closeAction }: ModalProps) {
   return (
     <Header>
       <LeftItem className="modal-left"></LeftItem>
       <RightItem className="modal-right">
-        <button className="close-btn">
+        <button className="close-btn" onClick={closeAction}>
           <MdOutlineClear size={36} color={white[900]} />
         </button>
       </RightItem>
@@ -38,13 +39,11 @@ export function FullScreenModal({ children }: React.PropsWithChildren<any>) {
   );
 }
 
-export function QuantitySettingModal({
-  children,
-}: React.PropsWithChildren<any>) {
+export function QuantitySettingModal({ closeAction }: ModalProps) {
   return (
     <DynamicScreen>
       <DynamicBlock>
-        <ModalHeader />
+        <ModalHeader closeAction={closeAction} />
         <QuantitySettingWrap>
           <Tag1 className="title">Config Trading Usage</Tag1>
           <QuantitySetting />

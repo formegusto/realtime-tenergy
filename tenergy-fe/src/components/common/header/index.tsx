@@ -36,13 +36,14 @@ export function Header() {
         <MdMiscellaneousServices size={24} onClick={isOpen ? close : open} />
       </IconButton>
       {household && <SimpleProfile data={household} />}
-      <QuantityModal />
+      <QuantityModal closeAction={close} />
     </Wrap>
   );
 }
 
 const Wrap = styled.header`
   position: fixed;
+  z-index: 2;
 
   left: 0;
   top: 0;
