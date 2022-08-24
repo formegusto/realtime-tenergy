@@ -56,7 +56,8 @@ export class MixedData {
     const publicPrice = householdDistribution!.price;
     const tradeReqCount = _.filter(
       this.trades!,
-      ({ status }) => status === "request"
+      ({ status, responser }) =>
+        status === "request" && responser === this.household!.name
     ).length;
 
     // tradePrice
