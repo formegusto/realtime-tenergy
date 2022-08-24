@@ -1,7 +1,7 @@
 import { ResGetSellers, Seller } from "@api/types";
 
 export interface SellerItemProps {
-  onClick: () => void;
+  onClick: (responser: string) => void;
   datas?: Seller[][];
 }
 

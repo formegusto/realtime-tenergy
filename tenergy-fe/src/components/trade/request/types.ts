@@ -4,6 +4,8 @@ export type TableItemProps = {
 
 export type TradeRequestProps = {
   type: "request" | "response";
+  requester: string;
+  responser: string;
 };
 
 export interface InformationProps {

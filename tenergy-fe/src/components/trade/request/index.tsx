@@ -1,3 +1,4 @@
+import { getSample } from "@api";
 import { Button, ButtonGroup } from "@component/common/button";
 import { FullScreenModal } from "@component/common/container";
 import { ModalProps } from "@component/common/container/modal/types";
@@ -11,7 +12,10 @@ import {
   TableHeadRow,
 } from "@component/common/table";
 import { useModal } from "@hooks";
+import { quantityState } from "@store/atom";
 import { H2 } from "@styles/typo";
+import { useQuery } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
 import { TradeConfirmModal } from "../etc";
 import Information from "./Information";
 import RequestTable from "./RequestTable";
@@ -21,10 +25,28 @@ import { TradeRequestProps } from "./types";
 export function TradeRequest({
   type,
   closeAction,
+  requester,
+  responser,
 }: TradeRequestProps & ModalProps) {
+  const quantity = useRecoilValue(quantityState);
+  const {} = useQuery(
+    ["getTradeSample"],
+    () =>
+      getSample({
+        quantity,
+        responser,
+        requester,
+      }),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
+
   return (
     <FullScreenModal closeAction={closeAction}>
-      <RequestUsage>30</RequestUsage>
+      <RequestUsage>{quantity}</RequestUsage>
       <RequestTable />
       {type === "request" ? (
         <Button className="confirm-btn" colorTheme="darkgreen" isBlock>
@@ -110,7 +132,7 @@ export function TradeRequestList({ closeAction }: ModalProps) {
           </TableBody>
         </Table>
       </FullScreenModal>
-      <Modal type="response" closeAction={close} />
+      <Modal type="response" closeAction={close} requester="" responser="" />
     </>
   );
 }

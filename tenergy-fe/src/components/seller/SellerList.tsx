@@ -18,7 +18,7 @@ function SellerList({ datas, onClick }: SellerItemProps) {
               <Card
                 padding="16px 12px"
                 key={`seller-${_id}`}
-                onClick={onClick}
+                onClick={() => onClick(name)}
                 isCursor
               >
                 <HouseholdInformation>
