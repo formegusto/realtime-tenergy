@@ -17,6 +17,7 @@ export function BuyerContainer() {
     ["getBuyersQuery", quantity],
     ({ queryKey }) => getBuyers(queryKey[1] as any),
     {
+      keepPreviousData: true,
       refetchOnWindowFocus: false,
     }
   );

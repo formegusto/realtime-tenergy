@@ -11,6 +11,7 @@ export function SellerContainer() {
   const quantity = useRecoilValue(quantityState);
   const [responser, setResponser] = React.useState<string | null>(null);
   const { data } = useQuery(["getSellersQuery"], getSellers, {
+    keepPreviousData: true,
     refetchOnWindowFocus: false,
   });
   const [Modal, , open, close] = useModal({
