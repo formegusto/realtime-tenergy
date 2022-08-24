@@ -1,5 +1,5 @@
 import { AdvancedTrade, ControlConfig, MonthMeterData } from "@models/types";
-import { TradeModel } from "@models";
+import { TradeMixedDataBuilder, TradeModel } from "@models";
 import { loginCheck } from "@mw";
 import Express from "express";
 import _ from "lodash";
@@ -39,27 +39,16 @@ routes.get(
   ) => {
     const { requester: reqName, responser: resName, quantity } = req.query;
     const controlConfig = await ControlConfig.getRecently();
+    const builder = new TradeMixedDataBuilder(parseInt(quantity as string));
+    const td = builder.get();
+    await builder.step1(reqName as string, resName as string);
 
-    const requester = await MonthMeterData.getFromName(
-      reqName! as string,
-      controlConfig.month
-    );
-    const responser = await MonthMeterData.getFromName(
-      resName! as string,
-      controlConfig.month
-    );
-
-    if (!requester || !responser)
-      return next(
-        new ResponseError(
-          StatusCodes.NOT_FOUND,
-          "존재하지 않는 가구정보 입니다."
-        )
-      );
+    console.log("requester", td.requester);
+    console.log("responser", td.responser);
 
     // 둘 중 구매자가 누구인지 판멸
-    const buyer = requester.role === "buyer" ? requester : responser;
-    const seller = requester.role === "seller" ? requester : responser;
+    const buyer = td.buyer;
+    const seller = td.seller;
 
     const sellerBenefit = Math.round(
       demandFunction(

@@ -68,7 +68,6 @@ export class MixedData {
     );
     let tradePrice = 0;
     if (estTrade.length !== 0) {
-      console.log(this.household!);
       if (this.household!.role === "buyer") {
         let kwh = this.household!.kwh;
         this.household!.tradeQuantity = _.sumBy(
@@ -76,16 +75,66 @@ export class MixedData {
           ({ quantity }) => quantity
         );
         const tradeBuyer = this.household!.tradeObj;
-        const demands = _.map(estTrade, ({ quantity }) => {
+        const demands = _.map(estTrade, ({ quantity, updatedAt }) => {
           const _kwh = kwh;
           kwh -= quantity;
+          console.log("quantity", quantity, updatedAt);
           return demandFunction(_kwh, quantity, controlConfig.month);
         });
+        console.log("buyer demands", demands);
 
         tradeBuyer.tradePrice = _.sum(demands);
         const tradeBill = tradeBuyer.bill;
         tradePrice = householdPrice - tradeBill;
       } else {
+        let kwh = this.household!.kwh;
+        this.household!.tradeQuantity = _.sumBy(
+          estTrade,
+          ({ quantity }) => quantity
+        );
+        const tradeSeller = this.household!.tradeObj;
+
+        // 순번 구해야함
+        const demands: Array<number> = await Promise.all(
+          _.map(
+            estTrade,
+            async ({ requester, responser, updatedAt, quantity }) => {
+              const buyerName =
+                requester === this.household!.name ? responser : requester;
+              const buyer = await MonthMeterDataModel.findOne({
+                name: buyerName,
+              });
+              let buyerUsage = buyer!.kwh;
+
+              // 나보다 앞 순의 거래들
+              const otherTradeList = await TradeModel.find({
+                updatedAt: { $lt: updatedAt },
+                status: "establish",
+              });
+              const otherTradeSum = _.sumBy(
+                otherTradeList,
+                ({ quantity }) => quantity
+              );
+              console.log("other trade sum", otherTradeSum);
+              // 거래를 모두 진행한 내 차례때의 사용량
+              buyerUsage -= otherTradeSum;
+              console.log("real buyer usage", buyerUsage);
+              const demand = demandFunction(
+                buyerUsage,
+                quantity,
+                controlConfig.month
+              );
+
+              return demand;
+            }
+          )
+        );
+
+        console.log(_.sum(demands));
+        console.log(householdPrice, tradeSeller.bill);
+        tradeSeller.tradePrice = _.sum(demands) * -1;
+
+        tradePrice = householdPrice - tradeSeller.bill;
       }
     }
     const bill = householdPrice + publicPrice - tradePrice;

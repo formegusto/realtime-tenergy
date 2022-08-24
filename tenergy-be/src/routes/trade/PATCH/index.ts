@@ -33,7 +33,7 @@ routes.patch(
           )
         );
 
-      const builder = new TradeMixedDataBuilder(trade.id, trade.quantity);
+      const builder = new TradeMixedDataBuilder(trade.quantity, trade.id);
       const tradeMixedData = builder.get();
       await builder.step1(trade.requester, trade.responser);
 
