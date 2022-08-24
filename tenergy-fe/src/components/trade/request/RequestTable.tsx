@@ -86,6 +86,8 @@ function RequestTable() {
 
 const Wrap = styled.div`
   color: ${white[900]};
+  height: calc(var(--vh) * 100 - 216px - 36px - 24px - 44px - 24px);
+  overflow-y: scroll;
 
   & > h1 {
     padding: 0 0 16px;

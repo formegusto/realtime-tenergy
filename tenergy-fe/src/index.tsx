@@ -13,10 +13,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // import { TradeRequest, TradeRequestList } from "@component";
 
 // import { Splash } from "@component/common";
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 const queryClient = new QueryClient();
 root.render(
   <QueryClientProvider client={queryClient}>

@@ -11,9 +11,9 @@ export * from "./trade";
 
 export const Wrapper = styled.main`
   width: 100%;
-  /* height: calc(100vh - 116px); */
+  /* height: calc(var(--vh) * 100 - 60px - 56px - 48px); */
 
-  margin: 60px 0 56px;
+  margin: 60px 0 90px;
 
   /* overflow-y: scroll; */
 

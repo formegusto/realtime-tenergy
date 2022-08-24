@@ -2,6 +2,9 @@ import { createGlobalStyle } from "styled-components";
 import { blue, other } from "./colors";
 
 export const ResetStyle = createGlobalStyle`
+    /* #root {
+        --vh: 100%;   
+    } */
     /* reset code */
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, 
@@ -55,8 +58,9 @@ export const ResetStyle = createGlobalStyle`
 
         margin: 0 auto;
     }
-
-
+    /* ::-webkit-scrollbar {
+        display: none;
+    } */
     * {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -79,13 +83,14 @@ export const NavigateAnimation = createGlobalStyle`
         position: relative;
         overflow: hidden;
         height: 100vh;
+        height: calc(var(--vh) * 100);
         width: 100vw;
         z-index: 225;
 
         max-width: 500px;
     }
     .right-enter {
-        transform: translateX(100%);
+        transform: translateX(100w);
     }
   
     .right-enter-active {

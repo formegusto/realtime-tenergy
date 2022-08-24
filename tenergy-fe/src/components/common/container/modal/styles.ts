@@ -53,6 +53,8 @@ export const DynamicBg = styled.div`
 
   width: 100vw;
   height: 100vh;
+  height: calc(var(--vh) * 100);
+  /* height: var(--vh, 1vh) * 100; */
 
   background: rgba(0, 0, 0, 0.6);
   z-index: 250;
@@ -80,7 +82,7 @@ export const FullScreen = styled.div`
   z-index: 250;
 
   width: calc(100vw - 24px);
-  height: calc(100vh - 24px);
+  height: calc(var(--vh) * 100 - 24px);
 
   background-color: ${other["green"]};
   animation: ${UpAnimation} 0.15s linear forwards;

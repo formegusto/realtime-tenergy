@@ -7,9 +7,20 @@ import {
   RootScreen,
   SellerScreen,
 } from "@screen";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
+  const setSize = React.useCallback(() => {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }, []);
+
+  React.useEffect(() => {
+    setSize();
+    window.addEventListener("resize", setSize);
+  }, [setSize]);
+
   return (
     <Routes>
       <Route path="/" element={<RootScreen />}>
