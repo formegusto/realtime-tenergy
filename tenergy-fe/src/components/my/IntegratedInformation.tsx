@@ -52,7 +52,7 @@ function IntegratedInformation({
           onClick={listOpen}
         >
           <H4 className="cat">거래 요청</H4>
-          <H4 className="value">4</H4>
+          <H4 className="value">{price?.tradeReqCount}</H4>
         </Card>
         <Card
           backgroundColor="trading"
@@ -61,7 +61,9 @@ function IntegratedInformation({
           onClick={infoOpen}
         >
           <H4 className="cat">거래 이익</H4>
-          <H4 className="value">₩ 1,996</H4>
+          <H4 className="value">
+            ₩ {price?.tradePrice.toLocaleString("ko-KR")}
+          </H4>
         </Card>
       </CardRowGroup>
     </Wrap>

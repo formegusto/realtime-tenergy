@@ -13,6 +13,7 @@ export function MyContainer() {
   const { data } = useQuery(["getMyQuery"], getMy, {
     refetchOnWindowFocus: false,
   });
+
   return data ? (
     <>
       <MyComponent data={data} listOpen={listOpen} infoOpen={infoOpen} />

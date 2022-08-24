@@ -23,5 +23,6 @@ export interface Price {
   householdPrice: number;
   publicPrice: number;
   tradePrice: number;
+  tradeReqCount: number;
   bill: number;
 }
