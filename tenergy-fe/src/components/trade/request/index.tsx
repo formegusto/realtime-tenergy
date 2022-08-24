@@ -1,5 +1,5 @@
-import { getRequests, getSample, postRequest } from "@api";
-import { RequestItem } from "@api/types";
+import { getRequests, getSample, patchRequest, postRequest } from "@api";
+import { RequestItem, TradeStatus } from "@api/types";
 import { Button, ButtonGroup } from "@component/common/button";
 import { FullScreenModal } from "@component/common/container";
 import { ModalProps } from "@component/common/container/modal/types";
@@ -14,7 +14,7 @@ import {
 } from "@component/common/table";
 import { useModal } from "@hooks";
 import { H2 } from "@styles/typo";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { TradeConfirmModal } from "../etc";
 import Information from "./Information";
@@ -24,11 +24,13 @@ import { TradeRequestProps } from "./types";
 
 export function TradeRequest({
   type,
+  requestId,
   closeAction,
   requester,
   responser,
   quantity,
 }: TradeRequestProps & ModalProps) {
+  const queryClient = useQueryClient();
   const { data, isLoading } = useQuery(
     ["getTradeSampleQuery"],
     () =>
@@ -46,6 +48,13 @@ export function TradeRequest({
       closeAction!();
     },
   });
+  const patchRequestMutation = useMutation(["pathRequestQuery"], patchRequest, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getRequestQuery"]);
+      queryClient.invalidateQueries(["getMyQuery"]);
+      closeAction!();
+    },
+  });
 
   const requestTrade = React.useCallback(() => {
     requestMutation.mutate({
@@ -54,6 +63,17 @@ export function TradeRequest({
       requester,
     });
   }, [quantity, responser, requester, requestMutation]);
+
+  const patchTrade = React.useCallback(
+    (status: TradeStatus) => {
+      if (requestId)
+        patchRequestMutation.mutate({
+          id: requestId,
+          status,
+        });
+    },
+    [requestId, patchRequestMutation]
+  );
 
   return (
     <FullScreenModal closeAction={closeAction}>
@@ -72,8 +92,15 @@ export function TradeRequest({
             </Button>
           ) : (
             <ButtonGroup className="confirm-btn">
-              <Button colorTheme="red">거절</Button>
-              <Button colorTheme="darkgreen">수정</Button>
+              <Button colorTheme="red" onClick={() => patchTrade("reject")}>
+                거절
+              </Button>
+              <Button
+                colorTheme="darkgreen"
+                onClick={() => patchTrade("establish")}
+              >
+                수락
+              </Button>
             </ButtonGroup>
           )}
         </>
@@ -136,6 +163,7 @@ export function TradeRequestList({ closeAction }: ModalProps) {
             <Modal
               type="response"
               closeAction={close}
+              requestId={selected.id}
               requester={selected!.requester.name}
               responser={selected!.responser.name}
               quantity={selected!.quantity}

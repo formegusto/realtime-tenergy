@@ -3,7 +3,15 @@ export interface ResGetSample {
   buyer: TraderRole;
 }
 
+export type TradeStatus = "request" | "reject" | "establish" | "cancle";
+
+export interface ReqPatchRequest {
+  id: string;
+  status: TradeStatus;
+}
+
 export interface RequestItem {
+  id: string;
   requester: Trader;
   responser: Trader;
   quantity: number;

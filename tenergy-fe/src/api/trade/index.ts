@@ -1,6 +1,11 @@
 import { client } from "@api/client";
 import QueryString from "qs";
-import { RequestItem, ResGetSample, TradeRequest } from "./types";
+import {
+  ReqPatchRequest,
+  RequestItem,
+  ResGetSample,
+  TradeRequest,
+} from "./types";
 
 const BASEPATH = "/trade";
 
@@ -33,3 +38,10 @@ export const getRequests = async () =>
       },
     })
   ).data;
+
+export const patchRequest = async (body: ReqPatchRequest) =>
+  await client.patch(`${BASEPATH}`, body, {
+    headers: {
+      authorization: localStorage.getItem("token")!,
+    },
+  });
