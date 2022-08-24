@@ -4,11 +4,24 @@ import { loginCheck } from "@mw";
 import Express from "express";
 import _ from "lodash";
 import { StatusCodes } from "http-status-codes";
-import { ResponseError } from "@common";
 import { demandFunction } from "@utils";
 import { Sample } from "../types";
 
 const routes = Express.Router();
+
+routes.get(
+  "/",
+  loginCheck,
+  async (req: Express.Request, res: Express.Response) => {
+    const { name } = req.household;
+
+    const meter = await MonthMeterData.getFromName(name);
+    const tradeMargin = await meter!.tradeMargins();
+    console.log(tradeMargin);
+
+    return res.status(StatusCodes.OK).json(tradeMargin);
+  }
+);
 
 routes.get(
   "/request",
