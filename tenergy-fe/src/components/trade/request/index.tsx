@@ -1,4 +1,4 @@
-import { getSample } from "@api";
+import { getSample, postRequest } from "@api";
 import { Button, ButtonGroup } from "@component/common/button";
 import { FullScreenModal } from "@component/common/container";
 import { ModalProps } from "@component/common/container/modal/types";
@@ -14,7 +14,8 @@ import {
 import { useModal } from "@hooks";
 import { quantityState } from "@store/atom";
 import { H2 } from "@styles/typo";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import React from "react";
 import { useRecoilValue } from "recoil";
 import { TradeConfirmModal } from "../etc";
 import Information from "./Information";
@@ -29,8 +30,8 @@ export function TradeRequest({
   responser,
 }: TradeRequestProps & ModalProps) {
   const quantity = useRecoilValue(quantityState);
-  const {} = useQuery(
-    ["getTradeSample"],
+  const { data, isLoading } = useQuery(
+    ["getTradeSampleQuery"],
     () =>
       getSample({
         quantity,
@@ -38,25 +39,45 @@ export function TradeRequest({
         requester,
       }),
     {
-      onSuccess: (data) => {
-        console.log(data);
-      },
+      refetchOnWindowFocus: false,
     }
   );
+  const requestMutation = useMutation(["postRequestQuery"], postRequest, {
+    onSuccess: () => {
+      closeAction!();
+    },
+  });
+
+  const requestTrade = React.useCallback(() => {
+    requestMutation.mutate({
+      quantity,
+      responser,
+      requester,
+    });
+  }, [quantity, responser, requester, requestMutation]);
 
   return (
     <FullScreenModal closeAction={closeAction}>
-      <RequestUsage>{quantity}</RequestUsage>
-      <RequestTable />
-      {type === "request" ? (
-        <Button className="confirm-btn" colorTheme="darkgreen" isBlock>
-          거래요청
-        </Button>
-      ) : (
-        <ButtonGroup className="confirm-btn">
-          <Button colorTheme="red">거절</Button>
-          <Button colorTheme="darkgreen">수정</Button>
-        </ButtonGroup>
+      {!isLoading && data && (
+        <>
+          <RequestUsage>{quantity}</RequestUsage>
+          <RequestTable {...data} />
+          {type === "request" ? (
+            <Button
+              className="confirm-btn"
+              colorTheme="darkgreen"
+              isBlock
+              onClick={() => requestTrade()}
+            >
+              거래요청
+            </Button>
+          ) : (
+            <ButtonGroup className="confirm-btn">
+              <Button colorTheme="red">거절</Button>
+              <Button colorTheme="darkgreen">수정</Button>
+            </ButtonGroup>
+          )}
+        </>
       )}
     </FullScreenModal>
   );

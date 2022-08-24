@@ -1,5 +1,5 @@
 export type TableItemProps = {
-  role: "buyer" | "seller";
+  type: "buyer" | "seller";
 };
 
 export type TradeRequestProps = {

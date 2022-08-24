@@ -14,7 +14,7 @@ function BuyerList({ datas, onClick }: BuyerItemProps) {
       <CardColGroup>
         {datas?.map((data, idx) => (
           <Card
-            onClick={onClick}
+            onClick={() => onClick(data.name)}
             key={`buyer-table-col-${idx}`}
             direction="row"
             columnGap={6}

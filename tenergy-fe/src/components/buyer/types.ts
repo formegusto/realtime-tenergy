@@ -1,7 +1,7 @@
 import { Buyer, ResGetBuyers } from "@api/types";
 
 export interface BuyerItemProps {
-  onClick: () => void;
+  onClick: (responser: string) => void;
   datas?: Buyer[];
 }
 export interface BuyerComponentProps {

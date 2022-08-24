@@ -1,3 +1,4 @@
+import { ResGetSample, Trader } from "@api/types";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
 import { white } from "@styles/colors";
 import { H1, H3, H5, P2 } from "@styles/typo";
@@ -5,26 +6,33 @@ import { fontStyles } from "@styles/typo/styles";
 import styled from "styled-components";
 import { TableItemProps } from "./types";
 
-function TableItem({ role }: TableItemProps) {
+function TableItem({ type, ...trader }: TableItemProps & Trader) {
   return (
     <ItemWrap className="req-table-item">
       <ItemHeader>
-        <H3>{role === "buyer" ? "구매자" : "판매자"}</H3>
-        <H5>102동-1002호</H5>
+        <H3>{type === "buyer" ? "구매자" : "판매자"}</H3>
+        <H5>{trader.name}</H5>
       </ItemHeader>
       <CardColGroup className="content">
         <CardRowGroup>
           <Card backgroundColor="transparent" padding="10px 0 0px" rowGap={8}>
             <H3>거래 전 사용량</H3>
             <P2 className="prev-usage">
-              <span className="value">420kWh</span>
+              <span className="value">
+                {Math.round(trader.usage.beforeUsage)}kWh
+              </span>
             </P2>
           </Card>
           <Card backgroundColor="transparent" padding="10px 0 0px" rowGap={8}>
             <H3>거래 후 사용량</H3>
             <P2 className="prev-usage">
-              <span className="value">390kWh</span>
-              <span className="sub-value decrease">-30</span>
+              <span className="value">
+                {Math.round(trader.usage.afterUsage)}kWh
+              </span>
+              <span className="sub-value decrease">
+                {type === "buyer" ? "" : "+"}
+                {trader.usage.err}
+              </span>
             </P2>
           </Card>
         </CardRowGroup>
@@ -32,7 +40,9 @@ function TableItem({ role }: TableItemProps) {
           <Card backgroundColor="transparent" padding="10px 0 " rowGap={8}>
             <H3>거래 이익</H3>
             <P2 className="prev-usage">
-              <span className="value">₩ 1,996</span>
+              <span className="value">
+                ₩ {trader.price.err.toLocaleString("ko-KR")}
+              </span>
             </P2>
           </Card>
         </CardRowGroup>
@@ -74,12 +84,13 @@ const ItemHeader = styled.div`
     font-weight: bold;
   }
 `;
-function RequestTable() {
+
+function RequestTable(props: ResGetSample) {
   return (
     <Wrap>
       <H1>거래 정보</H1>
-      <TableItem role={"buyer"} />
-      <TableItem role={"seller"} />
+      <TableItem type={"buyer"} {...props.buyer} />
+      <TableItem type={"seller"} {...props.seller} />
     </Wrap>
   );
 }

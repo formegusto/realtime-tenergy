@@ -1,12 +1,24 @@
 import { client } from "@api/client";
 import QueryString from "qs";
-import { TradeRequest } from "./types";
+import { ResGetSample, TradeRequest } from "./types";
 
 const BASEPATH = "/trade";
 
 export const getSample = async (query: TradeRequest) =>
   (
-    await client.get(`${BASEPATH}/sample?${QueryString.stringify(query)}`, {
+    await client.get<ResGetSample>(
+      `${BASEPATH}/sample?${QueryString.stringify(query)}`,
+      {
+        headers: {
+          authorization: localStorage.getItem("token")!,
+        },
+      }
+    )
+  ).data;
+
+export const postRequest = async (body: TradeRequest) =>
+  (
+    await client.post(`${BASEPATH}`, body, {
       headers: {
         authorization: localStorage.getItem("token")!,
       },
