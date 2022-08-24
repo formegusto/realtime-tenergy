@@ -45,6 +45,7 @@ routes.get(
 
     const APTUsage = mixedData.apt!.kwh * mixedData.households!.length;
     const distributor = mixedData.distributor!;
+    await distributor.setHouseholds();
     await distributor.setMixedData(APTUsage, control[0].month);
     // console.log(mixedData.houesholdIntegratedBill);
 

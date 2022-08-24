@@ -1,4 +1,4 @@
-import { Document, Schema } from "mongoose";
+import { Schema } from "mongoose";
 import { BASIC, ELECRATE, NUGIN_ERR, NUGIN_STEP } from "../../common";
 import { demandFunction, monthToSeason } from "../../utils";
 import _ from "lodash";
@@ -6,6 +6,7 @@ import { MonthMeterHistoryModel } from "../MonthMeterHistory";
 import { MonthMeterDataModel } from ".";
 import { TradingLabel } from "../types";
 import { TradeModel } from "../Trade";
+import { cancleTrade } from "./utils";
 
 export class MonthMeterData {
   // mongo data
@@ -196,9 +197,22 @@ export class MonthMeterData {
           responser: this.name,
         },
       ],
-      // status: "establish",
+      status: "establish",
     });
-    const totalQuantity = _.sumBy(trades, ({ quantity }) => quantity);
+    let totalQuantity = _.sumBy(trades, ({ quantity }) => quantity);
+
+    if (
+      this.role === "seller" &&
+      totalQuantity !== 0 &&
+      Math.round(this.kwh + totalQuantity) >=
+        NUGIN_ERR[monthToSeason(this.month!)][0]
+    ) {
+      // 취소 시켜야함
+      const err =
+        Math.round(this.kwh + totalQuantity) -
+        NUGIN_ERR[monthToSeason(this.month!)][0];
+      totalQuantity = await cancleTrade(this.name, err, this.month!);
+    }
 
     await MonthMeterHistoryModel.findOneAndUpdate(
       { name: this.name },

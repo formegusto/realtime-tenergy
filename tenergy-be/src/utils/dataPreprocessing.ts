@@ -39,7 +39,7 @@ export function getRole(kwh: number, month: number): "buyer" | "seller" {
   const season = monthToSeason(month);
   const nuginErr = NUGIN_ERR[season];
 
-  return kwh <= nuginErr[0] ? "seller" : "buyer";
+  return Math.round(kwh) > nuginErr[0] ? "buyer" : "seller";
 }
 
 // 수요함수
