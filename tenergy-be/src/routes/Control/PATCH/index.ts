@@ -196,7 +196,7 @@ routes.patch(
     });
 
     // TradeUpdate
-    await TradeModel.deleteOne({ day: now });
+    await TradeModel.deleteMany({ day: now });
 
     // APT Update
     const apt = await APTModel.findOne({ controlId });

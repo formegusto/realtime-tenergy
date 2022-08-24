@@ -19,23 +19,26 @@ routes.patch(
     const { id, status } = req.body;
 
     await TradeModel.updateOne({ _id: id }, { $set: { status } });
-    const trade = await TradeModel.findById(id);
 
-    // 변경하면서 history에 때려넣어줘야 함
-    const controlConfig = await ControlConfig.getRecently();
-    if (!trade || !controlConfig)
-      return next(
-        new ResponseError(
-          StatusCodes.INTERNAL_SERVER_ERROR,
-          "디용 이게 무슨일이지"
-        )
-      );
+    if (status === "establish") {
+      const trade = await TradeModel.findById(id);
 
-    const builder = new TradeMixedDataBuilder(trade.id, trade.quantity);
-    const tradeMixedData = builder.get();
-    await builder.step1(trade.requester, trade.responser);
+      // 변경하면서 history에 때려넣어줘야 함
+      const controlConfig = await ControlConfig.getRecently();
+      if (!trade || !controlConfig)
+        return next(
+          new ResponseError(
+            StatusCodes.INTERNAL_SERVER_ERROR,
+            "디용 이게 무슨일이지"
+          )
+        );
 
-    tradeMixedData.pushHistory(controlConfig.day.now);
+      const builder = new TradeMixedDataBuilder(trade.id, trade.quantity);
+      const tradeMixedData = builder.get();
+      await builder.step1(trade.requester, trade.responser);
+
+      tradeMixedData.pushHistory(controlConfig.day.now);
+    }
 
     return res.status(StatusCodes.OK).json();
   }

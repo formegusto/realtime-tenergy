@@ -48,7 +48,7 @@ export class Trade implements ITrade {
 }
 
 export class AdvancedTrade {
-  id!: Schema.Types.ObjectId;
+  id!: string;
 
   requester: MonthMeterData;
   responser: MonthMeterData;
@@ -60,12 +60,14 @@ export class AdvancedTrade {
   updatedAt!: Date;
 
   constructor(
+    id: string,
     requester: MonthMeterData,
     responser: MonthMeterData,
     quantity: number,
     status: TradeStatus,
     day: number
   ) {
+    this.id = id;
     this.requester = requester;
     this.responser = responser;
     this.quantity = quantity;
@@ -78,6 +80,7 @@ export class AdvancedTrade {
     const responser = await MonthMeterData.getFromName(trade.responser);
 
     return new AdvancedTrade(
+      String(trade.id),
       requester!,
       responser!,
       trade.quantity,

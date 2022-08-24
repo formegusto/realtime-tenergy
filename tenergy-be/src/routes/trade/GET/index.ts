@@ -17,7 +17,7 @@ routes.get(
     const { name: responser } = req.household;
 
     const _tradeRequests = await TradeModel.find(
-      { responser },
+      { responser, status: "request" },
       {},
       { sort: { createdAt: 1 } }
     );
