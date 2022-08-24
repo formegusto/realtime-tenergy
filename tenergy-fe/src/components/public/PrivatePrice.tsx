@@ -44,14 +44,14 @@ const DetailCardWrap = styled.div`
 
   & > .card {
     position: relative;
-    z-index: 2;
+    /* z-index: 2; */
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
   }
 `;
 
 const Detail = styled.div`
   position: absolute;
-  z-index: 1;
+  /* z-index: 1; */
   left: 0;
   bottom: 0;
 

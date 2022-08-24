@@ -8,11 +8,11 @@ import { useRecoilValue } from "recoil";
 
 export function BuyerContainer() {
   const auth = useRecoilValue(householdState);
+  const quantity = useRecoilValue(quantityState);
   const [responser, setResponser] = React.useState<string | null>(null);
   const [Modal, , open, close] = useModal({
     modal: TradeRequest,
   });
-  const quantity = useRecoilValue(quantityState);
   const { data } = useQuery(
     ["getBuyersQuery", quantity],
     ({ queryKey }) => getBuyers(queryKey[1] as any),
@@ -37,6 +37,7 @@ export function BuyerContainer() {
           closeAction={close}
           requester={auth.name}
           responser={responser}
+          quantity={quantity}
         />
       )}
     </>

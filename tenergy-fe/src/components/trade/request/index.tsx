@@ -1,4 +1,5 @@
-import { getSample, postRequest } from "@api";
+import { getRequests, getSample, postRequest } from "@api";
+import { RequestItem } from "@api/types";
 import { Button, ButtonGroup } from "@component/common/button";
 import { FullScreenModal } from "@component/common/container";
 import { ModalProps } from "@component/common/container/modal/types";
@@ -12,11 +13,9 @@ import {
   TableHeadRow,
 } from "@component/common/table";
 import { useModal } from "@hooks";
-import { quantityState } from "@store/atom";
 import { H2 } from "@styles/typo";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
-import { useRecoilValue } from "recoil";
 import { TradeConfirmModal } from "../etc";
 import Information from "./Information";
 import RequestTable from "./RequestTable";
@@ -28,8 +27,8 @@ export function TradeRequest({
   closeAction,
   requester,
   responser,
+  quantity,
 }: TradeRequestProps & ModalProps) {
-  const quantity = useRecoilValue(quantityState);
   const { data, isLoading } = useQuery(
     ["getTradeSampleQuery"],
     () =>
@@ -84,76 +83,66 @@ export function TradeRequest({
 }
 
 export function TradeRequestList({ closeAction }: ModalProps) {
+  const { isLoading, data } = useQuery(["getRequestQuery"], getRequests);
+  const [selected, setSelected] = React.useState<RequestItem | null>(null);
   const [Modal, , open, close] = useModal({
     modal: TradeRequest,
   });
 
+  const selectRequest = React.useCallback(
+    (selected: RequestItem) => {
+      setSelected(selected);
+      open();
+    },
+    [open]
+  );
+
   return (
     <>
-      <FullScreenModal closeAction={closeAction}>
-        <Table fontStyle="p2" padding="18px 0">
-          <colgroup>
-            <col width="20%"></col>
-            <col width="60%"></col>
-            <col width="20%"></col>
-          </colgroup>
-          <TableHead fontDensity={900}>
-            <TableHeadRow>
-              <TableHeadCol isCenter>NO</TableHeadCol>
-              <TableHeadCol isCenter>요청자</TableHeadCol>
-              <TableHeadCol isCenter>가격</TableHeadCol>
-            </TableHeadRow>
-          </TableHead>
-          <TableBody>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-            <TableBodyRow onClick={open} isCursor>
-              <TableBodyCol isCenter>1</TableBodyCol>
-              <TableBodyCol isCenter>101동-1002호</TableBodyCol>
-              <TableBodyCol isCenter>25</TableBodyCol>
-            </TableBodyRow>
-          </TableBody>
-        </Table>
-      </FullScreenModal>
-      <Modal type="response" closeAction={close} requester="" responser="" />
+      {!isLoading && data && (
+        <>
+          <FullScreenModal closeAction={closeAction}>
+            <Table fontStyle="p2" padding="18px 0">
+              <colgroup>
+                <col width="20%"></col>
+                <col width="60%"></col>
+                <col width="20%"></col>
+              </colgroup>
+              <TableHead fontDensity={900}>
+                <TableHeadRow>
+                  <TableHeadCol isCenter>NO</TableHeadCol>
+                  <TableHeadCol isCenter>요청자</TableHeadCol>
+                  <TableHeadCol isCenter>사용량</TableHeadCol>
+                </TableHeadRow>
+              </TableHead>
+              <TableBody>
+                {data.map((d, idx) => (
+                  <TableBodyRow
+                    key={`trade-requst-${idx}`}
+                    onClick={() => selectRequest(d)}
+                    isCursor
+                  >
+                    <TableBodyCol isCenter>{idx + 1}</TableBodyCol>
+                    <TableBodyCol isCenter>{d.requester.name}</TableBodyCol>
+                    <TableBodyCol isCenter>
+                      {Math.round(d.requester.kwh)}
+                    </TableBodyCol>
+                  </TableBodyRow>
+                ))}
+              </TableBody>
+            </Table>
+          </FullScreenModal>
+          {selected && (
+            <Modal
+              type="response"
+              closeAction={close}
+              requester={selected!.requester.name}
+              responser={selected!.responser.name}
+              quantity={selected!.quantity}
+            />
+          )}
+        </>
+      )}
     </>
   );
 }

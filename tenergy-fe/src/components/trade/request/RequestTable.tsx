@@ -1,4 +1,4 @@
-import { ResGetSample, Trader } from "@api/types";
+import { ResGetSample, TraderRole } from "@api/types";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
 import { white } from "@styles/colors";
 import { H1, H3, H5, P2 } from "@styles/typo";
@@ -6,7 +6,7 @@ import { fontStyles } from "@styles/typo/styles";
 import styled from "styled-components";
 import { TableItemProps } from "./types";
 
-function TableItem({ type, ...trader }: TableItemProps & Trader) {
+function TableItem({ type, ...trader }: TableItemProps & TraderRole) {
   return (
     <ItemWrap className="req-table-item">
       <ItemHeader>
@@ -41,7 +41,7 @@ function TableItem({ type, ...trader }: TableItemProps & Trader) {
             <H3>거래 이익</H3>
             <P2 className="prev-usage">
               <span className="value">
-                ₩ {trader.price.err.toLocaleString("ko-KR")}
+                ₩ {Math.abs(trader.price.err).toLocaleString("ko-KR")}
               </span>
             </P2>
           </Card>

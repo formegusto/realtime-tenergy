@@ -1,6 +1,14 @@
 export interface ResGetSample {
-  seller: Trader;
-  buyer: Trader;
+  seller: TraderRole;
+  buyer: TraderRole;
+}
+
+export interface RequestItem {
+  requester: Trader;
+  responser: Trader;
+  quantity: number;
+  status: string;
+  day: number;
 }
 
 export type TradeRequest = {
@@ -9,11 +17,19 @@ export type TradeRequest = {
   quantity: number;
 };
 
-export interface Trader {
+export interface TraderRole {
   role: string;
   name: string;
   usage: TradeUsage;
   price: TradePrice;
+}
+
+export interface Trader {
+  name: string;
+  kwh: number;
+  role: string;
+  month: number;
+  tradePrice: number;
 }
 
 export interface TradeUsage {
