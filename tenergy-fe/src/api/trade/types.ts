@@ -19,6 +19,12 @@ export interface RequestItem {
   day: number;
 }
 
+export interface TradeItem {
+  _id: string;
+  quantity: number;
+  price: number;
+}
+
 export type TradeRequest = {
   requester: string;
   responser: string;
