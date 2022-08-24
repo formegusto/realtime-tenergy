@@ -47,8 +47,13 @@ routes.get(
       controlId: control._id,
     });
     const distributor = Distributor.getFromDocs(distributorDocs!);
+    await distributor.setHouseholds();
     await distributor.setMixedData(apt!.apt, control.month);
-    const publicPrice = distributor.mixedData!.publicPrice;
+
+    const tradePrice = await distributor.mixedData!.tradePrice();
+    console.log(tradePrice);
+
+    const publicPrice = await distributor.mixedData!.publicPrice();
     console.log("Public Price", publicPrice);
 
     // get contributions
@@ -114,17 +119,17 @@ routes.get(
     await builder.step2_ex(control._id, control.month);
 
     const APTUsage = mixedData.apt!.kwh * mixedData.households!.length;
-    const nowPublicPrice = mixedData.publicPrice;
+    const nowPublicPrice = await mixedData.publicPrice();
     builder.prev = -1;
     await builder.step1(control.month);
     await builder.step2_ex(control._id, control.month);
-    const prevPublicPrice = mixedData.publicPrice;
+    const prevPublicPrice = await mixedData.publicPrice();
 
     // Setting
     await builder.step3(name);
     await builder.step4(control._id as any);
     const distributor = mixedData.distributor!;
-
+    await distributor.setHouseholds();
     await distributor.setMixedData(APTUsage, control.month);
 
     // get Group

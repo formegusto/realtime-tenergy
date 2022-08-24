@@ -3,11 +3,13 @@ import { Schema } from "mongoose";
 import { MonthMeterDataModel } from "../MonthMeterData";
 import _ from "lodash";
 import { MixedData, MixedDataBuilder } from "../MixedData";
+import { MonthMeterData } from "../types";
 
 export class Distributor {
   _id!: Schema.Types.ObjectId;
 
   binValues: Array<number>;
+  households?: MonthMeterData[];
 
   createdAt!: Date;
   updatedAt!: Date;
@@ -16,6 +18,8 @@ export class Distributor {
 
   mixedBuilder?: MixedDataBuilder;
   mixedData?: MixedData;
+
+  publicPrice?: number;
 
   constructor(datas: Array<number> | null, controlId?: any) {
     this.binValues = datas ? histogram(datas) : [];
@@ -30,10 +34,15 @@ export class Distributor {
     return distributor;
   }
 
+  async setHouseholds() {
+    this.households = await MonthMeterDataModel.find();
+  }
+
   async setMixedData(aptUsage: number, month: number) {
     this.mixedData = (await this.mixedBuilder!.step1(month))
       .step2(aptUsage, month)
       .get();
+    this.publicPrice = await this.mixedData!.publicPrice();
   }
 
   static update = async () => {
@@ -63,8 +72,8 @@ export class Distributor {
   get histInfo() {
     const histSizeBins = _.dropRight(this.binValues);
     const histInfo = _.fill(new Array(this.binValues.length - 1), 0);
-    _.forEach(this.mixedData!.households, (household) => {
-      const idx = _.filter(histSizeBins, (bin) => bin < household.kwh).length;
+    _.forEach(this.households!, ({ kwh }) => {
+      const idx = _.filter(histSizeBins, (bin) => bin < kwh).length;
 
       histInfo[idx - 1]++;
     });
@@ -73,7 +82,7 @@ export class Distributor {
   }
 
   get priPrice() {
-    return this.mixedData!.publicPrice / this.mixedData!.households!.length;
+    return this.publicPrice! / this.mixedData!.households!.length;
   }
 
   get groupPrice() {
@@ -87,8 +96,7 @@ export class Distributor {
       )
     );
     const errPriPrice =
-      (this.mixedData!.publicPrice - totalContributionPrice) /
-      this.mixedData!.households!.length;
+      (this.publicPrice! - totalContributionPrice) / this.households!.length;
     const groupPrice = _.map(
       groupContributionPrices,
       (contPrice) => contPrice + errPriPrice

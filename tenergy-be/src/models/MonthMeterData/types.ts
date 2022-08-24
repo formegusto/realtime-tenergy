@@ -1,6 +1,6 @@
 import { Document, Schema } from "mongoose";
 import { BASIC, ELECRATE, NUGIN_ERR, NUGIN_STEP } from "../../common";
-import { monthToSeason } from "../../utils";
+import { demandFunction, monthToSeason } from "../../utils";
 import _ from "lodash";
 import { MonthMeterHistoryModel } from "../MonthMeterHistory";
 import { MonthMeterDataModel } from ".";
@@ -88,6 +88,78 @@ export class MonthMeterData {
     // console.log(steps);
 
     return steps;
+  }
+
+  async tradeMargin() {
+    const trades = await TradeModel.find(
+      {
+        $or: [{ requester: this.name }, { responser: this.name }],
+        status: "establish",
+      },
+      {},
+      { sort: { updatedAt: 1 } }
+    );
+    if (trades.length === 0) return 0;
+
+    let tradeMargin = 0;
+    if (this.role === "buyer") {
+      let kwh = this.kwh;
+      this.tradeQuantity = _.sumBy(trades, ({ quantity }) => quantity);
+      const tradeBuyer = this.tradeObj;
+
+      const demands = _.map(trades, ({ quantity, updatedAt }) => {
+        const _kwh = kwh;
+        kwh -= quantity;
+        console.log("quantity", quantity, updatedAt);
+        return demandFunction(_kwh, quantity, this.month!);
+      });
+      console.log("buyer demands", demands);
+
+      tradeBuyer.tradePrice = _.sum(demands);
+      const tradeBill = tradeBuyer.bill;
+
+      tradeMargin = this.bill - tradeBill;
+    } else {
+      this.tradeQuantity = _.sumBy(trades, ({ quantity }) => quantity);
+      const tradeSeller = this.tradeObj;
+
+      const demands: Array<number> = await Promise.all(
+        _.map(trades, async ({ requester, responser, updatedAt, quantity }) => {
+          const buyerName = requester === this.name ? responser : requester;
+          const buyer = await MonthMeterDataModel.findOne({
+            name: buyerName,
+          });
+          let buyerUsage = buyer!.kwh;
+
+          // 나보다 앞 순의 거래들
+          const otherTradeList = await TradeModel.find({
+            updatedAt: { $lt: updatedAt },
+            status: "establish",
+          });
+          const otherTradeSum = _.sumBy(
+            otherTradeList,
+            ({ quantity }) => quantity
+          );
+          console.log("other trade sum", otherTradeSum);
+          // 거래를 모두 진행한 내 차례때의 사용량
+          buyerUsage -= otherTradeSum;
+          console.log("real buyer usage", buyerUsage);
+          const demand = demandFunction(buyerUsage, quantity, this.month!);
+
+          return demand;
+        })
+      );
+
+      console.log("seller demands", demands);
+
+      console.log(_.sum(demands));
+      console.log(this.bill, tradeSeller.bill);
+      tradeSeller.tradePrice = _.sum(demands) * -1;
+
+      tradeMargin = this.bill - tradeSeller.bill;
+    }
+
+    return tradeMargin;
   }
 
   get step(): number {

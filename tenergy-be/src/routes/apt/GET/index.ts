@@ -1,5 +1,6 @@
+import { ControlConfig, MonthMeterData } from "@models/types";
 import { ResponseError } from "@common";
-import { APTModel, HistoryModel } from "@models";
+import { APTModel, HistoryModel, MonthMeterDataModel } from "@models";
 import { loginCheck } from "@mw";
 import Express from "express";
 import { StatusCodes } from "http-status-codes";
@@ -7,6 +8,22 @@ import _ from "lodash";
 import { APT } from "./types";
 
 const routes = Express.Router();
+
+// PublicPrice 수정
+routes.get("/test", async (req: Express.Request, res: Express.Response) => {
+  const controlConfig = await ControlConfig.getRecently();
+  const monthMeterDataDocs = await MonthMeterDataModel.find({});
+  const monthMeterDatas = _.map(monthMeterDataDocs, (monthMeterDataDoc) =>
+    MonthMeterData.getFromDocument(monthMeterDataDoc, controlConfig.month)
+  );
+
+  const tradeMargins = await Promise.all(
+    _.map(monthMeterDatas, async (meter) => await meter.tradeMargin())
+  );
+  console.log(tradeMargins);
+
+  return res.send("test");
+});
 
 // root - apt 정보, 평균정보 및 히스토리
 routes.get(
