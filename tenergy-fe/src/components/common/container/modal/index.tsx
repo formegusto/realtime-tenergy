@@ -14,6 +14,11 @@ import { Tag1 } from "@styles/typo";
 import QuantitySetting from "./QuantitySetting";
 import { Button } from "@component/common/button";
 import { ModalProps, QuantitySettingModalProps } from "./types";
+import React from "react";
+import { useMutation } from "@tanstack/react-query";
+import { patchAuth } from "@api";
+import { useSetRecoilState } from "recoil";
+import { householdState } from "@store/atom";
 
 export * from "./styles";
 
@@ -44,8 +49,22 @@ export function FullScreenModal({
 
 export function QuantitySettingModal({
   closeAction,
-  ...settingProps
+  id,
+  initQuantity,
 }: ModalProps & QuantitySettingModalProps) {
+  const setHousehold = useSetRecoilState(householdState);
+  const [quantity, setQuantity] = React.useState<number>(initQuantity);
+  const patchAuthMutation = useMutation(["patchAuthQuery"], patchAuth, {
+    onSuccess: ({ household }) => {
+      setHousehold(household);
+      closeAction!();
+    },
+  });
+
+  const updateQuantity = React.useCallback(() => {
+    patchAuthMutation.mutate({ id, quantity });
+  }, [patchAuthMutation, quantity, id]);
+
   return (
     <>
       <DynamicBg onClick={closeAction} />
@@ -53,8 +72,8 @@ export function QuantitySettingModal({
         <ModalHeader closeAction={closeAction} />
         <QuantitySettingWrap>
           <Tag1 className="title">Config Trading Usage</Tag1>
-          <QuantitySetting {...settingProps} />
-          <Button colorTheme="darkgreen" isBlock>
+          <QuantitySetting quantity={quantity} setQuantity={setQuantity} />
+          <Button onClick={updateQuantity} colorTheme="darkgreen" isBlock>
             Update
           </Button>
         </QuantitySettingWrap>

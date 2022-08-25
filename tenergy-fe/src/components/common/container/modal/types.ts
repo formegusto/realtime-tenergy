@@ -10,3 +10,8 @@ export interface QuantitySettingModalProps {
   id: string;
   initQuantity: number;
 }
+
+export interface QuantitySettingBlockProps {
+  quantity: number;
+  setQuantity: (quantity: number) => void;
+}

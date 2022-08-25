@@ -15,3 +15,8 @@ export interface Household {
   quantity: number;
   updatedAt: string;
 }
+
+export interface PatchAuthParams {
+  id: string;
+  quantity: number;
+}

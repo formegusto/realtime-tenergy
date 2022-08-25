@@ -1,5 +1,5 @@
 import { client } from "../client";
-import { ResCheck, ResLogin } from "./types";
+import { PatchAuthParams, ResCheck, ResLogin } from "./types";
 
 const BASEPATH = "/auth";
 
@@ -13,4 +13,19 @@ export const check = async (token: string) =>
         authorization: token,
       },
     })
+  ).data;
+
+export const patchAuth = async (params: PatchAuthParams) =>
+  (
+    await client.patch<ResCheck>(
+      `${BASEPATH}/${params.id}`,
+      {
+        quantity: params.quantity,
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("token")!,
+        },
+      }
+    )
   ).data;

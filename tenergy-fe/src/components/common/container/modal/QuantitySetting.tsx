@@ -2,11 +2,10 @@ import styled from "styled-components";
 import { MdOutlineHorizontalRule, MdOutlineAdd } from "react-icons/md";
 import { white } from "@styles/colors";
 import { fontStyles } from "@styles/typo/styles";
-import React from "react";
-import { QuantitySettingModalProps } from "./types";
 
-function QuantitySetting({ id, initQuantity }: QuantitySettingModalProps) {
-  const [quantity, setQuantity] = React.useState<number>(initQuantity);
+import { QuantitySettingBlockProps } from "./types";
+
+function QuantitySetting({ quantity, setQuantity }: QuantitySettingBlockProps) {
   return (
     <Wrap id="quantity-setting">
       <button onClick={() => setQuantity(quantity - 1)}>
