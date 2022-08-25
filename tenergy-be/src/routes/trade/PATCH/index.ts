@@ -5,6 +5,7 @@ import Express from "express";
 import { StatusCodes } from "http-status-codes";
 import { TradeStatusRequest } from "../types";
 import { ResponseError } from "@common";
+import { cancleTradeById } from "@models/utils";
 
 const routes = Express.Router();
 
@@ -38,6 +39,8 @@ routes.patch(
       await builder.step1(trade.requester, trade.responser);
 
       tradeMixedData.pushHistory(controlConfig.day.now);
+    } else if (status === "cancle") {
+      await cancleTradeById(id);
     }
 
     return res.status(StatusCodes.OK).json();

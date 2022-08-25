@@ -3,6 +3,66 @@ import _ from "lodash";
 import { MonthMeterDataModel } from ".";
 import { MonthMeterHistoryModel } from "../MonthMeterHistory";
 import { TradeModel } from "../Trade";
+import { AdvancedTrade, MonthMeterData } from "../types";
+
+export async function historySlicingUpdate(
+  tradeLabelId: string,
+  trader: MonthMeterData,
+  inc: number,
+  isDelete?: boolean
+) {
+  const _inc = trader.role === "buyer" ? inc : inc * -1;
+  const history = await MonthMeterHistoryModel.findOne(
+    { name: trader.name },
+    { kwh: 1 }
+  );
+
+  const targetKwhIdx = _.findIndex(
+    history?.kwh,
+    ({ tradingLabel }) =>
+      tradingLabel !== undefined && tradingLabel.id === tradeLabelId
+  );
+  const prevHistory = _.take(history!.kwh, targetKwhIdx);
+  const nextHistory = _.takeRight(
+    history!.kwh,
+    history!.kwh.length - targetKwhIdx
+  );
+
+  console.log("original history", history?.kwh);
+  console.log("prev history", prevHistory);
+  console.log("next history", nextHistory);
+
+  let newNextHistory = _.map(nextHistory, (history) => ({
+    ...history,
+    value: history.value + _inc,
+  }));
+
+  if (isDelete) newNextHistory = _.drop(newNextHistory);
+
+  const newHistory = _.concat(prevHistory, newNextHistory);
+  console.log("new history", newHistory);
+
+  await MonthMeterHistoryModel.updateOne(
+    {
+      name: trader.name,
+    },
+    {
+      $set: { kwh: newHistory },
+    }
+  );
+}
+
+export async function cancleTradeById(_id: string) {
+  const trade = await TradeModel.findById(_id);
+
+  if (!trade) throw new Error("Not Found Trade.");
+
+  const adTrade = await AdvancedTrade.get(trade);
+  const { id, responser, requester, quantity } = adTrade;
+
+  await historySlicingUpdate(id, responser, quantity, true);
+  await historySlicingUpdate(id, requester, quantity, true);
+}
 
 export async function cancleTrade(name: string, err: number, month: number) {
   let _err = err;
@@ -40,8 +100,8 @@ export async function cancleTrade(name: string, err: number, month: number) {
         return demand;
       })
     );
-    const maxIdx = _.indexOf(demands, _.max(demands)!);
-    const targetTrade = trades[0];
+    const minIdx = _.indexOf(demands, _.min(demands)!);
+    const targetTrade = trades[minIdx];
 
     let meterHistory = await MonthMeterHistoryModel.findOne(
       {
