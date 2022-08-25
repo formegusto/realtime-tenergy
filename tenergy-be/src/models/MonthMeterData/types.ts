@@ -14,6 +14,7 @@ export class MonthMeterData {
   name!: string;
   kwh!: number;
   role!: "buyer" | "seller";
+  quantity!: number;
 
   createdAt!: Date;
   updatedAt!: Date;
