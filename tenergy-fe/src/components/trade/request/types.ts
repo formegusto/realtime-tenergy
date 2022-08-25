@@ -1,3 +1,5 @@
+import { TradeItem } from "@api/types";
+
 export type TableItemProps = {
   type: "buyer" | "seller";
 };
@@ -11,5 +13,6 @@ export type TradeRequestProps = {
 };
 
 export interface InformationProps {
-  cancleOpen: () => void;
+  cancleOpen: (selected: TradeItem) => void;
+  data: TradeItem[];
 }

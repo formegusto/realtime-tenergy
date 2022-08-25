@@ -1,5 +1,11 @@
-import { getRequests, getSample, patchRequest, postRequest } from "@api";
-import { RequestItem, TradeStatus } from "@api/types";
+import {
+  getRequests,
+  getSample,
+  getTrades,
+  patchRequest,
+  postRequest,
+} from "@api";
+import { RequestItem, TradeItem, TradeStatus } from "@api/types";
 import { Button, ButtonGroup } from "@component/common/button";
 import { FullScreenModal } from "@component/common/container";
 import { ModalProps } from "@component/common/container/modal/types";
@@ -176,14 +182,43 @@ export function TradeRequestList({ closeAction }: ModalProps) {
 }
 
 export function TradeInformation({ closeAction }: ModalProps) {
+  const queryClient = useQueryClient();
   const [Modal, , open, close] = useModal({ modal: TradeConfirmModal });
-  return (
+  const { data, isLoading } = useQuery(["getTradesQuery"], getTrades, {
+    refetchOnWindowFocus: false,
+  });
+  const [selected, setSelected] = React.useState<TradeItem | null>(null);
+  const cancleMutation = useMutation(["cancleTradeQuery"], patchRequest, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getTradesQuery"]);
+      queryClient.invalidateQueries(["getMyQuery"]);
+      close();
+    },
+  });
+
+  const openAction = React.useCallback(
+    (selected: TradeItem) => {
+      setSelected(selected);
+      open();
+    },
+    [open]
+  );
+
+  const confirmAction = React.useCallback(() => {
+    if (selected) {
+      cancleMutation.mutate({ id: selected._id, status: "cancle" });
+    }
+  }, [cancleMutation, selected]);
+
+  return !isLoading && data ? (
     <>
       <FullScreenModal closeAction={closeAction}>
         <H2 className="title">보유 거래 사용량</H2>
-        <Information cancleOpen={open} />
+        <Information cancleOpen={openAction} data={data} />
       </FullScreenModal>
-      <Modal closeAction={close} />
+      <Modal closeAction={close} confirmAction={confirmAction} />
     </>
+  ) : (
+    <></>
   );
 }

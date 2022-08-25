@@ -5,15 +5,10 @@ import { white } from "@styles/colors";
 import { Button } from "@component/common/button";
 import { H2, H4 } from "@styles/typo";
 import { InformationProps } from "./types";
-import { useQuery } from "@tanstack/react-query";
-import { getTrades } from "@api";
 import _ from "lodash";
 
-function Information({ cancleOpen }: InformationProps) {
-  const { data, isLoading } = useQuery(["getTradesQuery"], getTrades, {
-    refetchOnWindowFocus: false,
-  });
-  return !isLoading && data ? (
+function Information({ data, cancleOpen }: InformationProps) {
+  return data ? (
     <Wrap>
       <CardColGroup>
         {_.map(_.chunk(data, 2), (row, idx) => (
@@ -24,7 +19,7 @@ function Information({ cancleOpen }: InformationProps) {
                 className="card"
                 backgroundColor="darkgreen"
                 padding="12px"
-                onClick={cancleOpen}
+                onClick={() => cancleOpen(col)}
                 isCursor
               >
                 <Button className="remove-btn" colorTheme="transparent">
