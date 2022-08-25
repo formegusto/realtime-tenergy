@@ -3,14 +3,17 @@ import Express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
+import http from "http";
 
 import { init } from "@models/connect";
 import routes from "@routes";
 import errorHandler from "@routes/error";
+import SocketConnect from "./Socket";
 
 dotenv.config();
 
 class App {
+  server: http.Server;
   app: Express.Application;
 
   constructor() {
@@ -18,6 +21,8 @@ class App {
 
     this.SetMW();
     this.SetRoutes();
+
+    this.server = http.createServer(this.app);
   }
 
   SetMW() {
@@ -33,7 +38,7 @@ class App {
 
   async Start() {
     const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
-    this.app.listen(port, () => {
+    this.server.listen(port, () => {
       console.log(`[ Express ] Start Server PORT ${port}`);
     });
 
@@ -41,6 +46,7 @@ class App {
     console.log(dbDrop);
 
     await init({ drop: dbDrop });
+    SocketConnect(this.server, this.app);
   }
 }
 
