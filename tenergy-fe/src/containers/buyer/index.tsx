@@ -21,6 +21,8 @@ export function BuyerContainer() {
       refetchOnWindowFocus: false,
     }
   );
+
+  console.log(data);
   const onClick = React.useCallback(
     (responser: string) => {
       setResponser(responser);

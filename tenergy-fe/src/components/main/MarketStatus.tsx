@@ -5,6 +5,7 @@ import { quantityState } from "@store/atom";
 import { white } from "@styles/colors";
 import { Tag1, Tag2 } from "@styles/typo";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
@@ -19,16 +20,18 @@ function MarketStatus() {
     }
   );
 
+  const navigate = useNavigate();
+
   return (
     <Wrap>
       <Tag1 className="title">MARKET STATUS</Tag1>
       <CardColGroup>
         <CardRowGroup>
-          <Card>
+          <Card onClick={() => navigate("/buyer", { replace: true })} isCursor>
             <Tag2 className="card-title">BUYER COUNT</Tag2>
             <Count>{data?.buyerCount}</Count>
           </Card>
-          <Card>
+          <Card onClick={() => navigate("/seller", { replace: true })} isCursor>
             <Tag2 className="card-title">SELLER COUNT</Tag2>
             <Count>{data?.sellerCount}</Count>
           </Card>
