@@ -1,15 +1,19 @@
 import { getPublic } from "@api";
 import { Card, CardRowGroup } from "@component/common/container";
+import { householdState } from "@store/atom";
 import { white } from "@styles/colors";
 import { Tag1 } from "@styles/typo";
 import { fontStyles } from "@styles/typo/styles";
 import { useQuery } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import DistributeTable from "./DistributeTable";
 
 function PublicDistributor() {
+  const household = useRecoilValue(householdState);
   const { data } = useQuery(["getPublicQuery"], getPublic, {
     refetchOnWindowFocus: false,
+    enabled: household !== null,
   });
 
   return (

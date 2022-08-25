@@ -1,14 +1,18 @@
 import { getAPT } from "@api";
 import { Doughnut, Line } from "@component/common/chart";
 import { TopContainer } from "@component/common/container";
+import { householdState } from "@store/atom";
 import { Tag1 } from "@styles/typo";
 import { useQuery } from "@tanstack/react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import ChartInformation from "./ChartInformation";
 
 function APTInformation() {
+  const household = useRecoilValue(householdState);
   const { data } = useQuery(["getAptQuery"], getAPT, {
     refetchOnWindowFocus: false,
+    enabled: household !== null,
   });
 
   return (

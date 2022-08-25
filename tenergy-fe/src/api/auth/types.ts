@@ -12,5 +12,6 @@ export interface Household {
   createdAt: string;
   kwh: number;
   role: string;
+  quantity: number;
   updatedAt: string;
 }

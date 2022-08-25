@@ -1,3 +1,4 @@
+import { AuthCheck } from "@container";
 import {
   AuthScreen,
   BuyerScreen,
@@ -25,10 +26,38 @@ function App() {
     <Routes>
       <Route path="/" element={<RootScreen />}>
         <Route index element={<MainScreen />} />
-        <Route path="/seller" element={<SellerScreen />} />
-        <Route path="/buyer" element={<BuyerScreen />} />
-        <Route path="/public" element={<PublicScreen />} />
-        <Route path="/my" element={<MyScreen />} />
+        <Route
+          path="/seller"
+          element={
+            <AuthCheck>
+              <SellerScreen />
+            </AuthCheck>
+          }
+        />
+        <Route
+          path="/buyer"
+          element={
+            <AuthCheck>
+              <BuyerScreen />
+            </AuthCheck>
+          }
+        />
+        <Route
+          path="/public"
+          element={
+            <AuthCheck>
+              <PublicScreen />
+            </AuthCheck>
+          }
+        />
+        <Route
+          path="/my"
+          element={
+            <AuthCheck>
+              <MyScreen />
+            </AuthCheck>
+          }
+        />
       </Route>
       <Route path="/auth/*" element={<AuthScreen />} />
     </Routes>

@@ -1,7 +1,7 @@
 import { getMarketStatus } from "@api";
 import { Line } from "@component/common/chart";
 import { Card, CardColGroup, CardRowGroup } from "@component/common/container";
-import { quantityState } from "@store/atom";
+import { householdState, quantityState } from "@store/atom";
 import { white } from "@styles/colors";
 import { Tag1, Tag2 } from "@styles/typo";
 import { useQuery } from "@tanstack/react-query";
@@ -10,13 +10,14 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 function MarketStatus() {
+  const household = useRecoilValue(householdState);
   const quantity = useRecoilValue(quantityState);
-  console.log(quantity);
   const { data } = useQuery(
     ["getMarketStatus", quantity],
     ({ queryKey }) => getMarketStatus(queryKey[1] as number),
     {
       refetchOnWindowFocus: false,
+      enabled: household !== null,
     }
   );
 

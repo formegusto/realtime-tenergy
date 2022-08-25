@@ -1,6 +1,10 @@
+import { check } from "@api";
+import { householdState, tokenState } from "@store/atom";
 import { blue, white } from "@styles/colors";
+import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled, { css } from "styled-components";
 import { Tenergy } from "../icons";
 import { KETI } from "../icons";
@@ -11,11 +15,27 @@ export function Splash({
   ...styleProps
 }: SplashInteractionProps & SplashStyleProps) {
   const navigate = useNavigate();
+  const setToken = useSetRecoilState(tokenState);
+  const setHousehold = useSetRecoilState(householdState);
+  const checkMutation = useMutation(["checkAuthQuery"], check, {
+    onSuccess: ({ household }) => {
+      setTimeout(() => {
+        setHousehold(household);
+      }, 1000);
+    },
+  });
+
   const onAnimationEnd = React.useCallback(() => {
-    setTimeout(() => {
-      navigate("/auth");
-    }, 500);
-  }, [navigate]);
+    const storageToken = localStorage.getItem("token");
+    if (storageToken) {
+      setToken(storageToken);
+      checkMutation.mutate(storageToken);
+    } else {
+      setTimeout(() => {
+        navigate("/auth");
+      }, 700);
+    }
+  }, [navigate, checkMutation, setToken]);
 
   return (
     <Wrap {...styleProps}>

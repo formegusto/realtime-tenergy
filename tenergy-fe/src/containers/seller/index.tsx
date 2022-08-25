@@ -1,14 +1,13 @@
 import { getSellers } from "@api";
 import { SellerComponent, TradeRequest } from "@component";
 import { useModal } from "@hooks";
-import { householdState, quantityState } from "@store/atom";
+import { householdState } from "@store/atom";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useRecoilValue } from "recoil";
 
 export function SellerContainer() {
   const auth = useRecoilValue(householdState);
-  const quantity = useRecoilValue(quantityState);
   const [responser, setResponser] = React.useState<string | null>(null);
   const { data } = useQuery(["getSellersQuery"], getSellers, {
     keepPreviousData: true,
@@ -34,7 +33,7 @@ export function SellerContainer() {
           closeAction={close}
           requester={auth.name}
           responser={responser}
-          quantity={quantity}
+          quantity={auth.quantity}
         />
       )}
     </>
