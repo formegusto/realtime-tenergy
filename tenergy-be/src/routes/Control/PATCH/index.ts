@@ -38,23 +38,25 @@ routes.patch(
       ],
     });
     const dayMeterDatas = dayMeter!.data;
-    const monthMeter = await MonthMeterDataModel.find({});
-    const newMonthMeter = _.map(dayMeterDatas, (meter) => {
-      const _monthMeter = {
-        ..._.find(monthMeter, { name: meter.name })?.toObject(),
-      };
-      _monthMeter.kwh! += meter.kwh;
-      const role = getRole(_monthMeter.kwh!, month);
-      return new MonthMeterData(
-        _monthMeter.name!,
-        _monthMeter.kwh!,
-        role,
-        month
-      );
-    });
+    const newMonthMeter = await Promise.all(
+      _.map(dayMeterDatas, async (meter) => {
+        const _monthMeter = await MonthMeterData.getFromName(meter.name, month);
+
+        _monthMeter!.kwh! += meter.kwh;
+
+        // 적용전에 history 먼저넣기
+        _monthMeter!.pushHistory(now);
+        const role = getRole(_monthMeter!.kwh, month);
+        return new MonthMeterData(
+          _monthMeter!.name!,
+          _monthMeter!.kwh!,
+          role,
+          month
+        );
+      })
+    );
 
     _.forEach(newMonthMeter, async (meter) => {
-      await meter.pushHistory(now);
       await MonthMeterDataModel.findOneAndUpdate(
         { name: meter.name },
         {
