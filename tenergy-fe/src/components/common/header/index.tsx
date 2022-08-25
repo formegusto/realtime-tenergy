@@ -22,7 +22,11 @@ export function Header() {
         <MdMiscellaneousServices size={24} onClick={isOpen ? close : open} />
       </IconButton>
       {household && <SimpleProfile data={household} />}
-      <QuantityModal closeAction={close} />
+      <QuantityModal
+        closeAction={close}
+        id={household!._id}
+        initQuantity={household!.quantity}
+      />
     </Wrap>
   );
 }

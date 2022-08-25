@@ -13,7 +13,7 @@ import { white } from "@styles/colors";
 import { Tag1 } from "@styles/typo";
 import QuantitySetting from "./QuantitySetting";
 import { Button } from "@component/common/button";
-import { ModalProps } from "./types";
+import { ModalProps, QuantitySettingModalProps } from "./types";
 
 export * from "./styles";
 
@@ -42,7 +42,10 @@ export function FullScreenModal({
   );
 }
 
-export function QuantitySettingModal({ closeAction }: ModalProps) {
+export function QuantitySettingModal({
+  closeAction,
+  ...settingProps
+}: ModalProps & QuantitySettingModalProps) {
   return (
     <>
       <DynamicBg onClick={closeAction} />
@@ -50,7 +53,7 @@ export function QuantitySettingModal({ closeAction }: ModalProps) {
         <ModalHeader closeAction={closeAction} />
         <QuantitySettingWrap>
           <Tag1 className="title">Config Trading Usage</Tag1>
-          <QuantitySetting />
+          <QuantitySetting {...settingProps} />
           <Button colorTheme="darkgreen" isBlock>
             Update
           </Button>
