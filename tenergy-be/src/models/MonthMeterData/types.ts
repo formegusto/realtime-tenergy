@@ -98,7 +98,7 @@ export class MonthMeterData {
         status: "establish",
       },
       {},
-      { sort: { updatedAt: 1 } }
+      { sort: { createdAt: 1 } }
     );
     if (trades.length === 0) return [];
 

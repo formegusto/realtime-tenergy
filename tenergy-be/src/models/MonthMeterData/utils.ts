@@ -108,7 +108,7 @@ export async function cancleTrade(name: string, err: number, month: number) {
     );
 
     const availableCancleQuantity = quantity - _err >= 0 ? _err : quantity;
-    const isDelete = availableCancleQuantity - quantity === 0;
+    const isDelete = Math.round(availableCancleQuantity - quantity) === 0;
     console.log("available", availableCancleQuantity);
 
     await historySlicingUpdate(
