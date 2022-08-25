@@ -21,6 +21,14 @@ export function AuthScreen() {
     }
   }, [location]);
 
+  // const changeDirection = React.useCallback(() => {
+  //   if (location.pathname === "/auth") {
+  //     setDirection("right");
+  //   } else {
+  //     setDirection("left");
+  //   }
+  // }, [location]);
+
   return (
     <>
       {location.pathname !== "/auth" && <NavigateHeader title="Log In" />}
@@ -29,6 +37,7 @@ export function AuthScreen() {
           key={location.pathname}
           classNames={direction}
           timeout={300}
+          // onExited={changeDirection}
         >
           <Routes location={location}>
             <Route path="/" element={<RootScreen />} />

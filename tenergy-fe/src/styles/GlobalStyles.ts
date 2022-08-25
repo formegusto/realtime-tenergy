@@ -98,7 +98,6 @@ export const NavigateAnimation = createGlobalStyle`
     .right-enter-active {
         transform: translateX(0);
         transition: transform 300ms ease-in-out;
-        
     }
   
     .right-exit {
