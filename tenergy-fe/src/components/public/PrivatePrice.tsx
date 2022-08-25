@@ -23,6 +23,8 @@ function PrivatePrice({ privatePublicPrice, price, err }: Props) {
         </Card>
         <DetailCardWrap>
           <Detail className={err < 0 ? "error-benefit" : "error-loss"}>
+            {err > 0 ? "+" : ""}
+            {}
             {err.toLocaleString("ko-KR")}
           </Detail>
           <Card backgroundColor="deepblue" padding="0" className="card">
