@@ -26,10 +26,14 @@ export function LoginComponent(props: LoginProps) {
 
 const Wrap = styled.div`
   position: absolute;
-  width: calc(100% - 32px);
-  height: calc(100% - 108px);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  max-width: 500px;
 
   padding: 108px 16px 0;
+  box-sizing: border-box;
 
   color: ${white[900]};
 `;

@@ -81,6 +81,8 @@ export const ResetStyle = createGlobalStyle`
 export const NavigateAnimation = createGlobalStyle`
     .transition-wrapper {
         position: relative;
+        top: 0;
+        left: 0;
         overflow: hidden;
         height: 100vh;
         height: calc(var(--vh) * 100);
@@ -90,12 +92,13 @@ export const NavigateAnimation = createGlobalStyle`
         max-width: 500px;
     }
     .right-enter {
-        transform: translateX(100w);
+        transform: translateX(100%);
     }
   
     .right-enter-active {
         transform: translateX(0);
         transition: transform 300ms ease-in-out;
+        
     }
   
     .right-exit {
