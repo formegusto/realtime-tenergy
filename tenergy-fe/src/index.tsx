@@ -7,7 +7,7 @@ import { RecoilRoot } from "recoil";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ScrollToTop } from "@component/common/etc";
 import SocketListener from "@utils/socket";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 // import { TradeConfirmModal } from "@component";
 // import { QuantitySettingModal } from "@component/common/container";
 // import { TradeInformation } from "@component";
@@ -21,7 +21,7 @@ const root = ReactDOM.createRoot(
 const queryClient = new QueryClient();
 root.render(
   <QueryClientProvider client={queryClient}>
-    {/* <ReactQueryDevtools initialIsOpen /> */}
+    <ReactQueryDevtools initialIsOpen />
     <RecoilRoot>
       <ResetStyle />
       <NavigateAnimation />
@@ -33,9 +33,9 @@ root.render(
         {/* <TradeInformation /> */}
         {/* <QuantitySettingModal /> */}
         {/* <TradeConfirmModal /> */}
+        <SocketListener />
       </Router>
       {/* <Splash /> */}
-      <SocketListener />
     </RecoilRoot>
   </QueryClientProvider>
 );
