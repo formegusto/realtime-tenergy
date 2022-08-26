@@ -23,6 +23,11 @@ export function Splash({
         setHousehold(household);
       }, 1000);
     },
+    onError: () => {
+      localStorage.removeItem("token");
+      setToken(null);
+      navigate("/auth");
+    },
   });
 
   const onAnimationEnd = React.useCallback(() => {

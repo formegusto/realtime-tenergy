@@ -4,8 +4,11 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { useQueryClient } from "@tanstack/react-query";
 import changeControlEvent from "./changeControlEvent";
+import AlertListener from "@utils/alert";
+import { Alert } from "@store/types";
 
 function SocketListener() {
+  const [alerts, setAlerts] = React.useState<Alert[]>([]);
   const queryClient = useQueryClient();
   const token = useRecoilValue(tokenState);
 
@@ -29,6 +32,10 @@ function SocketListener() {
         io!.on("change-control", () => {
           changeControlEvent(queryClient);
         });
+
+        io!.on("new-trade-request", (args) => {
+          console.log(args);
+        });
       });
     }
 
@@ -41,7 +48,7 @@ function SocketListener() {
 
   React.useEffect(() => {}, []);
 
-  return <></>;
+  return <AlertListener alerts={[]} />;
 }
 
 export default SocketListener;
