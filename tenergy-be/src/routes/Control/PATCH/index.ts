@@ -14,6 +14,7 @@ import {
 import { NUGIN_STEP, ResponseError } from "@common";
 import { generateToken, getRole, monthToSeason } from "@utils";
 import { Distributor, History, MonthMeterData } from "@models/types";
+import { Socket } from "socket.io";
 
 const routes: Express.Router = Express.Router();
 
@@ -142,6 +143,9 @@ routes.patch(
       }
     );
 
+    const io = req.app.get("io") as Socket;
+    io.emit("change-control", "");
+
     return res.status(StatusCodes.CREATED).json({
       token,
     });
@@ -262,6 +266,9 @@ routes.patch(
         },
       }
     );
+
+    const io = req.app.get("io") as Socket;
+    io.emit("change-control", "");
 
     return res.status(StatusCodes.CREATED).json({
       token,

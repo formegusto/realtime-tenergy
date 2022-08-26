@@ -1,6 +1,7 @@
 import { MonthMeterData } from "@models/types";
 import { Socket } from "socket.io";
 import { decryptToken, generateToken } from "../convert";
+import disconnection from "./disconnection";
 
 export default async function connection(socket: Socket) {
   console.log(`----[Tenergy.IO] Socket Connection :)----`);
@@ -16,7 +17,5 @@ export default async function connection(socket: Socket) {
     await MonthMeterData.updateToken(name, socket.id);
   }
 
-  socket.on("disconnect", () => {
-    console.log(`----[Tenergy.IO] Socket DisConnection :)----`);
-  });
+  socket.on("disconnect", disconnection);
 }
