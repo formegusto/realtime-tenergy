@@ -3,6 +3,7 @@ import { tokenState } from "@store/atom";
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { useQueryClient } from "@tanstack/react-query";
+import changeControlEvent from "./changeControlEvent";
 
 function SocketListener() {
   const queryClient = useQueryClient();
@@ -26,7 +27,7 @@ function SocketListener() {
         console.log("io connected!");
 
         io!.on("change-control", () => {
-          queryClient.refetchQueries();
+          changeControlEvent(queryClient);
         });
       });
     }

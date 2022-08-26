@@ -1,5 +1,7 @@
-function changeControlEvent() {
-  console.log("컨트롤러가 변경되었습니다. 리페칭이 필요합니다.");
+import { QueryClient } from "@tanstack/react-query";
+
+function changeControlEvent(client: QueryClient) {
+  client.refetchQueries();
 }
 
 export default changeControlEvent;
