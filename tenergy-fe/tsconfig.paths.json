@@ -41,6 +41,9 @@
             "@utils": [
                 "./utils"
             ],
+            "@utils/*": [
+                "./utils/*"
+            ],
             "@hooks": [
                 "./utils/hooks"
             ]
