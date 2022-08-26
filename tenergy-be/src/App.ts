@@ -8,7 +8,7 @@ import http from "http";
 import { init } from "@models/connect";
 import routes from "@routes";
 import errorHandler from "@routes/error";
-import SocketConnect from "./Socket";
+import { SocketConnect } from "@utils/socket";
 
 dotenv.config();
 
