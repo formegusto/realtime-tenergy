@@ -33,8 +33,8 @@ function SocketListener() {
           changeControlEvent(queryClient);
         });
 
-        io!.on("new-trade-request", (args) => {
-          console.log(args);
+        io!.on("new-trade-request", (args: Alert) => {
+          setAlerts((prev) => [...prev, args]);
         });
       });
     }
@@ -48,7 +48,7 @@ function SocketListener() {
 
   React.useEffect(() => {}, []);
 
-  return <AlertListener alerts={[]} />;
+  return <AlertListener alerts={alerts} />;
 }
 
 export default SocketListener;
