@@ -1,8 +1,6 @@
 import http from "http";
 import express from "express";
 import { Server } from "socket.io";
-import jwt from "jsonwebtoken";
-import { MonthMeterDataModel } from "@models";
 import connection from "./connection";
 
 // simulation 변화 알림용 소켓

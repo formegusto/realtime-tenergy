@@ -15,6 +15,7 @@ export class MonthMeterData {
   kwh!: number;
   role!: "buyer" | "seller";
   quantity!: number;
+  socketId?: string;
 
   createdAt!: Date;
   updatedAt!: Date;
@@ -34,6 +35,17 @@ export class MonthMeterData {
     this.role = role;
     this.month = month ? month : 1;
     this.tradePrice = 0;
+  }
+
+  static async updateToken(name: string, socketId: string) {
+    await MonthMeterDataModel.updateOne(
+      {
+        name,
+      },
+      {
+        $set: { socketId },
+      }
+    );
   }
 
   static getFromDocument(document: MonthMeterData, month?: number) {

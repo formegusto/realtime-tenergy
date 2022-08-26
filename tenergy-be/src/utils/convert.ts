@@ -14,3 +14,9 @@ export function generateToken(data: any, expiresIn: string) {
 
   return token;
 }
+
+export function decryptToken(token: any) {
+  const secret = process.env.JWT_SECRET!;
+
+  return jwt.verify(token, secret!) as any;
+}

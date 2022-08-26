@@ -7,6 +7,7 @@ const MonthMeterDataSchema = new Schema<MonthMeterData>(
     kwh: { type: Number, required: true },
     role: { type: Schema.Types.String, required: true },
     quantity: { type: Number, required: true, default: 30 },
+    socketId: { type: String, required: false },
   },
   {
     timestamps: true,
