@@ -1,6 +1,7 @@
 import { other, white } from "@styles/colors";
 import { P2 } from "@styles/typo";
 import { fontStyles } from "@styles/typo/styles";
+
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { FormProps } from "./types";
@@ -27,8 +28,9 @@ const Wrap = styled.div`
   z-index: 255;
 `;
 
-export function AlertForm({ alert }: FormProps) {
+export function AlertForm({ alert, onSelected }: FormProps) {
   const [view, setView] = React.useState<boolean>(true);
+
   React.useEffect(() => {
     setTimeout(() => {
       setView(false);
@@ -36,7 +38,7 @@ export function AlertForm({ alert }: FormProps) {
   }, []);
 
   return view ? (
-    <Form>
+    <Form onClick={() => onSelected(alert.id)}>
       <P2>{alert.message}</P2>
     </Form>
   ) : (
@@ -53,6 +55,8 @@ const FormAnimation = keyframes`
 `;
 
 const Form = styled.div`
+  cursor: pointer;
+
   position: relative;
 
   width: 100%;

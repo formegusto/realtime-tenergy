@@ -1,3 +1,7 @@
+export interface ResGetTrade {
+  trade: TradeRequest;
+}
+
 export interface ResGetSample {
   seller: TraderRole;
   buyer: TraderRole;
@@ -26,6 +30,7 @@ export interface TradeItem {
 }
 
 export type TradeRequest = {
+  _id?: string;
   requester: string;
   responser: string;
   quantity: number;

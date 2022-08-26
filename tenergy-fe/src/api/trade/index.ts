@@ -4,6 +4,7 @@ import {
   ReqPatchRequest,
   RequestItem,
   ResGetSample,
+  ResGetTrade,
   TradeItem,
   TradeRequest,
 } from "./types";
@@ -50,6 +51,15 @@ export const patchRequest = async (body: ReqPatchRequest) =>
 export const getTrades = async () =>
   (
     await client.get<TradeItem[]>(`${BASEPATH}`, {
+      headers: {
+        authorization: localStorage.getItem("token")!,
+      },
+    })
+  ).data;
+
+export const getTrade = async (id: string) =>
+  (
+    await client.get<ResGetTrade>(`${BASEPATH}/${id}`, {
       headers: {
         authorization: localStorage.getItem("token")!,
       },
