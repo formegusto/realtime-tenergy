@@ -35,6 +35,12 @@ function SocketListener() {
 
         io!.on("new-trade-request", (args: Alert) => {
           setAlerts((prev) => [...prev, args]);
+          queryClient.invalidateQueries(["getRequestQuery"]);
+          queryClient.invalidateQueries(["getMyQuery"]);
+        });
+
+        io!.on("trade-establish", () => {
+          changeControlEvent(queryClient);
         });
       });
     }

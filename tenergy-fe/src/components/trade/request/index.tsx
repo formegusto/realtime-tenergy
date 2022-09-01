@@ -36,7 +36,7 @@ export function TradeRequest({
   responser,
   quantity,
 }: TradeRequestProps & ModalProps) {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { data, isLoading } = useQuery(
     ["getTradeSampleQuery"],
     () =>
@@ -54,13 +54,17 @@ export function TradeRequest({
       closeAction!();
     },
   });
-  const patchRequestMutation = useMutation(["pathRequestQuery"], patchRequest, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getRequestQuery"]);
-      queryClient.invalidateQueries(["getMyQuery"]);
-      closeAction!();
-    },
-  });
+  const patchRequestMutation = useMutation(
+    ["patchRequestQuery"],
+    patchRequest,
+    {
+      onSuccess: () => {
+        // queryClient.invalidateQueries(["getRequestQuery"]);
+        // queryClient.invalidateQueries(["getMyQuery"]);
+        closeAction!();
+      },
+    }
+  );
 
   const requestTrade = React.useCallback(() => {
     requestMutation.mutate({
