@@ -123,4 +123,21 @@ routes.get(
   }
 );
 
+routes.get(
+  "/:id",
+  loginCheck,
+  async (req: Express.Request, res: Express.Response) => {
+    const { id } = req.params;
+    const trade = await TradeModel.findById(id, {
+      createdAt: 0,
+      updatedAt: 0,
+      __v: 0,
+    });
+
+    return res.status(StatusCodes.OK).json({
+      trade,
+    });
+  }
+);
+
 export default routes;

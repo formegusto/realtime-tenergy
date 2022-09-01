@@ -276,6 +276,7 @@ export class MonthMeterData {
   }
 
   get bill(): number {
+    if (this.kwh <= 0) return 0;
     return this.basic + this.elecRate + this.tradePrice;
   }
 

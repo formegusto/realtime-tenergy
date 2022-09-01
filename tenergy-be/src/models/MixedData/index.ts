@@ -33,6 +33,9 @@ export class MixedData {
     const tradeMargins = await Promise.all(
       _.map(meterDatas, async (household) => await household.tradeMargin())
     );
+    _.forEach(meterDatas, (household) =>
+      console.log(household.kwh, household.bill)
+    );
     return (
       _.sumBy(meterDatas, (household) => household.bill) - _.sum(tradeMargins)
     );
@@ -40,6 +43,7 @@ export class MixedData {
 
   async publicPrice() {
     const householdsPrice = await this.householdsPrice();
+
     return this.aptPrice - householdsPrice;
   }
 
