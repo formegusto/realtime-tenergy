@@ -31,7 +31,7 @@ function TableItem({ type, ...trader }: TableItemProps & TraderRole) {
               </span>
               <span className="sub-value decrease">
                 {type === "buyer" ? "" : "+"}
-                {trader.usage.err}
+                {Math.round(trader.usage.err)}
               </span>
             </P2>
           </Card>
