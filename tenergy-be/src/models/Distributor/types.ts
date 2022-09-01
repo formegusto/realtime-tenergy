@@ -4,6 +4,7 @@ import { MonthMeterDataModel } from "../MonthMeterData";
 import _ from "lodash";
 import { MixedData, MixedDataBuilder } from "../MixedData";
 import { MonthMeterData } from "../types";
+import { TradeModel } from "../Trade";
 
 export class Distributor {
   _id!: Schema.Types.ObjectId;
@@ -36,6 +37,30 @@ export class Distributor {
 
   async setHouseholds() {
     this.households = await MonthMeterDataModel.find();
+
+    // trade 결과가 있는 seller들은 trade 사용량 적용
+    const sellers = _.filter(this.households, ({ role }) => role === "seller");
+    const sellerNames = _.map(sellers, ({ name }) => name);
+
+    const sellerTrades = await TradeModel.find({
+      $or: [
+        { requester: { $in: sellerNames } },
+        { responser: { $in: sellerNames } },
+      ],
+    });
+
+    // 적용
+    _.forEach(sellerTrades, (sellerTrade) => {
+      const idx = _.findIndex(
+        this.households,
+        ({ name }) =>
+          sellerNames.includes(name) &&
+          (sellerTrade.requester === name || sellerTrade.responser === name)
+      );
+      console.log(this.households![idx]);
+      this.households![idx].kwh += sellerTrades[idx].quantity;
+      console.log(this.households![idx]);
+    });
   }
 
   async setMixedData(aptUsage: number, month: number) {

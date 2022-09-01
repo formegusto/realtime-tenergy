@@ -58,20 +58,32 @@ export class MixedData {
   }
 
   get householdDistribution() {
+    // 이것을 distributor가 들고 있는 household를 사용해야 함
+    const distHousehold = _.find(
+      this.distributor!.households,
+      ({ name }) => name === this.household?.name
+    );
+
     const table = this.distributor!.table;
 
     const checkBins = _.dropRight(this.distributor!.binValues);
     const groupNum = _.filter(
       checkBins,
-      (bin) => bin < this.household!.kwh
+      (bin) => bin < distHousehold!.kwh
     ).length;
-    console.log(this.household!.kwh, groupNum, table);
+    console.log(
+      "befrore trade usage --> ",
+      this.household!.kwh,
+      "after trade usage --> ",
+      distHousehold!.kwh,
+      groupNum,
+      table
+    );
 
     return _.find(table, (t) => t.groupNo === groupNum);
   }
 
   async houesholdIntegratedBill() {
-    const controlConfig = await ControlConfig.getRecently();
     const householdDistribution = this.householdDistribution;
 
     const basicPrice = this.household!.basic;

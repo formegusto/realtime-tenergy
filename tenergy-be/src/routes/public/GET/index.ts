@@ -127,6 +127,7 @@ routes.get(
 
     // Setting
     await builder.step3(name);
+    // 이 때, distributor가 붙음
     await builder.step4(control._id as any);
     const distributor = mixedData.distributor!;
     await distributor.setHouseholds();
