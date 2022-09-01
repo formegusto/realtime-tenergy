@@ -40,8 +40,10 @@ export function Line({ datas }: LineStyleProps) {
     while (refSVG.current?.hasChildNodes()) {
       refSVG.current.removeChild(refSVG.current.firstChild!);
     }
-    if (svgInfo) {
+    console.log(datas.length);
+    if (svgInfo && datas && datas.length !== 1 && datas.length !== 0) {
       const dataLength = datas.length;
+
       const increaseX = svgInfo.viewX / (dataLength - 1);
 
       const min = _.min(datas)!;
