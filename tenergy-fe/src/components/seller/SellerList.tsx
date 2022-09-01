@@ -38,6 +38,7 @@ function SellerList({ datas, onClick }: SellerItemProps) {
                 <Line datas={_.map(kwh, ({ value }) => value)} />
               </Card>
             ))}
+            {data.length % 2 === 1 && <Card backgroundColor="transparent" />}
           </CardRowGroup>
         ))}
       </CardColGroup>

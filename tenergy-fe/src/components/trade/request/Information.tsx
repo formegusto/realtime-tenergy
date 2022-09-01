@@ -29,6 +29,7 @@ function Information({ data, cancleOpen }: InformationProps) {
                 <H4 className="rate">₩ {col.price.toLocaleString("ko-KR")}</H4>
               </Card>
             ))}
+            {row.length % 2 === 1 && <Card backgroundColor="transparent" />}
           </CardRowGroup>
         ))}
       </CardColGroup>

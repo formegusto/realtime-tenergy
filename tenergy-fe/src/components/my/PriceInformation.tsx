@@ -21,7 +21,7 @@ function PriceInformation({ price }: Props) {
         <ChartInformation />
         <Card className="last-price" backgroundColor="public" rowGap={10}>
           <H4>전기요금</H4>
-          <H4>₩ {price.bill.toLocaleString("ko-KR")}</H4>
+          <H4>₩ {Math.round(price.bill).toLocaleString("ko-KR")}</H4>
         </Card>
       </CardColGroup>
     </Wrap>

@@ -62,7 +62,7 @@ function IntegratedInformation({
         >
           <H4 className="cat">거래 이익</H4>
           <H4 className="value">
-            ₩ {price?.tradePrice.toLocaleString("ko-KR")}
+            ₩ {Math.round(price?.tradePrice!).toLocaleString("ko-KR")}
           </H4>
         </Card>
       </CardRowGroup>
