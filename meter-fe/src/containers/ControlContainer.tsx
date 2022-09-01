@@ -1,11 +1,12 @@
 import { nextControl, prevControl } from "@api";
 import ControlComponent from "@components/ControlComponent";
-import { tokenState } from "@store/atoms";
+import { nowState, tokenState } from "@store/atoms";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 function ControlContainer() {
+  const now = useRecoilValue(nowState);
   const [autoNext, setAutoNext] = React.useState<boolean>(false);
   const [autoPrev, setAutoPrev] = React.useState<boolean>(false);
   const queryClient = useQueryClient();
@@ -22,6 +23,17 @@ function ControlContainer() {
       queryClient.invalidateQueries(["getControls"]);
     },
   });
+
+  React.useEffect(() => {
+    if (now) {
+      if (now.control.day.max === now.control.day.now) {
+        setAutoNext(false);
+      }
+      if (now.control.day.now === 0) {
+        setAutoPrev(false);
+      }
+    }
+  }, [now]);
 
   const next = React.useCallback(() => {
     if (token) nextMutate.mutate(token);
