@@ -1,6 +1,5 @@
-import { ControlConfig, MonthMeterData } from "@models/types";
 import { ResponseError } from "@common";
-import { APTModel, HistoryModel, MonthMeterDataModel } from "@models";
+import { APTModel, HistoryModel } from "@models";
 import { loginCheck } from "@mw";
 import Express from "express";
 import { StatusCodes } from "http-status-codes";

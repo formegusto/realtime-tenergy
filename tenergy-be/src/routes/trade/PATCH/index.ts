@@ -1,4 +1,4 @@
-import { ControlConfig, MonthMeterData } from "@models/types";
+import { ControlConfig } from "@models/types";
 import { TradeMixedDataBuilder, TradeModel } from "@models";
 import { loginCheck } from "@mw";
 import Express from "express";

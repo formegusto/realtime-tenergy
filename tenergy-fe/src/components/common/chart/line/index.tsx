@@ -21,20 +21,23 @@ export function Line({ datas }: LineStyleProps) {
   const refWrap = React.useRef<HTMLDivElement>(null);
   const refSVG = React.useRef<SVGSVGElement>(null);
 
+  const sizing = React.useCallback(() => {
+    const width = refWrap.current!.clientWidth;
+    const height = refWrap.current!.clientHeight;
+    // console.log(width, height);
+    setSvgInfo({
+      viewX: width,
+      viewY: height,
+    });
+    refSVG.current?.setAttribute("width", width.toString());
+    refSVG.current?.setAttribute("height", height.toString());
+    refSVG.current!.setAttribute("viewBox", [0, 0, width, height].join(" "));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [datas]);
+
   React.useEffect(() => {
-    if (!svgInfo) {
-      const width = refWrap.current!.clientWidth;
-      const height = refWrap.current!.clientHeight;
-      // console.log(width, height);
-      setSvgInfo({
-        viewX: width,
-        viewY: height,
-      });
-      refSVG.current?.setAttribute("width", width.toString());
-      refSVG.current?.setAttribute("height", height.toString());
-      refSVG.current!.setAttribute("viewBox", [0, 0, width, height].join(" "));
-    }
-  }, [svgInfo]);
+    sizing();
+  }, [sizing]);
 
   React.useEffect(() => {
     while (refSVG.current?.hasChildNodes()) {
